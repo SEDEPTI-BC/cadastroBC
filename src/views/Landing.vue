@@ -6,7 +6,7 @@
           <div
             class="md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
-            <h1 class="title">Your Story Starts With Us.</h1>
+            <h1 class="title">Faça seu cadastro/pré-cadastro.</h1>
             <h4>
               Every landing page needs a small description after the big bold
               title, that's why we added this text here. Add here all the
@@ -14,12 +14,12 @@
               impression.
             </h4>
             <br />
-            <md-button
+            <!-- <md-button
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
               class="md-success md-lg"
               target="_blank"
               ><i class="fas fa-play"></i> Watch video</md-button
-            >
+            > -->
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
     <div class="main main-raised">
       <div class="section">
         <div class="container">
-          <div class="md-layout">
+          <!-- <div class="md-layout">
             <div
               class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto text-center"
             >
@@ -40,8 +40,8 @@
                 want the user to see more.
               </h5>
             </div>
-          </div>
-          <div class="features text-center">
+          </div> -->
+          <!-- <div class="features text-center">
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-33 md-small-size-100">
                 <div class="info">
@@ -83,10 +83,10 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
-      <div class="section text-center">
+      <!-- <div class="section text-center">
         <div class="container">
           <h2 class="title">Here is our team</h2>
           <div class="team">
@@ -234,40 +234,46 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="section section-contacts">
         <div class="container">
           <div class="md-layout">
             <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
-              <h2 class="text-center title">Work with us</h2>
+              <h2 class="text-center title">Pré-cadastro/Cadastro</h2>
               <h4 class="text-center description">
-                Divide details about your product or agency work into parts.
-                Write a few lines about each one and contact us about any
-                further collaboration. We will responde get back to you in a
-                couple of hours.
+                Formulário de solicitação para pré-cadastro/recadastro online. Preencher ou marcar principalmente todos os itens obrigatórios.
+                <br>
+                A efetivação do cadastro/recadastro estará finalizado em até dois dias úteis a contar da data de solicitação.
+                <br>
+                A renovação de cadastro para alunos de graduação é semestral e para alunos de pós-graduação, técnicos administrativos e docentes da UFPA é anual.
+                <br>
+                <strong>Observações sobre os anexos:</strong>
+                Discentes: Atestado de matrícula atual (SIGAA)<br>
+                Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira funcional (SIGEPE)<br>
+                O nome e a foto associados à sua Conta do Google serão registrados quando você fizer upload de arquivos e enviar este formulário.
               </h4>
               <form class="contact-form">
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Your Name</label>
+                      <label>Seu nome</label>
                       <md-input v-model="name" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Your Email</label>
-                      <md-input v-model="email" type="email"></md-input>
+                      <label>Seu nome social</label>
+                      <md-input v-model="socialName" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
                 <md-field maxlength="5">
-                  <label>Your Message</label>
-                  <md-textarea v-model="message"></md-textarea>
+                  <label>Seu email</label>
+                  <md-input v-model="email" type="email"></md-input>
                 </md-field>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
-                    <md-button class="md-success">Send Message</md-button>
+                    <md-button class="md-success">Enviar cadastro</md-button>
                   </div>
                 </div>
               </form>

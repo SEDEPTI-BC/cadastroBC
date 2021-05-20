@@ -8,7 +8,7 @@
   >
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">Vue Material Kit</h3>
+        <h3 class="md-title">Biblioteca Central UFPA</h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -51,10 +51,10 @@
                         </li>
                         <li>
                           <a
-                            href="https://demos.creative-tim.com/vue-material-kit/documentation/"
+                            href="http://bc.ufpa.br/"
                           >
                             <i class="material-icons">content_paste</i>
-                            <p>Documentation</p>
+                            <p>Site da BC</p>
                           </a>
                         </li>
                       </ul>
@@ -64,12 +64,12 @@
               </li>
 
               <md-list-item
-                href="https://demos.creative-tim.com/vue-material-kit/documentation/"
+                href="http://bc.ufpa.br/"
                 target="_blank"
                 v-if="showDownload"
               >
                 <i class="material-icons">content_paste</i>
-                <p>Documentation</p>
+                <p>Site da BC</p>
               </md-list-item>
 
               <md-list-item
@@ -132,17 +132,17 @@
                 >
               </md-list-item>
               <md-list-item
-                href="https://www.facebook.com/CreativeTim"
+                href="https://www.facebook.com/bcufpa"
                 target="_blank"
               >
                 <i class="fab fa-facebook-square"></i>
                 <p class="hidden-lg">Facebook</p>
                 <md-tooltip md-direction="bottom"
-                  >Like us on Facebook</md-tooltip
+                  >Nos siga no Facebook</md-tooltip
                 >
               </md-list-item>
               <md-list-item
-                href="https://www.instagram.com/CreativeTimOfficial"
+                href="https://instagram.com/bcufpa"
                 target="_blank"
               >
                 <i class="fab fa-instagram"></i>
