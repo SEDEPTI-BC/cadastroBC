@@ -8,10 +8,10 @@
           >
             <h1 class="title">Faça seu cadastro/pré-cadastro.</h1>
             <h4>
-              Every landing page needs a small description after the big bold
-              title, that's why we added this text here. Add here all the
-              information that can make you or your product create the first
-              impression.
+              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
+              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
+              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
+              TextoTextoTexto
             </h4>
             <br />
             <!-- <md-button
@@ -254,38 +254,93 @@
               </h4>
               <form class="contact-form">
                 <div class="md-layout">
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label>Seu nome</label>
-                      <md-input v-model="name" type="text"></md-input>
+                        <div class="md-layout-item md-size-50">
+                          <md-field>
+                            <label>Seu nome *</label>
+                            <md-input v-model="name" type="text"></md-input>
+                          </md-field>
+                        </div>
+                        <div class="md-layout-item md-size-50">
+                          <md-field>
+                            <label>Seu nome social</label>
+                            <md-input v-model="socialName" type="text"></md-input>
+                          </md-field>
+                        </div>
+                      </div>
+                    <md-field maxlength="5">
+                      <label>Seu email *</label>
+                      <md-input v-model="email" type="email"></md-input>
                     </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label>Seu nome social</label>
-                      <md-input v-model="socialName" type="text"></md-input>
-                    </md-field>
-                  </div>
+                    <div class="md-layout">
+                      <div class="md-layout-item md-size-50">
+                        <md-field >
+                          <label>Endereço completo *</label>
+                          <md-input v-model="address" type="text"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item md-size-50">
+                        <md-field maxlength="5">
+                          <label>Número para contato (DDD + número) </label>
+                          <md-input v-model="contact" type="text" v-mask="'(##)#####-####'"></md-input>
+                        </md-field>
+                      </div>
+                    </div>
+                    <div class="md-layout">
+                      <div class="md-layout-item md-size-50">
+                        <md-field >
+                          <label>Data de nascimento *</label>
+                          <md-input v-model="date" type="text" v-mask="'##/##/####'"></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item md-size-50">
+                        <md-field maxlength="5">
+                          <label>CPF * </label>
+                          <md-input v-model="CPF" type="text" v-mask="'###.###.###-##'"></md-input>
+                        </md-field>
+                      </div>
+                    </div>
+                    <div class="md-layout">
+                      <div class="md-layout-item md-size-50">
+                        <md-field >
+                          <label>Nacionalidade *</label>
+                          <md-input v-model="nationality" type="text" ></md-input>
+                        </md-field>
+                      </div>
+                      <div class="md-layout-item md-size-50">
+                        <md-field maxlength="5">
+                          <label>Documentação de identificação * </label>
+                          <md-input v-model="doc" type="text" ></md-input>
+                        </md-field>
+                      </div>
+                    </div>
+                    <div >
+                      <br>
+                      <label>Sexo *</label>
+                      <br>
+                      <md-checkbox v-model="checkbox1">Masculino</md-checkbox>
+                      <md-checkbox v-model="checkbox2">Feminino</md-checkbox>
+                      <md-checkbox v-model="checkbox3">Outros</md-checkbox>
+                    </div>
+                    <div class="md-layout"> 
+                      <div class="md-layout-item md-size-33 mx-auto text-center">
+                        <md-button class="md-success">Enviar cadastro</md-button>
+                      </div>
                 </div>
-                <md-field maxlength="5">
-                  <label>Seu email</label>
-                  <md-input v-model="email" type="email"></md-input>
-                </md-field>
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-33 mx-auto text-center">
-                    <md-button class="md-success">Enviar cadastro</md-button>
-                  </div>
-                </div>
+                
+
               </form>
+              
             </div>
           </div>
         </div>
-      </div>
+      </div>   
     </div>
   </div>
 </template>
 
-<script>
+
+<script> 
+
 export default {
   bodyClass: "landing-page",
   props: {
@@ -310,7 +365,15 @@ export default {
     return {
       name: null,
       email: null,
-      message: null
+      message: null,
+      contact:null,
+      CPF:null,
+      date:null,
+      nationality:null,
+      doc:null,
+      checkbox1:null,
+      checkbox2:null,
+      checkbox3:null
     };
   },
   computed: {

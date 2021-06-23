@@ -5,7 +5,7 @@
       :class="{ disabled: value === 1, 'no-arrows': noArrows }"
     >
       <a class="page-link" aria-label="Previous" @click="prevPage">
-        <template v-if="withText">Prev</template>
+        <template v-if="withText">Voltar</template>
         <i class="fas fa-angle-double-left" v-else></i>
       </a>
     </li>
@@ -22,7 +22,7 @@
       :class="{ disabled: value === totalPages, 'no-arrows': noArrows }"
     >
       <a class="page-link" aria-label="Next" @click="nextPage">
-        <template v-if="withText">Next</template>
+        <template v-if="withText">Próximo</template>
         <i class="fas fa-angle-double-right" v-else></i>
       </a>
     </li>

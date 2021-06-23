@@ -8,7 +8,7 @@
   >
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start">
-        <h3 class="md-title">Biblioteca Central UFPA</h3>
+        <h3 class="md-title"><a href="bc.ufpa.br>" style="color:#ffff">Biblioteca Central UFPA</a></h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -39,7 +39,7 @@
                         class="md-button md-button-link md-white md-simple dropdown-toggle"
                         data-toggle="dropdown"
                       >
-                        <i class="material-icons">apps</i>
+                        <i class="material-icons"></i>
                         <p>Components</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">
@@ -93,7 +93,7 @@
                         class="md-button md-button-link md-white md-simple dropdown-toggle"
                         data-toggle="dropdown"
                       >
-                        <i class="material-icons">view_carousel</i>
+                        <i class="material-icons"></i>
                         <p>Examples</p>
                       </md-button>
                       <ul class="dropdown-menu dropdown-with-icons">

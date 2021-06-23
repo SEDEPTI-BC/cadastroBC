@@ -30,7 +30,7 @@
         </ul>
       </nav>
       <div class="copyright">
-        &copy; {{ year }}, Feito por <md-icon>book</md-icon>
+        &copy; {{ year }}, Feito por <md-icon></md-icon>
         <a href="https://www.creative-tim.com/" target="_blank">time da Biblioteca Central UFPA.</a>
       </div>
     </div>
