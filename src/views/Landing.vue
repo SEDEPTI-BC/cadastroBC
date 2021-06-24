@@ -10,8 +10,7 @@
             <h4>
               TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
               TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
-              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
-              TextoTextoTexto
+              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto TextoTextoTexto
             </h4>
             <br />
             <!-- <md-button
@@ -241,106 +240,137 @@
             <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Pré-cadastro/Cadastro</h2>
               <h4 class="text-center description">
-                Formulário de solicitação para pré-cadastro/recadastro online. Preencher ou marcar principalmente todos os itens obrigatórios.
-                <br>
-                A efetivação do cadastro/recadastro estará finalizado em até dois dias úteis a contar da data de solicitação.
-                <br>
-                A renovação de cadastro para alunos de graduação é semestral e para alunos de pós-graduação, técnicos administrativos e docentes da UFPA é anual.
-                <br>
+                Formulário de solicitação para pré-cadastro/recadastro online.
+                Preencher ou marcar principalmente todos os itens obrigatórios.
+                <br />
+                A efetivação do cadastro/recadastro estará finalizado em até
+                dois dias úteis a contar da data de solicitação.
+                <br />
+                A renovação de cadastro para alunos de graduação é semestral e
+                para alunos de pós-graduação, técnicos administrativos e
+                docentes da UFPA é anual.
+                <br />
                 <strong>Observações sobre os anexos:</strong>
-                Discentes: Atestado de matrícula atual (SIGAA)<br>
-                Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira funcional (SIGEPE)<br>
-                O nome e a foto associados à sua Conta do Google serão registrados quando você fizer upload de arquivos e enviar este formulário.
+                Discentes: Atestado de matrícula atual (SIGAA)<br />
+                Servidores: Declaração de vínculo funcional (SAGITTA) ou
+                carteira funcional (SIGEPE)<br />
+                O nome e a foto associados à sua Conta do Google serão
+                registrados quando você fizer upload de arquivos e enviar este
+                formulário.
               </h4>
               <form class="contact-form">
                 <div class="md-layout">
-                        <div class="md-layout-item md-size-50">
-                          <md-field>
-                            <label>Seu nome *</label>
-                            <md-input v-model="name" type="text"></md-input>
-                          </md-field>
-                        </div>
-                        <div class="md-layout-item md-size-50">
-                          <md-field>
-                            <label>Seu nome social</label>
-                            <md-input v-model="socialName" type="text"></md-input>
-                          </md-field>
-                        </div>
-                      </div>
-                    <md-field maxlength="5">
-                      <label>Seu email *</label>
-                      <md-input v-model="email" type="email"></md-input>
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label>Seu nome *</label>
+                      <md-input v-model="name" type="text"></md-input>
                     </md-field>
-                    <div class="md-layout">
-                      <div class="md-layout-item md-size-50">
-                        <md-field >
-                          <label>Endereço completo *</label>
-                          <md-input v-model="address" type="text"></md-input>
-                        </md-field>
-                      </div>
-                      <div class="md-layout-item md-size-50">
-                        <md-field maxlength="5">
-                          <label>Número para contato (DDD + número) </label>
-                          <md-input v-model="contact" type="text" v-mask="'(##)#####-####'"></md-input>
-                        </md-field>
-                      </div>
-                    </div>
-                    <div class="md-layout">
-                      <div class="md-layout-item md-size-50">
-                        <md-field >
-                          <label>Data de nascimento *</label>
-                          <md-input v-model="date" type="text" v-mask="'##/##/####'"></md-input>
-                        </md-field>
-                      </div>
-                      <div class="md-layout-item md-size-50">
-                        <md-field maxlength="5">
-                          <label>CPF * </label>
-                          <md-input v-model="CPF" type="text" v-mask="'###.###.###-##'"></md-input>
-                        </md-field>
-                      </div>
-                    </div>
-                    <div class="md-layout">
-                      <div class="md-layout-item md-size-50">
-                        <md-field >
-                          <label>Nacionalidade *</label>
-                          <md-input v-model="nationality" type="text" ></md-input>
-                        </md-field>
-                      </div>
-                      <div class="md-layout-item md-size-50">
-                        <md-field maxlength="5">
-                          <label>Documentação de identificação * </label>
-                          <md-input v-model="doc" type="text" ></md-input>
-                        </md-field>
-                      </div>
-                    </div>
-                    <div >
-                      <br>
-                      <label>Sexo *</label>
-                      <br>
-                      <md-checkbox v-model="checkbox1">Masculino</md-checkbox>
-                      <md-checkbox v-model="checkbox2">Feminino</md-checkbox>
-                      <md-checkbox v-model="checkbox3">Outros</md-checkbox>
-                    </div>
-                    <div class="md-layout"> 
-                      <div class="md-layout-item md-size-33 mx-auto text-center">
-                        <md-button class="md-success">Enviar cadastro</md-button>
-                      </div>
+                  </div>
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label>Seu nome social</label>
+                      <md-input v-model="socialName" type="text"></md-input>
+                    </md-field>
+                  </div>
                 </div>
-                
-
+                <md-field maxlength="5">
+                  <label>Seu email *</label>
+                  <md-input v-model="email" type="email"></md-input>
+                </md-field>
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label>Endereço completo *</label>
+                      <md-input v-model="address" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-50">
+                    <md-field maxlength="5">
+                      <label>Número para contato (DDD + número) </label>
+                      <md-input
+                        v-model="contact"
+                        type="text"
+                        v-mask="'(##)#####-####'"
+                      ></md-input>
+                    </md-field>
+                  </div>
+                </div>
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label>Data de nascimento *</label>
+                      <md-input
+                        v-model="date"
+                        type="text"
+                        v-mask="'##/##/####'"
+                      ></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-50">
+                    <md-field maxlength="5">
+                      <label>CPF * </label>
+                      <md-input
+                        v-model="CPF"
+                        type="text"
+                        v-mask="'###.###.###-##'"
+                      ></md-input>
+                    </md-field>
+                  </div>
+                </div>
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label>Nacionalidade *</label>
+                      <md-input v-model="nationality" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-50">
+                    <md-field maxlength="5">
+                      <label>Documentação de identificação * </label>
+                      <md-input v-model="doc" type="text"></md-input>
+                    </md-field>
+                  </div>
+                </div>
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-50">
+                    <br />
+                    <label>Sexo *</label>
+                    <br />
+                    <input type="radio" id="one" value="feminino" v-model="sex" />
+                    <label for="one">Feminino</label>
+                    <br />
+                    <input type="radio" id="two" value="masculino" v-model="sex" />
+                    <label for="two">Masculino</label>
+                    <br />
+                    <input type="radio" id="three" value="outros" v-model="sex" />
+                    <label for="three">Outros</label>
+                  </div>
+                  <div class="md-layout-item md-size-50">
+                    <br />
+                    <label>Deficiência*</label>
+                    <br />
+                    <md-checkbox v-model="def">
+                      Deficiência auditiva
+                    </md-checkbox>
+                    <md-checkbox v-model="def">Deficiência física</md-checkbox>
+                    <span>escolhido: {{ def }}</span>
+                  </div>
+                </div>
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-33 mx-auto text-center">
+                    <md-button class="md-success">Enviar cadastro</md-button>
+                  </div>
+                </div>
               </form>
-              
             </div>
           </div>
         </div>
-      </div>   
+      </div>
     </div>
   </div>
 </template>
 
-
-<script> 
-
+<script>
 export default {
   bodyClass: "landing-page",
   props: {
@@ -366,14 +396,13 @@ export default {
       name: null,
       email: null,
       message: null,
-      contact:null,
-      CPF:null,
-      date:null,
-      nationality:null,
-      doc:null,
-      checkbox1:null,
-      checkbox2:null,
-      checkbox3:null
+      contact: null,
+      CPF: null,
+      date: null,
+      nationality: null,
+      doc: null,
+      sex: "",
+      def: ""
     };
   },
   computed: {
