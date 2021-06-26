@@ -336,25 +336,71 @@
                     <br />
                     <label>Sexo *</label>
                     <br />
-                    <input type="radio" id="one" value="feminino" v-model="sex" />
+                    <input
+                      type="radio"
+                      id="one"
+                      value="feminino"
+                      v-model="sex"
+                    />
                     <label for="one">Feminino</label>
                     <br />
-                    <input type="radio" id="two" value="masculino" v-model="sex" />
+                    <input
+                      type="radio"
+                      id="two"
+                      value="masculino"
+                      v-model="sex"
+                    />
                     <label for="two">Masculino</label>
                     <br />
-                    <input type="radio" id="three" value="outros" v-model="sex" />
+                    <input
+                      type="radio"
+                      id="three"
+                      value="outros"
+                      v-model="sex"
+                    />
                     <label for="three">Outros</label>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <br />
-                    <label>Deficiência*</label>
+                    <label>Deficiência</label>
                     <br />
-                    <md-checkbox v-model="def">
-                      Deficiência auditiva
-                    </md-checkbox>
-                    <md-checkbox v-model="def">Deficiência física</md-checkbox>
-                    <span>escolhido: {{ def }}</span>
+                    <div id="example-3">
+                      <input
+                        type="checkbox"
+                        id="jack"
+                        value="Deficiência mental"
+                        v-model="checkedNames"
+                      />
+                      <label for="jack">Deficiência mental</label>
+                      <br />
+                      <input
+                        type="checkbox"
+                        id="john"
+                        value="Deficiência auditiva"
+                        v-model="checkedNames"
+                      />
+                      <label for="john">Deficiência auditiva</label>
+                      <br />
+                      <input
+                        type="checkbox"
+                        id="mike"
+                        value="Deficiência física"
+                        v-model="checkedNames"
+                      />
+                      <label for="mike">Deficiência física</label>
+                      <br />
+                      <!-- <span>Nomes assinalados: {{ checkedNames }}</span> -->
+                    </div>
                   </div>
+                  <label
+                    >File
+                    <input
+                      type="file"
+                      id="file"
+                      ref="file"
+                      v-on:change="handleFileUpload()"
+                    />
+                  </label>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
@@ -402,7 +448,7 @@ export default {
       nationality: null,
       doc: null,
       sex: "",
-      def: ""
+      checkedNames: []
     };
   },
   computed: {
