@@ -367,46 +367,102 @@
                     <div id="example-3">
                       <input
                         type="checkbox"
-                        id="jack"
+                        id="mental"
                         value="Deficiência mental"
-                        v-model="checkedNames"
+                        v-model="deficiency"
                       />
                       <label for="jack">Deficiência mental</label>
                       <br />
                       <input
                         type="checkbox"
-                        id="john"
+                        id="auditiva"
                         value="Deficiência auditiva"
-                        v-model="checkedNames"
+                        v-model="deficiency"
                       />
                       <label for="john">Deficiência auditiva</label>
                       <br />
                       <input
                         type="checkbox"
-                        id="mike"
+                        id="fisica"
                         value="Deficiência física"
-                        v-model="checkedNames"
+                        v-model="deficiency"
                       />
                       <label for="mike">Deficiência física</label>
                       <br />
-                      <!-- <span>Nomes assinalados: {{ checkedNames }}</span> -->
+                      <input
+                        type="checkbox"
+                        id="visual"
+                        value="Deficiência visual"
+                        v-model="deficiency"
+                      />
+                      <label for="mike">Deficiência visual</label>
+                      <br />
+                      <input
+                        type="checkbox"
+                        id="multipla"
+                        value="Deficiência multipla"
+                        v-model="deficiency"
+                      />
+                      <label for="mike">Deficiência múltipla</label>
+                      <br />
+                      <input
+                        type="checkbox"
+                        id="dislexia"
+                        value="Dislexia"
+                        v-model="deficiency"
+                      />
+                      <label for="mike">Dislexia</label>
+                      <br />
+                      <!-- <span>Nomes assinalados: {{ deficiency }}</span> -->
                     </div>
                   </div>
-                  <label
-                    >File
-                    <input
-                      type="file"
-                      id="file"
-                      ref="file"
-                      v-on:change="handleFileUpload()"
-                    />
-                  </label>
+                </div>
+                <br />
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-50">
+                    <label
+                      >Documento de identificação*
+                      <input
+                        type="file"
+                        id="file"
+                        ref="file"
+                        v-on:change="handleFileUpload()"
+                      />
+                    </label>
+                    <br />
+                    <br />
+                    <label
+                      >Foto de perfil (3x4)*
+                      <input
+                        type="file"
+                        id="file"
+                        ref="file"
+                        v-on:change="handleFileUpload()"
+                      />
+                    </label>
+                    <br />
+                    <br />
+                    <label
+                      >Atestado de matrícula*
+                      <input
+                        type="file"
+                        id="file"
+                        ref="file"
+                        v-on:change="handleFileUpload()"
+                      />
+                    </label>
+                  </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <md-button class="md-success">Enviar cadastro</md-button>
                   </div>
                 </div>
+                <!-- <span>
+                  Cpf: {{ CPF }}
+                  <br />
+                  Sexo: {{ sex }}
+                </span> -->
               </form>
             </div>
           </div>
@@ -448,7 +504,7 @@ export default {
       nationality: null,
       doc: null,
       sex: "",
-      checkedNames: []
+      deficiency: []
     };
   },
   computed: {
