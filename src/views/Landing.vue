@@ -71,7 +71,7 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Seu nome social</label>
+                      <label >Seu nome social</label>
                       <md-input v-model="socialName" type="text"></md-input>
                     </md-field>
                   </div>
@@ -89,7 +89,7 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Número para contato (DDD + número) </label>
+                      <label>Número para contato (DDD + número)* </label>
                       <md-input
                         v-model="contact"
                         type="text"
@@ -267,7 +267,8 @@
                 <!-- <span>
                   Cpf: {{ CPF }}
                   <br />
-                  Sexo: {{ sex }}
+                  Sexo: {{ sex }} <br>
+                  {{contact}}
                 </span> -->
               </form>
             </div>
@@ -303,6 +304,7 @@ export default {
     return {
       errors: [],
       name: null,
+      address: null,
       email: null,
       message: null,
       contact: null,
@@ -323,7 +325,7 @@ export default {
   },
   methods: {
     checkForm: function(e) {
-      if (this.name && this.date) {
+      if (this.name && this.address && this.date && this.CPF && this.nationality && this.contact && this.email && this.doc && this.sex) {
         return true;
       }
 
@@ -331,16 +333,42 @@ export default {
 
       if (!this.name) {
         this.errors.push("O nome é obrigatório.");
+
+      }
+      if (!this.email) {
+        this.errors.push("Seu email é obrigatório.");
+      }
+      if (!this.address) {
+        this.errors.push("Seu endereço é obrigatório.");
+      }
+      if (!this.contact) {
+        this.errors.push("Seu contato é obrigatório.");
       }
       if (!this.date) {
         this.errors.push("A data de nascimento é obrigatória.");
       }
+      if (!this.CPF) {
+        this.errors.push("CPF é obrigatório.");
+      }
+      if (!this.nationality) {
+        this.errors.push("Sua nacionalidade é obrigatória.");
+      }
+      if (!this.doc) {
+        this.errors.push("Seu documento de identificação é obrigatório.");
+      }
+      if (!this.sex) {
+        this.errors.push("Informe o seu sexo");
+      }
+      
+      
+      
+      
 
       e.preventDefault();
     },
     submit: function (event) {
-      if (!this.name || !this.email || !this.date){
-        alert('Por favor, todos dados obrigatórios')
+      if (!this.name || !this.email || !this.date || this.CPF ){
+        alert('Por favor, preencha todos os dados obrigatórios')
       }
       // if (!this.date){
       //   alert('Por favor, digite a data de seu nascimento')

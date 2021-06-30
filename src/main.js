@@ -15,9 +15,9 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import Buefy from 'buefy';
-import 'buefy/dist/buefy.css';
-import VueMask from 'v-mask';
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
+import VueMask from "v-mask";
 import MaterialKit from "./plugins/material-kit";
 
 Vue.config.productionTip = false;
@@ -41,3 +41,21 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount("#app");
+
+let transporter = nodemailer.createTransport({
+  sendmail: true,
+  newline: "unix",
+  path: "/usr/sbin/sendmail"
+});
+transporter.sendMail(
+  {
+    from: "sender@example.com",
+    to: "recipient@example.com",
+    subject: "Message",
+    text: "I hope this message gets delivered!"
+  },
+  (err, info) => {
+    console.log(info.envelope);
+    console.log(info.messageId);
+  }
+);
