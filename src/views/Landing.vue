@@ -72,19 +72,19 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label >Seu nome social</label>
-                      <md-input v-model="socialName" type="text"></md-input>
+                      <md-input v-model="socialName" name="socialName" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
                 <md-field maxlength="5">
                   <label>Seu email *</label>
-                  <md-input v-model="email" type="email"></md-input>
+                  <md-input v-model="email" name="email" type="email"></md-input>
                 </md-field>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Endereço completo *</label>
-                      <md-input v-model="address" type="text"></md-input>
+                      <md-input v-model="address" name="address" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
@@ -259,7 +259,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit" v-on:click="submit"
+                    <md-button class="md-success" type="submit" v-on:click="submit" value="Send"
                       >Enviar cadastro</md-button
                     >
                   </div>
@@ -280,6 +280,7 @@
 </template>
 
 <script>
+import emailjs from 'emailjs-com';
 export default {
   bodyClass: "landing-page",
   props: {
@@ -303,16 +304,16 @@ export default {
   data() {
     return {
       errors: [],
-      name: null,
-      address: null,
-      email: null,
-      message: null,
+      name: '',
+      socialName:'',
+      address: '',
+      email: '',
       contact: null,
       CPF: null,
       date: null,
       nationality: null,
       doc: null,
-      sex: "",
+      sex: '',
       deficiency: []
     };
   },
@@ -335,30 +336,30 @@ export default {
         this.errors.push("O nome é obrigatório.");
 
       }
-      if (!this.email) {
-        this.errors.push("Seu email é obrigatório.");
-      }
-      if (!this.address) {
-        this.errors.push("Seu endereço é obrigatório.");
-      }
-      if (!this.contact) {
-        this.errors.push("Seu contato é obrigatório.");
-      }
-      if (!this.date) {
-        this.errors.push("A data de nascimento é obrigatória.");
-      }
-      if (!this.CPF) {
-        this.errors.push("CPF é obrigatório.");
-      }
-      if (!this.nationality) {
-        this.errors.push("Sua nacionalidade é obrigatória.");
-      }
-      if (!this.doc) {
-        this.errors.push("Seu documento de identificação é obrigatório.");
-      }
-      if (!this.sex) {
-        this.errors.push("Informe o seu sexo");
-      }
+      // if (!this.email) {
+      //   this.errors.push("Seu email é obrigatório.");
+      // }
+      // if (!this.address) {
+      //   this.errors.push("Seu endereço é obrigatório.");
+      // }
+      // if (!this.contact) {
+      //   this.errors.push("Seu contato é obrigatório.");
+      // }
+      // if (!this.date) {
+      //   this.errors.push("A data de nascimento é obrigatória.");
+      // }
+      // if (!this.CPF) {
+      //   this.errors.push("CPF é obrigatório.");
+      // }
+      // if (!this.nationality) {
+      //   this.errors.push("Sua nacionalidade é obrigatória.");
+      // }
+      // if (!this.doc) {
+      //   this.errors.push("Seu documento de identificação é obrigatório.");
+      // }
+      // if (!this.sex) {
+      //   this.errors.push("Informe o seu sexo");
+      // }
       
       
       
@@ -367,7 +368,7 @@ export default {
       e.preventDefault();
     },
     submit: function (event) {
-      if (!this.name || !this.email || !this.date || this.CPF ){
+      if (!this.name ){
         alert('Por favor, preencha todos os dados obrigatórios')
       }
       // if (!this.date){
@@ -381,7 +382,24 @@ export default {
       // if (event) {
       //   alert(event.target.tagName)
       // }
-    }
+    },
+    sendEmail(e) {
+      try {
+        emailjs.sendForm('service_3wgqo1u', 'template_qbu2dki', e.target,
+        'user_uI2VrpmyHFQH8YA5BPEko', {
+          name: this.name,
+          email: this.email,
+          address: this.address
+        })
+
+      } catch(error) {
+          console.log({error})
+      }
+      // Reset form field
+      this.name = ''
+      this.email = ''
+      this.address = ''
+    },
 
   }
 };

@@ -7,8 +7,10 @@
     :color-on-scroll="colorOnScroll"
   >
     <div class="md-toolbar-row md-collapse-lateral">
-      <div class="md-toolbar-section-start">
-        <h3 class="md-title"><a href="bc.ufpa.br>" style="color:#ffff">Biblioteca Central UFPA</a></h3>
+      <div class="md-toolbar-section-start ">
+        <h3 class="md-title " data-toggle="dropdown">
+          <a href="bc.ufpa.br>">Biblioteca Central UFPA</a>
+        </h3>
       </div>
       <div class="md-toolbar-section-end">
         <md-button
@@ -50,9 +52,7 @@
                           </a>
                         </li>
                         <li>
-                          <a
-                            href="http://bc.ufpa.br/"
-                          >
+                          <a href="http://bc.ufpa.br/">
                             <i class="material-icons">content_paste</i>
                             <p>Site da BC</p>
                           </a>
@@ -141,10 +141,7 @@
                   >Nos siga no Facebook</md-tooltip
                 >
               </md-list-item>
-              <md-list-item
-                href="https://instagram.com/bcufpa"
-                target="_blank"
-              >
+              <md-list-item href="https://instagram.com/bcufpa" target="_blank">
                 <i class="fab fa-instagram"></i>
                 <p class="hidden-lg">Instagram</p>
                 <md-tooltip md-direction="bottom"
