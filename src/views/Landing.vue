@@ -45,7 +45,9 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
               </h4>
-              <form class="contact-form" @submit="checkForm">
+              
+              <!-- Inicio do formulário -->
+              <form class="contact-form" @submit="checkForm" @submit.prevent="sendEmail">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -62,9 +64,9 @@
                     <md-field>
                       <label>Seu nome *</label>
                       <md-input
-                        v-model="name"
+                        v-model="user_name"
                         id="name"
-                        name="name"
+                        name="user_name"
                         type="text"
                       ></md-input>
                     </md-field>
@@ -78,7 +80,7 @@
                 </div>
                 <md-field maxlength="5">
                   <label>Seu email *</label>
-                  <md-input v-model="email" name="email" type="email"></md-input>
+                  <md-input v-model="user_email" name="user_email" type="email"></md-input>
                 </md-field>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
@@ -216,7 +218,7 @@
                       />
                       <label for="mike">Dislexia</label>
                       <br />
-                      <!-- <span>Nomes assinalados: {{ deficiency }}</span> -->
+                      <!-- <span>Nomes assinalados: {{ my_file }}</span> -->
                     </div>
                   </div>
                 </div>
@@ -247,12 +249,7 @@
                     <br />
                     <label
                       >Atestado de matrícula*
-                      <input
-                        type="file"
-                        id="file"
-                        ref="file"
-                        v-on:change="handleFileUpload()"
-                      />
+                      <input type="file" name="my_file">
                     </label>
                   </div>
                 </div>
@@ -264,12 +261,6 @@
                     >
                   </div>
                 </div>
-                <!-- <span>
-                  Cpf: {{ CPF }}
-                  <br />
-                  Sexo: {{ sex }} <br>
-                  {{contact}}
-                </span> -->
               </form>
             </div>
           </div>
@@ -281,6 +272,7 @@
 
 <script>
 import emailjs from 'emailjs-com';
+
 export default {
   bodyClass: "landing-page",
   props: {
@@ -304,17 +296,18 @@ export default {
   data() {
     return {
       errors: [],
-      name: '',
+      user_name: '',
       socialName:'',
       address: '',
-      email: '',
+      user_email: '',
       contact: null,
       CPF: null,
       date: null,
       nationality: null,
       doc: null,
       sex: '',
-      deficiency: []
+      deficiency: [],
+      my_file:''
     };
   },
   computed: {
@@ -326,13 +319,13 @@ export default {
   },
   methods: {
     checkForm: function(e) {
-      if (this.name && this.address && this.date && this.CPF && this.nationality && this.contact && this.email && this.doc && this.sex) {
+      if (this.user_name && this.address && this.date && this.CPF && this.nationality && this.contact && this.user_email && this.doc && this.sex) {
         return true;
       }
 
       this.errors = [];
 
-      if (!this.name) {
+      if (!this.user_name) {
         this.errors.push("O nome é obrigatório.");
 
       }
@@ -368,7 +361,7 @@ export default {
       e.preventDefault();
     },
     submit: function (event) {
-      if (!this.name ){
+      if (!this.user_name ){
         alert('Por favor, preencha todos os dados obrigatórios')
       }
       // if (!this.date){
@@ -383,23 +376,14 @@ export default {
       //   alert(event.target.tagName)
       // }
     },
-    sendEmail(e) {
-      try {
-        emailjs.sendForm('service_3wgqo1u', 'template_qbu2dki', e.target,
-        'user_uI2VrpmyHFQH8YA5BPEko', {
-          name: this.name,
-          email: this.email,
-          address: this.address
-        })
-
-      } catch(error) {
-          console.log({error})
-      }
-      // Reset form field
-      this.name = ''
-      this.email = ''
-      this.address = ''
-    },
+    sendEmail: (e) => {
+      emailjs.sendForm('service_3wgqo1u', 'template_qbu2dki', e.target, 'user_uI2VrpmyHFQH8YA5BPEko')
+        .then((result) => {
+            console.log('SUCCESS!', result.status, result.text);
+        }, (error) => {
+            console.log('FAILED...', error);
+        });
+    }
 
   }
 };
