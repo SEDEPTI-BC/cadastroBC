@@ -94,6 +94,7 @@
                       <label>Número para contato (DDD + número)* </label>
                       <md-input
                         v-model="contact"
+                        name="contact"
                         type="text"
                         v-mask="'(##)#####-####'"
                       ></md-input>
@@ -106,6 +107,7 @@
                       <label>Data de nascimento *</label>
                       <md-input
                         v-model="date"
+                        name="date"
                         type="text"
                         v-mask="'##/##/####'"
                       ></md-input>
@@ -116,6 +118,7 @@
                       <label>CPF * </label>
                       <md-input
                         v-model="CPF"
+                        name="CPF"
                         type="text"
                         v-mask="'###.###.###-##'"
                       ></md-input>
@@ -126,42 +129,46 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Nacionalidade *</label>
-                      <md-input v-model="nationality" type="text"></md-input>
+                      <md-input v-model="nationality" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Documentação de identificação * </label>
-                      <md-input v-model="doc" type="text"></md-input>
+                      <label>Documentação de identificação com foto * </label>
+                      <md-select v-model="doc" name="doc" type="text">
+                        <md-option value="id">Carteira de identidade</md-option>
+                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
+                      </md-select>
                     </md-field>
                   </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <br />
-                    <label>Sexo *</label>
+                    <label>Sexo</label>
                     <br />
-                    <input
+                    <md-radio
                       type="radio"
                       id="one"
                       value="feminino"
                       v-model="sex"
+                      name="sex"
                     />
-                    <label for="one">Feminino</label>
-                    <br />
-                    <input
+                    <label for="one">Feminino</label><br>
+                    <md-radio
                       type="radio"
                       id="two"
                       value="masculino"
                       v-model="sex"
+                      name="sex"
                     />
-                    <label for="two">Masculino</label>
-                    <br />
-                    <input
+                    <label for="two">Masculino</label><br>
+                    <md-radio
                       type="radio"
                       id="three"
                       value="outros"
                       v-model="sex"
+                      name="sex"
                     />
                     <label for="three">Outros</label>
                   </div>
@@ -175,6 +182,7 @@
                         id="mental"
                         value="Deficiência mental"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="jack">Deficiência mental</label>
                       <br />
@@ -183,6 +191,7 @@
                         id="auditiva"
                         value="Deficiência auditiva"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="john">Deficiência auditiva</label>
                       <br />
@@ -191,6 +200,7 @@
                         id="fisica"
                         value="Deficiência física"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Deficiência física</label>
                       <br />
@@ -199,6 +209,7 @@
                         id="visual"
                         value="Deficiência visual"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Deficiência visual</label>
                       <br />
@@ -207,6 +218,7 @@
                         id="multipla"
                         value="Deficiência multipla"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Deficiência múltipla</label>
                       <br />
@@ -215,10 +227,11 @@
                         id="dislexia"
                         value="Dislexia"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Dislexia</label>
                       <br />
-                      <!-- <span>Nomes assinalados: {{ my_file }}</span> -->
+                      <!-- <span>Nomes assinalados: {{ deficiency }}</span> -->
                     </div>
                   </div>
                 </div>
@@ -300,11 +313,11 @@ export default {
       socialName:'',
       address: '',
       user_email: '',
-      contact: null,
-      CPF: null,
-      date: null,
-      nationality: null,
-      doc: null,
+      contact: '',
+      CPF: '',
+      date: '',
+      nationality: '',
+      doc: '',
       sex: '',
       deficiency: [],
       my_file:''

@@ -121,10 +121,7 @@
                 </a>
               </li>
 
-              <md-list-item
-                href="https://twitter.com/CreativeTim"
-                target="_blank"
-              >
+              <md-list-item href="" target="_blank">
                 <i class="fab fa-twitter"></i>
                 <p class="hidden-lg">Twitter</p>
                 <md-tooltip md-direction="bottom"
@@ -145,7 +142,7 @@
                 <i class="fab fa-instagram"></i>
                 <p class="hidden-lg">Instagram</p>
                 <md-tooltip md-direction="bottom"
-                  >Follow us on Instagram</md-tooltip
+                  >Siga a gente no Instagram</md-tooltip
                 >
               </md-list-item>
             </md-list>
