@@ -3,6 +3,8 @@ const nodemailer = require("nodemailer");
 
 const mailer = async function(emailAddress, files) {
   // create reusable transporter object using the default SMTP transport
+
+  console.log("creating transporter...");
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -13,12 +15,12 @@ const mailer = async function(emailAddress, files) {
     },
   });
 
-  var attachmentsObject = {};
+  // let attachmentsObject = {};
 
-  const attachmentFiles = files.map(fileName => {
+  const attachments = files.map((fileName) => {
     return {
       filename: fileName,
-      path: "../../uploads/" + fileName
+      path: "uploads/" + fileName,
     };
   });
 
@@ -27,15 +29,10 @@ const mailer = async function(emailAddress, files) {
     {
       from: '"SEDEPTI" <sedepti.devs@gmail.com>', // sender address
       to: emailAddress, // list of receivers
-      subject: "Ficha catalográfica - FICAT", // Subject line
-      text: "Olá! Segue em anexo uma cópia da ficha catalográfica requisitada!", // plain text body
+      subject: "Cadastro BC - TEST", // Subject line
+      text: "Olá! Segue em anexo varios arquivos heh", // plain text body
       // html: '<b>Hello world?</b>', // html body
-      attachments: [
-        {
-          filename: fileName,
-          path: fileStream,
-        },
-      ],
+      attachments: attachments,
     },
     (err, info) => {
       if (err) {
@@ -44,12 +41,15 @@ const mailer = async function(emailAddress, files) {
       // else {
       //   console.log(info)
       // }
-      fs.unlink("../../uploads/pdf_location/ficha.pdf", (err) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log("cleared");
-        }
+
+      files.forEach((file) => {
+        fs.unlink(`uploads/${file}`, (err) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log("cleared");
+          }
+        });
       });
     }
   );

@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
-const path = require("path");
+const mailer = require("./email/sendEmail");
 
 const app = express();
 
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname); //Appending extension
+    cb(null, file.originalname);
   },
 });
 
@@ -35,7 +35,18 @@ const upload = multer({
 });
 
 app.post("/upload", upload.array("files"), (req, res) => {
-  console.log("aight");
+  console.log("Aight! sending email...");
+  const files = req.files;
+  let filenames = [];
+
+  files.forEach(element => {
+    filenames.push(element.originalname)
+  });
+  console.log("names found: " + filenames.length)
+  // console.log(filenames);
+
+  mailer('samantha.silva@itec.ufpa.br', filenames)
+
   res.json({ files: req.files });
 });
 

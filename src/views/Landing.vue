@@ -437,7 +437,6 @@ export default {
       return ""
     },
     async sendFile() {
-      console.log('aight')
       const formData = new FormData()
       _.forEach(this.uploadFiles, file => {
         if (this.validate(file) === "") {
@@ -447,6 +446,7 @@ export default {
 
       try {
         await axios.post('http://localhost:3000/upload', formData)
+        console.log('req sent.')
         this.files = [];
         this.uploadFiles = [];
       } catch (error) {
