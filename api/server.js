@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const path = require("path");
 
 const app = express();
 
@@ -19,14 +20,23 @@ const fileFilter = function(req, file, cb) {
   cb(null, true);
 };
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.originalname); //Appending extension
+  },
+});
+
 const upload = multer({
-  dest: "./uploads",
+  storage: storage,
   fileFilter,
 });
 
 app.post("/upload", upload.array("files"), (req, res) => {
   console.log("aight");
-  res.json({ file: req.file });
+  res.json({ files: req.files });
 });
 
 app.use((err, req, res, next) => {
