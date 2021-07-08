@@ -228,8 +228,8 @@
                       <input
                         type="file"
                         id="file"
-                        ref="file"
-                        v-on:change="handleFileUpload()"
+                        ref="IDFile"
+                        v-on:change="handleFileUpload"
                       />
                     </label>
                     <br />
@@ -239,7 +239,7 @@
                       <input
                         type="file"
                         id="file"
-                        ref="file"
+                        
                         
                       />
                     </label>
@@ -250,12 +250,13 @@
                       <input
                         type="file"
                         id="file"
-                        ref="file"
+                     
                         
                       />
                     </label>
                   </div>
                 </div>
+                <b-button @click="sendFile">SEND</b-button>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
@@ -281,6 +282,7 @@
 
 <script>
 import emailjs from 'emailjs-com';
+import axios from 'axios';
 export default {
   bodyClass: "landing-page",
   props: {
@@ -315,7 +317,7 @@ export default {
       doc: null,
       sex: '',
       deficiency: [],
-      file: null
+      IDFile: null
     };
   },
   computed: {
@@ -372,6 +374,7 @@ export default {
       if (!this.name ){
         alert('Por favor, preencha todos os dados obrigatórios')
       }
+
       // if (!this.date){
       //   alert('Por favor, digite a data de seu nascimento')
       // }
@@ -402,7 +405,19 @@ export default {
       this.address = ''
     },
     handleFileUpload() {
-      this.file = this.$refs.file
+      this.IDFile = this.$refs.IDFile.files[0]
+      console.log(this.IDFile)
+    },
+    async sendFile() {
+      const formData = new FormData()
+      formData.append('IDFile', this.IDFile)
+
+      try {
+        await axios.post('http://localhost:3000/upload', formData)
+      } catch (error) {
+        console.log(error)
+      }
+      
     }
 
   }

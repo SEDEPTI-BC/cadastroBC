@@ -6,16 +6,22 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
+    "start": "nodemon api/server.js",
     "build": "vue-cli-service build && gulp licenses",
     "lint": "vue-cli-service lint",
     "dev": "npm run serve",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "buefy": "^0.9.7",
     "core-js": "3.5.0",
+    "cors": "^2.8.5",
     "emailjs-com": "^3.1.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
     "nodemailer": "^6.6.2",
+    "nodemon": "^2.0.9",
     "nouislider": "14.1.0",
     "v-mask": "^2.2.4",
     "v-tooltip": "2.0.2",
