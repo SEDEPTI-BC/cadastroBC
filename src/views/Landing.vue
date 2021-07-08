@@ -227,9 +227,8 @@
                       >Documento de identificação*
                       <input
                         type="file"
-                        id="file"
-                        ref="IDFile"
-                        v-on:change="handleFileUpload"
+                        ref="fileID"
+                        v-on:change="handleFileUpload('fileID')"
                       />
                     </label>
                     <br />
@@ -238,9 +237,8 @@
                       >Foto de perfil (3x4)*
                       <input
                         type="file"
-                        id="file"
-                        
-                        
+                        ref="fileProfile"
+                        v-on:change="handleFileUpload('fileProfile')"
                       />
                     </label>
                     <br />
@@ -249,9 +247,8 @@
                       >Atestado de matrícula*
                       <input
                         type="file"
-                        id="file"
-                     
-                        
+                        ref="fileMat"
+                        v-on:change="handleFileUpload('fileMat')"
                       />
                     </label>
                   </div>
@@ -283,6 +280,8 @@
 <script>
 import emailjs from 'emailjs-com';
 import axios from 'axios';
+import _ from 'lodash';
+
 export default {
   bodyClass: "landing-page",
   props: {
@@ -317,7 +316,8 @@ export default {
       doc: null,
       sex: '',
       deficiency: [],
-      IDFile: null
+      files: [],
+      uploadFiles: []
     };
   },
   computed: {
@@ -404,16 +404,51 @@ export default {
       this.email = ''
       this.address = ''
     },
-    handleFileUpload() {
-      this.IDFile = this.$refs.IDFile.files[0]
-      console.log(this.IDFile)
+    handleFileUpload(elementRef) {    
+      const file = this.$refs[elementRef].files
+
+      this.uploadFiles = [...this.uploadFiles, ...file]
+
+      this.files = [
+        ...this.files,
+        ..._.map(file, file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          invalidMessage: this.validate(file) //TODO: usar isso pra mostrar msg de erro no form
+        }))
+      ]
+      // console.log(this.files)
+      
+    },
+
+    validate(file) {
+      const MAX_SIZE = 200000;
+      const allowedTypes = ["image/png", "image/jpeg", "application/pdf"]
+
+      if (file.size > MAX_SIZE) {
+        return `Max size: ${MAX_SIZE/1000}Kb`
+      }
+
+      if (!allowedTypes.includes(file.type)) {
+        return "File type not allowed"
+      }
+
+      return ""
     },
     async sendFile() {
+      console.log('aight')
       const formData = new FormData()
-      formData.append('IDFile', this.IDFile)
+      _.forEach(this.uploadFiles, file => {
+        if (this.validate(file) === "") {
+         formData.append('files', file) 
+        }
+      })
 
       try {
         await axios.post('http://localhost:3000/upload', formData)
+        this.files = [];
+        this.uploadFiles = [];
       } catch (error) {
         console.log(error)
       }
