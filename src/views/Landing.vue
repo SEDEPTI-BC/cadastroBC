@@ -47,7 +47,7 @@
               </h4>
               
               <!-- Inicio do formulário -->
-              <form class="contact-form" @submit="checkForm" @submit.prevent="sendEmail">
+              <form class="contact-form" @submit="checkForm">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -242,12 +242,16 @@
                       >Documento de identificação*
                       <input
                         type="file"
-                        id="file"
+                        id="documento"
                         ref="file"
-                        v-on:change="handleFileUpload()"
+                        name="imagem.jpeg"
                       />
                     </label>
-                    <br />
+                      <!-- <p>
+                        <i>{{ submitted.user_name }}</i>
+                        <b>{{ submitted.user_email }}</b>
+                      </p> -->
+                    <!-- <br />
                     <br />
                     <label
                       >Foto de perfil (3x4)*
@@ -255,7 +259,6 @@
                         type="file"
                         id="file"
                         ref="file"
-                        v-on:change="handleFileUpload()"
                       />
                     </label>
                     <br />
@@ -263,13 +266,13 @@
                     <label
                       >Atestado de matrícula*
                       <input type="file" name="my_file">
-                    </label>
+                    </label> -->
                   </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit" v-on:click="submit" value="Send"
+                    <md-button class="md-success" type="submit"  value="Send" @click="checkForm" ref="google.com" 
                       >Enviar cadastro</md-button
                     >
                   </div>
@@ -284,7 +287,7 @@
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
+
 
 export default {
   bodyClass: "landing-page",
@@ -309,6 +312,7 @@ export default {
   data() {
     return {
       errors: [],
+      enviar:'',
       user_name: '',
       socialName:'',
       address: '',
@@ -320,7 +324,13 @@ export default {
       doc: '',
       sex: '',
       deficiency: [],
-      my_file:''
+      documento: 'imagem.jpeg',
+      my_file: [],
+
+      submitted: {
+        user_name: '',
+        user_email: ''
+      }
     };
   },
   computed: {
@@ -332,19 +342,21 @@ export default {
   },
   methods: {
     checkForm: function(e) {
+      
       if (this.user_name && this.address && this.date && this.CPF && this.nationality && this.contact && this.user_email && this.doc && this.sex) {
-        return true;
+        return true; 
       }
-
       this.errors = [];
 
       if (!this.user_name) {
         this.errors.push("O nome é obrigatório.");
-
       }
-      // if (!this.email) {
-      //   this.errors.push("Seu email é obrigatório.");
-      // }
+      if (!this.user_email) {
+        this.errors.push("Seu email é obrigatório.");
+      }
+      
+
+  
       // if (!this.address) {
       //   this.errors.push("Seu endereço é obrigatório.");
       // }
@@ -373,10 +385,16 @@ export default {
 
       e.preventDefault();
     },
-    submit: function (event) {
-      if (!this.user_name ){
-        alert('Por favor, preencha todos os dados obrigatórios')
-      }
+    // submit: function (event) {
+    //@click.prevent="submit" no button
+    //   if (!this.user_name ){
+    //     alert('Por favor, preencha todos os dados obrigatórios')
+    //   }
+    //   const name = this.user_name.split(' ').length >= 2 
+    //   if (!name) {
+    //     alert ('Digite seu nome completo')
+    //   }
+        
       // if (!this.date){
       //   alert('Por favor, digite a data de seu nascimento')
       // }
@@ -388,16 +406,18 @@ export default {
       // if (event) {
       //   alert(event.target.tagName)
       // }
-    },
-    sendEmail: (e) => {
-      emailjs.sendForm('service_3wgqo1u', 'template_qbu2dki', e.target, 'user_uI2VrpmyHFQH8YA5BPEko')
-        .then((result) => {
-            console.log('SUCCESS!', result.status, result.text);
-        }, (error) => {
-            console.log('FAILED...', error);
-        });
-    }
 
+    // },
+
+    // formSubmit: function(event) {
+      // @submit.prevent="formSubmit" no form
+    //   this.submitted.user_name = this.user_name;
+    //   this.submitted.user_email = this.user_email;
+      
+    //   this.user_name = this.user_email = '';
+      
+    //   event.target.reset();
+    // }
   }
 };
 </script>
