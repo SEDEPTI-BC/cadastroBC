@@ -45,7 +45,7 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
               </h4>
-              <form class="contact-form" @submit="checkForm">
+              <form class="contact-form" @submit="checkForm" enctype="multipart/form-data">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -240,7 +240,7 @@
                         type="file"
                         id="file"
                         ref="file"
-                        v-on:change="handleFileUpload()"
+                        
                       />
                     </label>
                     <br />
@@ -251,7 +251,7 @@
                         type="file"
                         id="file"
                         ref="file"
-                        v-on:change="handleFileUpload()"
+                        
                       />
                     </label>
                   </div>
@@ -314,7 +314,8 @@ export default {
       nationality: null,
       doc: null,
       sex: '',
-      deficiency: []
+      deficiency: [],
+      file: null
     };
   },
   computed: {
@@ -400,6 +401,9 @@ export default {
       this.email = ''
       this.address = ''
     },
+    handleFileUpload() {
+      this.file = this.$refs.file
+    }
 
   }
 };
