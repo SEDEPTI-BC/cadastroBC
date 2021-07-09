@@ -62,9 +62,9 @@
                     <md-field>
                       <label>Seu nome *</label>
                       <md-input
-                        v-model="name"
+                        v-model="user_name"
                         id="name"
-                        name="name"
+                        name="user_name"
                         type="text"
                       ></md-input>
                     </md-field>
@@ -78,7 +78,7 @@
                 </div>
                 <md-field maxlength="5">
                   <label>Seu email *</label>
-                  <md-input v-model="email" name="email" type="email"></md-input>
+                  <md-input v-model="user_email" name="user_email" type="email"></md-input>
                 </md-field>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
@@ -92,6 +92,7 @@
                       <label>Número para contato (DDD + número)* </label>
                       <md-input
                         v-model="contact"
+                        name="contact"
                         type="text"
                         v-mask="'(##)#####-####'"
                       ></md-input>
@@ -104,6 +105,7 @@
                       <label>Data de nascimento *</label>
                       <md-input
                         v-model="date"
+                        name="date"
                         type="text"
                         v-mask="'##/##/####'"
                       ></md-input>
@@ -114,6 +116,7 @@
                       <label>CPF * </label>
                       <md-input
                         v-model="CPF"
+                        name="CPF"
                         type="text"
                         v-mask="'###.###.###-##'"
                       ></md-input>
@@ -124,42 +127,46 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Nacionalidade *</label>
-                      <md-input v-model="nationality" type="text"></md-input>
+                      <md-input v-model="nationality" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Documentação de identificação * </label>
-                      <md-input v-model="doc" type="text"></md-input>
+                      <label>Documentação de identificação com foto * </label>
+                      <md-select v-model="doc" name="doc" type="text">
+                        <md-option value="id">Carteira de identidade</md-option>
+                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
+                      </md-select>
                     </md-field>
                   </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <br />
-                    <label>Sexo *</label>
+                    <label>Sexo</label>
                     <br />
-                    <input
+                    <md-radio
                       type="radio"
                       id="one"
                       value="feminino"
                       v-model="sex"
+                      name="sex"
                     />
-                    <label for="one">Feminino</label>
-                    <br />
-                    <input
+                    <label for="one">Feminino</label><br>
+                    <md-radio
                       type="radio"
                       id="two"
                       value="masculino"
                       v-model="sex"
+                      name="sex"
                     />
-                    <label for="two">Masculino</label>
-                    <br />
-                    <input
+                    <label for="two">Masculino</label><br>
+                    <md-radio
                       type="radio"
                       id="three"
                       value="outros"
                       v-model="sex"
+                      name="sex"
                     />
                     <label for="three">Outros</label>
                   </div>
@@ -173,6 +180,7 @@
                         id="mental"
                         value="Deficiência mental"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="jack">Deficiência mental</label>
                       <br />
@@ -181,6 +189,7 @@
                         id="auditiva"
                         value="Deficiência auditiva"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="john">Deficiência auditiva</label>
                       <br />
@@ -189,6 +198,7 @@
                         id="fisica"
                         value="Deficiência física"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Deficiência física</label>
                       <br />
@@ -197,6 +207,7 @@
                         id="visual"
                         value="Deficiência visual"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Deficiência visual</label>
                       <br />
@@ -205,6 +216,7 @@
                         id="multipla"
                         value="Deficiência multipla"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Deficiência múltipla</label>
                       <br />
@@ -213,6 +225,7 @@
                         id="dislexia"
                         value="Dislexia"
                         v-model="deficiency"
+                        name="deficiency"
                       />
                       <label for="mike">Dislexia</label>
                       <br />
@@ -231,7 +244,11 @@
                         v-on:change="handleFileUpload('fileID')"
                       />
                     </label>
-                    <br />
+                      <!-- <p>
+                        <i>{{ submitted.user_name }}</i>
+                        <b>{{ submitted.user_email }}</b>
+                      </p> -->
+                    <!-- <br />
                     <br />
                     <label
                       >Foto de perfil (3x4)*
@@ -256,17 +273,11 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit" v-on:click="submit" value="Send"
+                    <md-button class="md-success" type="submit"  value="Send" @click="checkForm" ref="google.com" 
                       >Enviar cadastro</md-button
                     >
                   </div>
                 </div>
-                <!-- <span>
-                  Cpf: {{ CPF }}
-                  <br />
-                  Sexo: {{ sex }} <br>
-                  {{contact}}
-                </span> -->
               </form>
             </div>
           </div>
@@ -304,19 +315,27 @@ export default {
   data() {
     return {
       errors: [],
-      name: '',
+      enviar:'',
+      user_name: '',
       socialName:'',
       address: '',
-      email: '',
-      contact: null,
-      CPF: null,
-      date: null,
-      nationality: null,
-      doc: null,
+      user_email: '',
+      contact: '',
+      CPF: '',
+      date: '',
+      nationality: '',
+      doc: '',
       sex: '',
       deficiency: [],
       files: [],
-      uploadFiles: []
+      uploadFiles: [],
+      documento: 'imagem.jpeg',
+      my_file: [],
+
+      submitted: {
+        user_name: '',
+        user_email: ''
+      }
     };
   },
   computed: {
@@ -328,19 +347,21 @@ export default {
   },
   methods: {
     checkForm: function(e) {
-      if (this.name && this.address && this.date && this.CPF && this.nationality && this.contact && this.email && this.doc && this.sex) {
-        return true;
+      
+      if (this.user_name && this.address && this.date && this.CPF && this.nationality && this.contact && this.user_email && this.doc && this.sex) {
+        return true; 
       }
-
       this.errors = [];
 
-      if (!this.name) {
+      if (!this.user_name) {
         this.errors.push("O nome é obrigatório.");
-
       }
-      // if (!this.email) {
-      //   this.errors.push("Seu email é obrigatório.");
-      // }
+      if (!this.user_email) {
+        this.errors.push("Seu email é obrigatório.");
+      }
+      
+
+  
       // if (!this.address) {
       //   this.errors.push("Seu endereço é obrigatório.");
       // }
@@ -369,11 +390,16 @@ export default {
 
       e.preventDefault();
     },
-    submit: function (event) {
-      if (!this.name ){
-        alert('Por favor, preencha todos os dados obrigatórios')
-      }
-
+    // submit: function (event) {
+    //@click.prevent="submit" no button
+    //   if (!this.user_name ){
+    //     alert('Por favor, preencha todos os dados obrigatórios')
+    //   }
+    //   const name = this.user_name.split(' ').length >= 2 
+    //   if (!name) {
+    //     alert ('Digite seu nome completo')
+    //   }
+        
       // if (!this.date){
       //   alert('Por favor, digite a data de seu nascimento')
       // }
@@ -385,24 +411,6 @@ export default {
       // if (event) {
       //   alert(event.target.tagName)
       // }
-    },
-    sendEmail(e) {
-      try {
-        emailjs.sendForm('service_3wgqo1u', 'template_qbu2dki', e.target,
-        'user_uI2VrpmyHFQH8YA5BPEko', {
-          name: this.name,
-          email: this.email,
-          address: this.address
-        })
-
-      } catch(error) {
-          console.log({error})
-      }
-      // Reset form field
-      this.name = ''
-      this.email = ''
-      this.address = ''
-    },
     handleFileUpload(elementRef) {    
       const file = this.$refs[elementRef].files
 
@@ -454,6 +462,15 @@ export default {
       
     }
 
+    // formSubmit: function(event) {
+      // @submit.prevent="formSubmit" no form
+    //   this.submitted.user_name = this.user_name;
+    //   this.submitted.user_email = this.user_email;
+      
+    //   this.user_name = this.user_email = '';
+      
+    //   event.target.reset();
+    // }
   }
 };
 </script>
