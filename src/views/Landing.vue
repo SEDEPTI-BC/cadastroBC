@@ -253,7 +253,6 @@
                     </label>
                   </div>
                 </div>
-                <!-- <b-button @click="sendFile">SEND</b-button> -->
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
