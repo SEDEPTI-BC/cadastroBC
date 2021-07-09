@@ -39,13 +39,13 @@ app.post("/upload", upload.array("files"), (req, res) => {
   const files = req.files;
   let filenames = [];
 
-  files.forEach(element => {
-    filenames.push(element.originalname)
+  files.forEach((element) => {
+    filenames.push(element.originalname);
   });
-  console.log("names found: " + filenames.length)
+  console.log("names found: " + filenames.length);
   // console.log(filenames);
 
-  mailer('samantha.silva@itec.ufpa.br', filenames)
+  mailer("samantha.silva@itec.ufpa.br", filenames);
 
   res.json({ files: req.files });
 });
