@@ -45,9 +45,7 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
               </h4>
-              
-              <!-- Inicio do formulário -->
-              <form class="contact-form" @submit="checkForm">
+              <form class="contact-form" @submit="checkForm" enctype="multipart/form-data">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -242,9 +240,8 @@
                       >Documento de identificação*
                       <input
                         type="file"
-                        id="documento"
-                        ref="file"
-                        name="imagem.jpeg"
+                        ref="fileID"
+                        v-on:change="handleFileUpload('fileID')"
                       />
                     </label>
                       <!-- <p>
@@ -257,16 +254,20 @@
                       >Foto de perfil (3x4)*
                       <input
                         type="file"
-                        id="file"
-                        ref="file"
+                        ref="fileProfile"
+                        v-on:change="handleFileUpload('fileProfile')"
                       />
                     </label>
                     <br />
                     <br />
                     <label
                       >Atestado de matrícula*
-                      <input type="file" name="my_file">
-                    </label> -->
+                      <input
+                        type="file"
+                        ref="fileMat"
+                        v-on:change="handleFileUpload('fileMat')"
+                      />
+                    </label>
                   </div>
                 </div>
                 <div class="md-layout">
@@ -287,7 +288,9 @@
 </template>
 
 <script>
-
+import emailjs from 'emailjs-com';
+import axios from 'axios';
+import _ from 'lodash';
 
 export default {
   bodyClass: "landing-page",
@@ -324,6 +327,8 @@ export default {
       doc: '',
       sex: '',
       deficiency: [],
+      files: [],
+      uploadFiles: [],
       documento: 'imagem.jpeg',
       my_file: [],
 
@@ -406,8 +411,56 @@ export default {
       // if (event) {
       //   alert(event.target.tagName)
       // }
+    handleFileUpload(elementRef) {    
+      const file = this.$refs[elementRef].files
 
-    // },
+      this.uploadFiles = [...this.uploadFiles, ...file]
+
+      this.files = [
+        ...this.files,
+        ..._.map(file, file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          invalidMessage: this.validate(file) //TODO: usar isso pra mostrar msg de erro no form
+        }))
+      ]
+      // console.log(this.files)
+      
+    },
+
+    validate(file) {
+      const MAX_SIZE = 200000;
+      const allowedTypes = ["image/png", "image/jpeg", "application/pdf"]
+
+      if (file.size > MAX_SIZE) {
+        return `Max size: ${MAX_SIZE/1000}Kb`
+      }
+
+      if (!allowedTypes.includes(file.type)) {
+        return "File type not allowed"
+      }
+
+      return ""
+    },
+    async sendFile() {
+      const formData = new FormData()
+      _.forEach(this.uploadFiles, file => {
+        if (this.validate(file) === "") {
+         formData.append('files', file) 
+        }
+      })
+
+      try {
+        await axios.post('http://localhost:3000/upload', formData)
+        console.log('req sent.')
+        this.files = [];
+        this.uploadFiles = [];
+      } catch (error) {
+        console.log(error)
+      }
+      
+    }
 
     // formSubmit: function(event) {
       // @submit.prevent="formSubmit" no form
