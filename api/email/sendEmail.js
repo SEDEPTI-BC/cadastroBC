@@ -1,18 +1,43 @@
+require("dotenv").config();
 const fs = require("fs");
 const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 const mailer = async function(emailAddress, files) {
-  // create reusable transporter object using the default SMTP transport
+  const oauth2Client = new OAuth2(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "https://developers.google.com/oauthplayground"
+  );
+
+  oauth2Client.setCredentials({
+    refresh_token: process.env.REFRESH_TOKEN,
+  });
+
+  const accessToken = await new Promise((resolve, reject) => {
+    oauth2Client.getAccessToken((err, token) => {
+      if (err) {
+        reject("Failed to create access token :(");
+      }
+      resolve(token);
+    });
+  });
 
   console.log("creating transporter...");
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    service: "gmail",
+    // host: "smtp.gmail.com",
+    // port: 587,
+    // secure: false, // true for 465, false for other ports
     auth: {
-      user: "sedepti.devs@gmail.com",
-      pass: "suporte@sedepti",
-    },
+      type: "OAuth2",
+      user: process.env.EMAIL,
+      accessToken,
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN
+    }
   });
 
   // let attachmentsObject = {};
