@@ -4,6 +4,8 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const handlebars = require("handlebars");
+const rootDir = require("../util/path");
+const path = require("path");
 
 const mailer = async function(emailAddress, files, userData) {
 
@@ -76,7 +78,7 @@ const mailer = async function(emailAddress, files, userData) {
   const attachments = files.map((fileName) => {
     return {
       filename: fileName,
-      path: "uploads/" + fileName,
+      path: path.join(rootDir, "uploads", fileName)
     };
   });
 
@@ -99,7 +101,7 @@ const mailer = async function(emailAddress, files, userData) {
       // }
 
       files.forEach((file) => {
-        fs.unlink(`uploads/${file}`, (err) => {
+        fs.unlink(path.join(rootDir, "uploads", file), (err) => {
           if (err) {
             console.error(err);
           } else {

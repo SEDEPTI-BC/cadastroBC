@@ -248,7 +248,7 @@
                         <i>{{ submitted.user_name }}</i>
                         <b>{{ submitted.user_email }}</b>
                       </p> -->
-                    <!-- <br />
+                    <br />
                     <br />
                     <label
                       >Foto de perfil (3x4)*
@@ -273,7 +273,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit"  value="Send" @click="checkForm" ref="google.com" 
+                    <md-button class="md-success" type="submit"  value="Send" @click="sendFile" ref="google.com" 
                       >Enviar cadastro</md-button
                     >
                   </div>
