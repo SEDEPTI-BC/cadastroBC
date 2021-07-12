@@ -273,7 +273,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit"  value="Send" @click="sendFile" ref="google.com" 
+                    <md-button class="md-success" type="submit"  value="Send" @click="sendForm" ref="google.com" 
                       >Enviar cadastro</md-button
                     >
                   </div>
@@ -443,13 +443,27 @@ export default {
 
       return ""
     },
-    async sendFile() {
+    async sendForm() {
       const formData = new FormData()
+
       _.forEach(this.uploadFiles, file => {
         if (this.validate(file) === "") {
          formData.append('files', file) 
         }
       })
+
+      //TODO: Verificar se o form é valido antes do resto do codigo.
+      formData.append("user_name", this.user_name)
+      formData.append("socialName", this.socialName)
+      formData.append("address", this.address)
+      formData.append("userEmail", this.user_email)
+      formData.append("contact", this.contact)
+      formData.append("cpf", this.CPF)
+      formData.append("date", this.date)
+      formData.append("nationality", this.nationality)
+      formData.append("doc", this.doc)
+      formData.append("sex", this.sex)
+      formData.append("deficiency", this.deficiency)
 
       try {
         await axios.post('http://localhost:3000/upload', formData)

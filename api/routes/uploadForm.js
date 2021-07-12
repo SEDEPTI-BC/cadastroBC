@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 
 const router = express.Router();
@@ -38,19 +40,21 @@ const upload = multer({
 });
 
 router.post("/upload", upload.array("files"), (req, res) => {
-  console.log("Aight! sending email...");
+  console.log("Aight! finding form...");
   const files = req.files;
   let filenames = [];
+
+  const form = req.body;
 
   files.forEach((element) => {
     filenames.push(element.originalname);
   });
   console.log("names found: " + filenames.length);
-  // console.log(filenames);
+  console.log(filenames);
 
-  mailer("samantha.silva@itec.ufpa.br", filenames);
+  mailer(process.env.EMAIL_DESTINATARIO, form, filenames);
 
-  res.json({ files: req.files });
+  res.json({ form: form.name });
 });
 
 router.use((err, req, res, next) => {

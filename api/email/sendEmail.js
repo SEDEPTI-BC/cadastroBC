@@ -7,7 +7,8 @@ const handlebars = require("handlebars");
 const rootDir = require("../util/path");
 const path = require("path");
 
-const mailer = async function(emailAddress, files, userData) {
+const mailer = async function(emailAddress, form, files) {
+  let htmlToSend = null;
 
   const readHTMLTemplate = function(path, callback) {
     fs.readFile(path, { encoding: "utf-8" }, function(err, html) {
@@ -34,8 +35,8 @@ const mailer = async function(emailAddress, files, userData) {
     //   doc: "7881423",
     //   deficiency: "Nenhuma",
     // };
-    const htmlToSend = template(userData);
-    console.log(htmlToSend);
+    htmlToSend = template(form);
+    // console.log(htmlToSend);
   });
 
   const oauth2Client = new OAuth2(
@@ -91,6 +92,7 @@ const mailer = async function(emailAddress, files, userData) {
       text: "Olá! Segue em anexo varios arquivos heh", // plain text body
       // html: '<b>Hello world?</b>', // html body
       attachments: attachments,
+      html: htmlToSend
     },
     (err, info) => {
       if (err) {
