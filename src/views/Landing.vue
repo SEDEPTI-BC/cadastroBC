@@ -76,10 +76,20 @@
                     </md-field>
                   </div>
                 </div>
-                <md-field maxlength="5">
-                  <label>Seu email *</label>
-                  <md-input v-model="user_email" name="user_email" type="email"></md-input>
-                </md-field>
+                <div class="md-layout">
+                  <div class="md-layout-item md-size-50">
+                    <md-field maxlength="5">
+                      <label>Seu email *</label>
+                      <md-input v-model="user_email" name="user_email" type="email"></md-input>
+                    </md-field>
+                  </div>
+                   <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label >Informe seu sexo*</label>
+                      <md-input v-model="sex" name="sex" type="text"></md-input>
+                    </md-field>
+                  </div>
+                </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
@@ -143,35 +153,6 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <br />
-                    <label>Sexo</label>
-                    <br />
-                    <md-radio
-                      type="radio"
-                      id="one"
-                      value="feminino"
-                      v-model="sex"
-                      name="sex"
-                    />
-                    <label for="one">Feminino</label><br>
-                    <md-radio
-                      type="radio"
-                      id="two"
-                      value="masculino"
-                      v-model="sex"
-                      name="sex"
-                    />
-                    <label for="two">Masculino</label><br>
-                    <md-radio
-                      type="radio"
-                      id="three"
-                      value="outros"
-                      v-model="sex"
-                      name="sex"
-                    />
-                    <label for="three">Outros</label>
-                  </div>
-                  <div class="md-layout-item md-size-50">
-                    <br />
                     <label>Deficiência</label>
                     <br />
                     <div id="example-3">
@@ -232,9 +213,6 @@
                       <!-- <span>Nomes assinalados: {{ deficiency }}</span> -->
                     </div>
                   </div>
-                </div>
-                <br />
-                <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <label
                       >Documento de identificação*
@@ -269,7 +247,11 @@
                       />
                     </label>
                   </div>
+                  
                 </div>
+               
+                <br />
+                
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
@@ -288,7 +270,7 @@
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
+
 import axios from 'axios';
 import _ from 'lodash';
 
