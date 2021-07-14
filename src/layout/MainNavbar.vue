@@ -34,7 +34,7 @@
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
                 >
-                  <div class="md-list-item-content">
+                  <!-- <div class="md-list-item-content">
                     <drop-down direction="down">
                       <md-button
                         slot="title"
@@ -59,7 +59,7 @@
                         </li>
                       </ul>
                     </drop-down>
-                  </div>
+                  </div> -->
                 </a>
               </li>
 
@@ -86,7 +86,7 @@
                   href="javascript:void(0)"
                   class="md-list-item-router md-list-item-container md-button-clean dropdown"
                 >
-                  <div class="md-list-item-content">
+                  <!-- <div class="md-list-item-content">
                     <drop-down direction="down">
                       <md-button
                         slot="title"
@@ -117,7 +117,7 @@
                         </li>
                       </ul>
                     </drop-down>
-                  </div>
+                  </div> -->
                 </a>
               </li>
 
