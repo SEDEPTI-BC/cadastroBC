@@ -64,6 +64,7 @@
                       <md-input
                         v-model="user_name"
                         id="name"
+                        required=""
                         name="user_name"
                         type="text"
                       ></md-input>
@@ -72,7 +73,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label >Seu nome social</label>
-                      <md-input v-model="socialName" name="socialName" type="text"></md-input>
+                      <md-input v-model="socialName" required="" name="socialName" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
