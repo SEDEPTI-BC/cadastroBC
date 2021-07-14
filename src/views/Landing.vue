@@ -60,7 +60,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Seu nome *</label>
+                      <label>Seu nome </label>
                       <md-input
                         v-model="user_name"
                         id="name"
@@ -73,15 +73,15 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label >Seu nome social</label>
-                      <md-input v-model="socialName" required="" name="socialName" type="text"></md-input>
+                      <md-input v-model="socialName" name="socialName" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Seu email *</label>
-                      <md-input v-model="user_email" name="user_email" type="email"></md-input>
+                      <label>Seu email</label>
+                      <md-input v-model="user_email" required="" name="user_email" type="email"></md-input>
                     </md-field>
                   </div>
                    <div class="md-layout-item md-size-50">
@@ -145,7 +145,7 @@
                     <md-field maxlength="5">
                       <label>Documentação de identificação com foto * </label>
                       <md-select v-model="doc" name="doc" type="text">
-                        <md-option value="id">Carteira de identidade</md-option>
+                        <md-option value="Carteira de identidade">Carteira de identidade</md-option>
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
                       </md-select>
                     </md-field>
@@ -439,9 +439,9 @@ export default {
       formData.append("user_name", this.user_name)
       formData.append("socialName", this.socialName)
       formData.append("address", this.address)
-      formData.append("userEmail", this.user_email)
+      formData.append("user_email", this.user_email)
       formData.append("contact", this.contact)
-      formData.append("cpf", this.CPF)
+      formData.append("CPF", this.CPF)
       formData.append("date", this.date)
       formData.append("nationality", this.nationality)
       formData.append("doc", this.doc)
