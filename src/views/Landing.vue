@@ -62,6 +62,8 @@
                     <md-field>
                       <label>Seu nome </label>
                       <md-input
+                        style="text-transform: capitalize;"
+                        class="name"
                         v-model="user_name"
                         id="name"
                         required=""
@@ -215,9 +217,26 @@
                     </div>
                   </div>
                   <div class="md-layout-item md-size-50">
-                    <label
+                    <br>
+                    <label style="
+                      width: 130px;
+                      margin-top: 100px;
+                      text-align: center;
+                      box-sizing: border-box;
+                      border: 2px solid #ccc;
+                      border-radius: 4px;
+                      font-size: 13px;
+                      background-color: white;
+                      background-position: 10px 10px; 
+                      background-repeat: no-repeat;
+                      padding: 12px 20px 12px 20px;
+                      transition: width 0.4s ease-in-out;
+                      cursor: pointer;"
+                      
                       >Documento de identificação*
                       <input
+                        style="display: none "
+                        required=''
                         type="file"
                         ref="fileID"
                         v-on:change="handleFileUpload('fileID')"
@@ -229,9 +248,19 @@
                       </p> -->
                     <br />
                     <br />
-                    <label
+                    <label style="padding: 10px 20px;
+                      width: 300px;
+                      background-color:#3CB371;
+                      color:#fff;
+                      
+                      text-align: center;
+                      display: inline-block;
+                      margin-top: 0px;
+                      cursor: pointer;
+                      border-radius: 10px;"
                       >Foto de perfil (3x4)*
                       <input
+                      style="display: ;"
                         type="file"
                         ref="fileProfile"
                         v-on:change="handleFileUpload('fileProfile')"
@@ -239,9 +268,18 @@
                     </label>
                     <br />
                     <br />
-                    <label
+                    <label style="padding: 10px 20px;
+                      width: 300px;
+                      background-color: #3CB371;
+                      color: #FFF;
+                      text-align: center;
+                      display: inline-block;
+                      margin-top: 0px;
+                      cursor: pointer;
+                      border-radius: 10px;"
                       >Atestado de matrícula*
                       <input
+                        style="display: none;"
                         type="file"
                         ref="fileMat"
                         v-on:change="handleFileUpload('fileMat')"
@@ -312,13 +350,10 @@ export default {
       deficiency: [],
       files: [],
       uploadFiles: [],
-      documento: 'imagem.jpeg',
+
       my_file: [],
 
-      submitted: {
-        user_name: '',
-        user_email: ''
-      }
+      
     };
   },
   computed: {
@@ -395,6 +430,7 @@ export default {
       //   alert(event.target.tagName)
       // }
     handleFileUpload(elementRef) {    
+      // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
       const file = this.$refs[elementRef].files
 
       this.uploadFiles = [...this.uploadFiles, ...file]
@@ -484,4 +520,7 @@ export default {
 .md-has-textarea + .md-layout {
   margin-top: 15px;
 }
+
+
+
 </style>
