@@ -315,7 +315,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/bg7.jpg")
+      default: require("@/assets/img/cabecalho.png")
     },
     teamImg1: {
       type: String,
@@ -374,58 +374,10 @@ export default {
       if (!this.user_email) {
         this.errors.push("Seu email é obrigatório.");
       }
-      
-
-  
-      // if (!this.address) {
-      //   this.errors.push("Seu endereço é obrigatório.");
-      // }
-      // if (!this.contact) {
-      //   this.errors.push("Seu contato é obrigatório.");
-      // }
-      // if (!this.date) {
-      //   this.errors.push("A data de nascimento é obrigatória.");
-      // }
-      // if (!this.CPF) {
-      //   this.errors.push("CPF é obrigatório.");
-      // }
-      // if (!this.nationality) {
-      //   this.errors.push("Sua nacionalidade é obrigatória.");
-      // }
-      // if (!this.doc) {
-      //   this.errors.push("Seu documento de identificação é obrigatório.");
-      // }
-      // if (!this.sex) {
-      //   this.errors.push("Informe o seu sexo");
-      // }
-      
-      
-      
-      
-
       e.preventDefault();
     },
-    // submit: function (event) {
-    //@click.prevent="submit" no button
-    //   if (!this.user_name ){
-    //     alert('Por favor, preencha todos os dados obrigatórios')
-    //   }
-    //   const name = this.user_name.split(' ').length >= 2 
-    //   if (!name) {
-    //     alert ('Digite seu nome completo')
-    //   }
-        
-      // if (!this.date){
-      //   alert('Por favor, digite a data de seu nascimento')
-      // }
-      // if (!this.email){
-      //   alert('Por favor, digite seu email')
-      // }
-      // alert('Olá ' + this.name + '!')
-      // // `event` é o evento DOM nativo
-      // if (event) {
-      //   alert(event.target.tagName)
-      // }
+    
+
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
       const file = this.$refs[elementRef].files
