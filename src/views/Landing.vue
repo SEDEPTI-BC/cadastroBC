@@ -6,11 +6,8 @@
           <div
             class="md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
           >
-            <h1 class="title">Faça seu cadastro/pré-cadastro.</h1>
+            <h1 class="title"></h1>
             <h4>
-              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
-              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto
-              TextoTextoTextoTextoTextoTextoTextoTextoTextoTexto TextoTextoTexto
             </h4>
             <br />
           </div>
