@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    proxy: "http://localhost:3000"
+    proxy: "http://10.7.2.72:6013"
   },
   css: {
     loaderOptions: {
