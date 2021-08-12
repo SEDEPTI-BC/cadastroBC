@@ -42,7 +42,8 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
               </h4>
-              <form class="contact-form" enctype="multipart/form-data">
+
+              <form class="contact-form" @submit="checkForm" enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -85,21 +86,21 @@
                   </div>
                    <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label >Informe seu sexo*</label>
-                      <md-input v-model="sex" name="sex" type="text"></md-input>
+                      <label >Informe seu sexo</label>
+                      <md-input v-model="sex" required="" name="sex" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Endereço completo *</label>
+                      <label>Endereço completo </label>
                       <md-input v-model="address" name="address" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Número para contato (DDD + número)* </label>
+                      <label>Número para contato (DDD + número)</label>
                       <md-input
                         v-model="contact"
                         name="contact"
@@ -112,7 +113,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Data de nascimento *</label>
+                      <label>Data de nascimento </label>
                       <md-input
                         v-model="date"
                         name="date"
@@ -123,7 +124,7 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>CPF * </label>
+                      <label>CPF  </label>
                       <md-input
                         v-model="CPF"
                         name="CPF"
@@ -136,13 +137,13 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Nacionalidade *</label>
+                      <label>Nacionalidade </label>
                       <md-input v-model="nationality" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Documentação de identificação com foto * </label>
+                      <label>Documentação de identificação com foto  </label>
                       <md-select v-model="doc" name="doc" type="text">
                         <md-option value="Carteira de identidade">Carteira de identidade</md-option>
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
@@ -230,10 +231,10 @@
                       transition: width 0.4s ease-in-out;
                       cursor: pointer;"
                       
-                      >Documento de identificação*
+                      >Documento de identificação
                       <input
                         style="display: none "
-                        required=''
+                        required=""
                         type="file"
                         ref="fileID"
                         v-on:change="handleFileUpload('fileID')"
@@ -255,10 +256,11 @@
                       margin-top: 0px;
                       cursor: pointer;
                       border-radius: 10px;"
-                      >Foto de perfil (3x4)*
+                      >Foto de perfil (3x4)
                       <input
                       style="display: ;"
                         type="file"
+                        required=""
                         ref="fileProfile"
                         v-on:change="handleFileUpload('fileProfile')"
                       />
@@ -274,10 +276,11 @@
                       margin-top: 0px;
                       cursor: pointer;
                       border-radius: 10px;"
-                      >Atestado de matrícula*
+                      >Atestado de matrícula
                       <input
                         style="display: none;"
                         type="file"
+                        required=""
                         ref="fileMat"
                         v-on:change="handleFileUpload('fileMat')"
                       />
@@ -347,10 +350,7 @@ export default {
       deficiency: [],
       files: [],
       uploadFiles: [],
-
       my_file: [],
-
-      
     };
   },
   computed: {
@@ -376,8 +376,19 @@ export default {
       }
       e.preventDefault();
     },
-    
-
+    submit: function (event) {
+    // @click.prevent="submit" no button
+      if (!this.user_name ){
+        alert('Por favor, preencha todos os dados obrigatórios')
+      }
+      const name = this.user_name.split(' ').length >= 2 
+      if (!name) {
+        alert ('Digite seu nome completo')
+      }
+      if (form.checkValidity()) {
+        alert("Adding Succesful!");
+      }
+     },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
 
@@ -414,6 +425,13 @@ export default {
     },
     async sendForm() {
       const formData = new FormData()
+      if (form.checkValidity()){
+        _.forEach(this.uploadFiles, file => {
+          if (this.validate(file) === "") {
+          formData.append('files', file) 
+          }
+        })
+
 
       _.forEach(this.uploadFiles, file => {
         if (this.validate(file) === "") {
@@ -424,6 +442,7 @@ export default {
       
 
       try {
+        //TODO: Verificar se o form é valido antes do resto do codigo.
         formData.append("user_name", this.user_name)
         formData.append("socialName", this.socialName)
         formData.append("address", this.address)
@@ -435,6 +454,7 @@ export default {
         formData.append("doc", this.doc)
         formData.append("sex", this.sex)
         formData.append("deficiency", this.deficiency)
+
         console.log(formData);
         await axios.post('http://localhost:3000/upload', formData)
         .then(function (response) {
@@ -453,7 +473,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-      
     }
 
     // formSubmit: function(event) {
