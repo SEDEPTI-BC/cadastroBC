@@ -484,8 +484,7 @@ export default {
       
     //   event.target.reset();
     // }
-  }
-};
+  }}}
 </script>
 
 <style lang="scss" scoped>
