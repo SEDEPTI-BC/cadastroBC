@@ -42,6 +42,7 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
               </h4>
+
               <form class="contact-form" @submit="checkForm" enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
@@ -293,7 +294,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit"  value="Send" @click="sendForm" ref="google.com" 
+                    <md-button class="md-success" @click="sendForm"  value="Send" 
                       >Enviar cadastro</md-button
                     >
                   </div>
@@ -309,7 +310,7 @@
 
 <script>
 
-import axios from 'axios';
+const axios = require('axios');
 import _ from 'lodash';
 
 export default {
@@ -390,6 +391,7 @@ export default {
      },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
+
       const file = this.$refs[elementRef].files
 
       this.uploadFiles = [...this.uploadFiles, ...file]
@@ -430,6 +432,16 @@ export default {
           }
         })
 
+
+      _.forEach(this.uploadFiles, file => {
+        if (this.validate(file) === "") {
+          console.log(file)
+          formData.append('files', file) 
+        }
+      })
+      
+
+      try {
         //TODO: Verificar se o form é valido antes do resto do codigo.
         formData.append("user_name", this.user_name)
         formData.append("socialName", this.socialName)
@@ -443,14 +455,23 @@ export default {
         formData.append("sex", this.sex)
         formData.append("deficiency", this.deficiency)
 
-        try {
-          await axios.post('http://localhost:3000/upload', formData)
+        console.log(formData);
+        await axios.post('http://localhost:3000/upload', formData)
+        .then(function (response) {
+
+          // handle success
           console.log('req sent.')
           this.files = [];
           this.uploadFiles = [];
-        } catch (error) {
-          console.log(error)
-        }
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        
+      } catch (error) {
+        console.log(error)
       }
     }
 
