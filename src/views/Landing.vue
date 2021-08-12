@@ -425,22 +425,11 @@ export default {
     },
     async sendForm() {
       const formData = new FormData()
-      if (form.checkValidity()){
         _.forEach(this.uploadFiles, file => {
           if (this.validate(file) === "") {
           formData.append('files', file) 
           }
-        })
-
-
-      _.forEach(this.uploadFiles, file => {
-        if (this.validate(file) === "") {
-          console.log(file)
-          formData.append('files', file) 
-        }
-      })
-      
-
+        })      
       try {
         //TODO: Verificar se o form é valido antes do resto do codigo.
         formData.append("user_name", this.user_name)
@@ -475,16 +464,8 @@ export default {
       }
     }
 
-    // formSubmit: function(event) {
-      // @submit.prevent="formSubmit" no form
-    //   this.submitted.user_name = this.user_name;
-    //   this.submitted.user_email = this.user_email;
-      
-    //   this.user_name = this.user_email = '';
-      
-    //   event.target.reset();
-    // }
-  }}}
+    
+  }}
 </script>
 
 <style lang="scss" scoped>
