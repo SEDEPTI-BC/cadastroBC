@@ -12,6 +12,8 @@ const rootDir = require("../util/path");
 
 const path = require("path");
 
+// const bodyParser = require("body-parser");
+
 const fileFilter = function(req, file, cb) {
   const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
 
@@ -36,25 +38,36 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  fileFilter,
+  fileFilter
 });
 
-router.post("/upload", upload.array("files"), (req, res) => {
-  console.log("Aight! finding form...");
+router.use(
+  express.urlencoded({
+    extended: true
+  })
+);
+
+router.use(express.json());
+
+router.get("/upload", (req, res, next) => {
+  res.send("Upload get route working!");
+});
+
+router.post("/upload", upload.array("files", 3), (req, res) => {
+  console.log("Aight! finding form files...");
   const files = req.files;
   let filenames = [];
 
   const form = req.body;
 
-  files.forEach((element) => {
+  files.forEach(element => {
     filenames.push(element.originalname);
   });
-  console.log("names found: " + filenames.length);
-  console.log(filenames);
+  console.log("files found: " + filenames.length);
 
   mailer(process.env.EMAIL_DESTINATARIO, form, filenames);
 
-  res.json({ form: form.name });
+  res.send({ form });
 });
 
 router.use((err, req, res, next) => {

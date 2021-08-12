@@ -42,7 +42,7 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
               </h4>
-              <form class="contact-form" @submit="checkForm" enctype="multipart/form-data">
+              <form class="contact-form" enctype="multipart/form-data">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -291,7 +291,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit"  value="Send" @click="sendForm" ref="google.com" 
+                    <md-button class="md-success" @click="sendForm"  value="Send" 
                       >Enviar cadastro</md-button
                     >
                   </div>
@@ -307,7 +307,7 @@
 
 <script>
 
-import axios from 'axios';
+const axios = require('axios');
 import _ from 'lodash';
 
 export default {
@@ -380,6 +380,7 @@ export default {
 
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
+
       const file = this.$refs[elementRef].files
 
       this.uploadFiles = [...this.uploadFiles, ...file]
@@ -416,28 +417,39 @@ export default {
 
       _.forEach(this.uploadFiles, file => {
         if (this.validate(file) === "") {
-         formData.append('files', file) 
+          console.log(file)
+          formData.append('files', file) 
         }
       })
-
-      //TODO: Verificar se o form é valido antes do resto do codigo.
-      formData.append("user_name", this.user_name)
-      formData.append("socialName", this.socialName)
-      formData.append("address", this.address)
-      formData.append("user_email", this.user_email)
-      formData.append("contact", this.contact)
-      formData.append("CPF", this.CPF)
-      formData.append("date", this.date)
-      formData.append("nationality", this.nationality)
-      formData.append("doc", this.doc)
-      formData.append("sex", this.sex)
-      formData.append("deficiency", this.deficiency)
+      
 
       try {
+        formData.append("user_name", this.user_name)
+        formData.append("socialName", this.socialName)
+        formData.append("address", this.address)
+        formData.append("user_email", this.user_email)
+        formData.append("contact", this.contact)
+        formData.append("CPF", this.CPF)
+        formData.append("date", this.date)
+        formData.append("nationality", this.nationality)
+        formData.append("doc", this.doc)
+        formData.append("sex", this.sex)
+        formData.append("deficiency", this.deficiency)
+        console.log(formData);
         await axios.post('http://localhost:3000/upload', formData)
-        console.log('req sent.')
-        this.files = [];
-        this.uploadFiles = [];
+        .then(function (response) {
+
+          // handle success
+          console.log('req sent.')
+          this.files = [];
+          this.uploadFiles = [];
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        
       } catch (error) {
         console.log(error)
       }
