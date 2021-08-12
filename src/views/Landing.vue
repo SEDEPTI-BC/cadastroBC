@@ -317,7 +317,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/bg7.jpg")
+      default: require("@/assets/img/cabecalho.png")
     },
     teamImg1: {
       type: String,
@@ -387,11 +387,7 @@ export default {
       if (form.checkValidity()) {
         alert("Adding Succesful!");
       }
-      // alert('Olá ' + this.name + '!')
-      // // `event` é o evento DOM nativo
-      // if (event) {
-      //   alert(event.target.tagName)
-      },
+     },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
       const file = this.$refs[elementRef].files
