@@ -43,7 +43,7 @@
                 formulário.
               </h4>
 
-              <form class="contact-form" @submit="checkForm" enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);">
+              <form class="contact-form" @submit="checkForm"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -151,6 +151,7 @@
                     </md-field>
                   </div>
                 </div>
+                <br>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <br />
@@ -211,54 +212,30 @@
                       />
                       <label for="mike">Dislexia</label>
                       <br />
-                      <!-- <span>Nomes assinalados: {{ deficiency }}</span> -->
+                      
                     </div>
                   </div>
+                  
                   <div class="md-layout-item md-size-50">
                     <br>
-                    <label style="
-                      width: 130px;
-                      margin-top: 100px;
-                      text-align: center;
-                      box-sizing: border-box;
-                      border: 2px solid #ccc;
-                      border-radius: 4px;
-                      font-size: 13px;
-                      background-color: white;
-                      background-position: 10px 10px; 
-                      background-repeat: no-repeat;
-                      padding: 12px 20px 12px 20px;
-                      transition: width 0.4s ease-in-out;
-                      cursor: pointer;"
-                      
+                    <label class="label-file" 
                       >Documento de identificação
                       <input
                         style="display: none "
                         required=""
+                        @change="onFileChange"
                         type="file"
                         ref="fileID"
                         v-on:change="handleFileUpload('fileID')"
                       />
                     </label>
-                      <!-- <p>
-                        <i>{{ submitted.user_name }}</i>
-                        <b>{{ submitted.user_email }}</b>
-                      </p> -->
+                    <span>{{fileName}}</span>
+                    <br>
                     <br />
-                    <br />
-                    <label style="padding: 10px 20px;
-                      width: 300px;
-                      background-color:#3CB371;
-                      color:#fff;
-                      
-                      text-align: center;
-                      display: inline-block;
-                      margin-top: 0px;
-                      cursor: pointer;
-                      border-radius: 10px;"
+                    <label class="label-file"
                       >Foto de perfil (3x4)
                       <input
-                      style="display: ;"
+                      style="display: none"
                         type="file"
                         required=""
                         ref="fileProfile"
@@ -267,15 +244,7 @@
                     </label>
                     <br />
                     <br />
-                    <label style="padding: 10px 20px;
-                      width: 300px;
-                      background-color: #3CB371;
-                      color: #FFF;
-                      text-align: center;
-                      display: inline-block;
-                      margin-top: 0px;
-                      cursor: pointer;
-                      border-radius: 10px;"
+                    <label class="label-file"
                       >Atestado de matrícula
                       <input
                         style="display: none;"
@@ -294,7 +263,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-33 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" @click="sendForm"  value="Send" 
+                    <md-button class="md-success" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
                       >Enviar cadastro</md-button
                     >
                   </div>
@@ -347,7 +316,9 @@ export default {
       nationality: '',
       doc: '',
       sex: '',
+      okay:'',
       deficiency: [],
+      fileName:'',
       files: [],
       uploadFiles: [],
       my_file: [],
@@ -358,14 +329,14 @@ export default {
       return {
         backgroundImage: `url(${this.header})`
       };
-    }
+    },
+    isComplete () {
+    return this.user_name && this.user_email;
+  }
   },
   methods: {
     checkForm: function(e) {
       
-      if (this.user_name && this.address && this.date && this.CPF && this.nationality && this.contact && this.user_email && this.doc && this.sex) {
-        return true; 
-      }
       this.errors = [];
 
       if (!this.user_name) {
@@ -385,9 +356,7 @@ export default {
       if (!name) {
         alert ('Digite seu nome completo')
       }
-      if (form.checkValidity()) {
-        alert("Adding Succesful!");
-      }
+      
      },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
@@ -425,11 +394,11 @@ export default {
     },
     async sendForm() {
       const formData = new FormData()
-        _.forEach(this.uploadFiles, file => {
-          if (this.validate(file) === "") {
-          formData.append('files', file) 
-          }
-        })      
+      _.forEach(this.uploadFiles, file => {
+        if (this.validate(file) === "") {
+        formData.append('files', file) 
+        }
+      })      
       try {
         //TODO: Verificar se o form é valido antes do resto do codigo.
         formData.append("user_name", this.user_name)
@@ -459,13 +428,16 @@ export default {
           console.log(error);
         })
         
-      } catch (error) {
-        console.log(error)
-      }
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      onFileChange(event){
+      var fileData =  event.target.files[0];
+      this.fileName=fileData.name;
+      },
     }
-
-    
-  }}
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -479,6 +451,22 @@ export default {
 
 .md-has-textarea + .md-layout {
   margin-top: 15px;
+}
+
+.label-file{
+  width: 130px;
+  margin-top: 200px;
+  text-align: center;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 20px;
+  transition: width 0.4s ease-in-out;
+  cursor: pointer;
 }
 
 
