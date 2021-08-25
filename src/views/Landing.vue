@@ -21,7 +21,7 @@
       <div class="section section-contacts">
         <div class="container">
           <div class="md-layout">
-            <div class="md-layout-item md-size-66 md-xsmall-size-100 mx-auto">
+            <div class="md-layout-item md-size-70 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Pré-cadastro/Cadastro</h2>
               <h4 class="text-center description">
                 Formulário de solicitação para pré-cadastro/recadastro online.
@@ -95,7 +95,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Endereço completo </label>
-                      <md-input v-model="address" name="address" type="text"></md-input>
+                      <md-input v-model="address" required="" name="address" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
@@ -104,6 +104,7 @@
                       <md-input
                         v-model="contact"
                         name="contact"
+                        required=""
                         type="text"
                         v-mask="'(##)#####-####'"
                       ></md-input>
@@ -117,6 +118,7 @@
                       <md-input
                         v-model="date"
                         name="date"
+                        required=""
                         type="text"
                         v-mask="'##/##/####'"
                       ></md-input>
@@ -128,6 +130,7 @@
                       <md-input
                         v-model="CPF"
                         name="CPF"
+                        required=""
                         type="text"
                         v-mask="'###.###.###-##'"
                       ></md-input>
@@ -138,13 +141,13 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Nacionalidade </label>
-                      <md-input v-model="nationality" name="nationality" type="text"></md-input>
+                      <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
                       <label>Documentação de identificação com foto  </label>
-                      <md-select v-model="doc" name="doc" type="text">
+                      <md-select v-model="doc" required="" name="doc" type="text">
                         <md-option value="Carteira de identidade">Carteira de identidade</md-option>
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
                       </md-select>
@@ -153,8 +156,8 @@
                 </div>
                 <br>
                 <div class="md-layout">
-                  <div class="md-layout-item md-size-50">
-                    <br />
+                  <div class="md-layout-item md-size-50 md-small-size-100">
+                    
                     <label>Deficiência</label>
                     <br />
                     <div id="example-3">
@@ -216,44 +219,49 @@
                     </div>
                   </div>
                   
-                  <div class="md-layout-item md-size-50">
+                  <div class="md-layout-item md-size-50 md-small-size-100">
+                    <div class="md-layout-item md-size-100">
+                      <span>Doumento de identificação</span>
+                      <br>
+                      <label class="label-file" 
+                        >{{fileName}}
+                        <input
+                          style="display: none "
+                          required=""
+                          @change="onFileChange"
+                          type="file"
+                          ref="fileID"
+                          v-on:change="handleFileUpload('fileID')"
+                        />
+                      </label>
+                      <!-- <span>{{fileName}}</span> -->
+                    </div>
                     <br>
-                    <label class="label-file" 
-                      >Documento de identificação
-                      <input
-                        style="display: none "
-                        required=""
-                        @change="onFileChange"
-                        type="file"
-                        ref="fileID"
-                        v-on:change="handleFileUpload('fileID')"
-                      />
-                    </label>
-                    <span>{{fileName}}</span>
+                    <div class="md-layout-item md-size-100">
+                      <label class="label-file"
+                        >Foto de perfil (3x4)
+                        <input
+                        style="display: none"
+                          type="file"
+                          required=""
+                          ref="fileProfile"
+                          v-on:change="handleFileUpload('fileProfile')"
+                        />
+                      </label>
+                    </div>
                     <br>
-                    <br />
-                    <label class="label-file"
-                      >Foto de perfil (3x4)
-                      <input
-                      style="display: none"
-                        type="file"
-                        required=""
-                        ref="fileProfile"
-                        v-on:change="handleFileUpload('fileProfile')"
-                      />
-                    </label>
-                    <br />
-                    <br />
-                    <label class="label-file"
-                      >Atestado de matrícula
-                      <input
-                        style="display: none;"
-                        type="file"
-                        required=""
-                        ref="fileMat"
-                        v-on:change="handleFileUpload('fileMat')"
-                      />
-                    </label>
+                    <div class="md-layout-item md-size-100">
+                      <label class="label-file"
+                        >Atestado de matrícula
+                        <input
+                          style="display: none;"
+                          type="file"
+                          required=""
+                          ref="fileMat"
+                          v-on:change="handleFileUpload('fileMat')"
+                        />
+                      </label>
+                    </div>
                   </div>
                   
                 </div>
@@ -318,7 +326,7 @@ export default {
       sex: '',
       okay:'',
       deficiency: [],
-      fileName:'',
+      fileName:'Identidade',
       files: [],
       uploadFiles: [],
       my_file: [],
@@ -331,7 +339,7 @@ export default {
       };
     },
     isComplete () {
-    return this.user_name && this.user_email;
+    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.sex;
   }
   },
   methods: {
@@ -454,7 +462,7 @@ export default {
 }
 
 .label-file{
-  width: 130px;
+  width: 100px;
   margin-top: 200px;
   text-align: center;
   box-sizing: border-box;
@@ -464,9 +472,15 @@ export default {
   background-color: white;
   background-position: 10px 10px; 
   background-repeat: no-repeat;
-  padding: 12px 20px 12px 20px;
+  padding: 12px 10px 12px 10px;
   transition: width 0.4s ease-in-out;
   cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .md-layout{
+    display: flex;
+  }
 }
 
 
