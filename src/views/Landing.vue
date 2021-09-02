@@ -106,6 +106,7 @@
                         name="contact"
                         required=""
                         type="text"
+                      
                         v-mask="'(##)#####-####'"
                       ></md-input>
                     </md-field>
@@ -132,6 +133,7 @@
                         name="CPF"
                         required=""
                         type="text"
+                        
                         v-mask="'###.###.###-##'"
                       ></md-input>
                     </md-field>
@@ -339,7 +341,7 @@ export default {
       };
     },
     isComplete () {
-    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.sex;
+    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file;
   }
   },
   methods: {
