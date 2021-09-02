@@ -95,7 +95,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Endereço completo </label>
-                      <md-input v-model="address" name="address" type="text"></md-input>
+                      <md-input v-model="address" required="" name="address" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
@@ -105,6 +105,7 @@
                         v-model="contact"
                         name="contact"
                         type="text"
+                        required=""
                         v-mask="'(##)#####-####'"
                       ></md-input>
                     </md-field>
@@ -117,6 +118,7 @@
                       <md-input
                         v-model="date"
                         name="date"
+                        required=""
                         type="text"
                         v-mask="'##/##/####'"
                       ></md-input>
@@ -129,6 +131,7 @@
                         v-model="CPF"
                         name="CPF"
                         type="text"
+                        required=""
                         v-mask="'###.###.###-##'"
                       ></md-input>
                     </md-field>
@@ -138,7 +141,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label>Nacionalidade </label>
-                      <md-input v-model="nationality" name="nationality" type="text"></md-input>
+                      <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50">
@@ -331,7 +334,7 @@ export default {
       };
     },
     isComplete () {
-    return this.user_name && this.user_email;
+    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file;
   }
   },
   methods: {
