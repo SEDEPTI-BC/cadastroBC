@@ -106,7 +106,7 @@
                         name="contact"
                         required=""
                         type="text"
-                        required=""
+                      
                         v-mask="'(##)#####-####'"
                       ></md-input>
                     </md-field>
@@ -133,7 +133,7 @@
                         name="CPF"
                         required=""
                         type="text"
-                        required=""
+                        
                         v-mask="'###.###.###-##'"
                       ></md-input>
                     </md-field>
