@@ -21,7 +21,7 @@
       <div class="section section-contacts">
         <div class="container">
           <div class="md-layout">
-            <div class="md-layout-item md-size-70 md-xsmall-size-100 mx-auto">
+            <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Pré-cadastro/Cadastro</h2>
               <h4 class="text-center description">
                 Formulário de solicitação para pré-cadastro/recadastro online.
@@ -100,7 +100,7 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Número para contato (DDD + número)</label>
+                      <p><label class="desktop">Número para contato(DDD + número)</label><label class="mobile">Número para contato</label></p>
                       <md-input
                         v-model="contact"
                         name="contact"
@@ -144,7 +144,7 @@
                       <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
-                  <div class="md-layout-item md-size-50">
+                  <div class="md-layout-item md-size-50 mx-auto desktop">
                     <md-field maxlength="5">
                       <label>Documentação de identificação com foto  </label>
                       <md-select v-model="doc" required="" name="doc" type="text">
@@ -156,7 +156,7 @@
                 </div>
                 <br>
                 <div class="md-layout">
-                  <div class="md-layout-item md-size-50 md-small-size-100">
+                  <div class="md-layout-item md-size-50 md-small-size-100 desktop">
                     
                     <label>Deficiência</label>
                     <br />
@@ -219,12 +219,23 @@
                     </div>
                   </div>
                   
+                  <!-- Doumento mobile -->
+                  <div class="md-layout-item mobile" >
+                    <md-field maxlength="5">
+                      <label>Documentação de identificação com foto</label>
+                      <md-select v-model="doc" required="" name="doc" type="text">
+                        <md-option value="Carteira de identidade">Carteira de identidade</md-option>
+                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
+                      </md-select>
+                    </md-field>
+                  </div>
                   <div class="md-layout-item md-size-50 md-small-size-100">
+                    <span class="inputButton">Documentos de identificação</span>
                     <div class="md-layout-item md-size-100">
-                      <span>Doumento de identificação</span>
+                      
                       <br>
                       <label class="label-file" 
-                        >{{fileName}}
+                        >{{doc}} {{fileName}}
                         <input
                           style="display: none "
                           required=""
@@ -239,10 +250,11 @@
                     <br>
                     <div class="md-layout-item md-size-100">
                       <label class="label-file"
-                        >Foto de perfil (3x4)
+                        >Foto de perfil(3x4) {{fileName1}}
                         <input
                         style="display: none"
                           type="file"
+                          @change="onFileChange1"
                           required=""
                           ref="fileProfile"
                           v-on:change="handleFileUpload('fileProfile')"
@@ -251,11 +263,12 @@
                     </div>
                     <br>
                     <div class="md-layout-item md-size-100">
-                      <label class="label-file"
-                        >Atestado de matrícula
+                      <label class="label-file md-size-200"
+                        >Atestado de matrícula {{fileName2}}
                         <input
                           style="display: none;"
                           type="file"
+                          @change="onFileChange2" 
                           required=""
                           ref="fileMat"
                           v-on:change="handleFileUpload('fileMat')"
@@ -263,13 +276,84 @@
                       </label>
                     </div>
                   </div>
-                  
                 </div>
+                <br>
+
+                <!-- Checkbox mobile -->
+
+                <h4>Deficiência</h4>
+                <div class="md-layout-item md-size-100 mobile">
+                    <br>
+                    <li id="example-3" style="list-style: none">
+                      <input
+                        type="checkbox"
+                        id="mental"
+                        value="Deficiência mental"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="mental">Mental</label>
+                    </li>
+                    <li class="li-defi">
+                      <input
+                        type="checkbox"
+                        id="auditiva"
+                        value="Deficiência auditiva"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="auditiva">Auditiva</label>
+                    </li>
+                    <li class="li-defi">
+                      <input
+                        type="checkbox"
+                        id="fisica"
+                        value="Deficiência física"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="fisica">Física</label>
+                    </li>
+                </div>
+                <div class="md-layout-item md-size-100 mobile">
+                  <li style="list-style:none">
+                    <input
+                        type="checkbox"
+                        id="visual"
+                        value="Deficiência visual"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="visual">Visual</label>
+                  </li> 
+                  <li class="li-defi">
+                    <input
+                        type="checkbox"
+                        id="multipla"
+                        value="Deficiência multipla"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="multipla">Múltipla</label>
+                  </li>
+                  <li class="li-defi">
+                    <input
+                        type="checkbox"
+                        id="dislexia"
+                        value="Dislexia"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="dislexia">Dislexia</label>
+                  </li>
+                </div>    
+                
+                
                
                 <br />
                 
                 <div class="md-layout">
-                  <div class="md-layout-item md-size-33 mx-auto text-center">
+                  <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
                     <md-button class="md-success" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
                       >Enviar cadastro</md-button
@@ -322,11 +406,13 @@ export default {
       CPF: '',
       date: '',
       nationality: '',
-      doc: '',
+      doc: 'Identificação',
       sex: '',
       okay:'',
       deficiency: [],
-      fileName:'Identidade',
+      fileName:'',
+      fileName1:'',
+      fileName2:'',
       files: [],
       uploadFiles: [],
       my_file: [],
@@ -444,6 +530,14 @@ export default {
       var fileData =  event.target.files[0];
       this.fileName=fileData.name;
       },
+      onFileChange1(event){
+      var fileData = event.target.files[0];
+      this.fileName1 = fileData.name;
+      },
+      onFileChange2(event){
+        var fileData = event.target.files[0];
+        this.fileName2 = fileData.name;
+      }
     }
   }
 </script>
@@ -463,6 +557,7 @@ export default {
 
 .label-file{
   width: 100px;
+  color: #009900;
   margin-top: 200px;
   text-align: center;
   box-sizing: border-box;
@@ -476,10 +571,30 @@ export default {
   transition: width 0.4s ease-in-out;
   cursor: pointer;
 }
+.desktop{
+  display: inline-block;
+}
+.mobile{
+  display: none;
+}
+.li-defi{
+  list-style: none; 
+  margin-left: 20px;
+}
 
 @media screen and (max-width: 500px) {
   .md-layout{
     display: flex;
+  }
+  .md-size-50{
+    width: 100;
+  }
+  .desktop{
+    display: none;
+  }
+  .mobile{
+    display: flex;
+    
   }
 }
 
