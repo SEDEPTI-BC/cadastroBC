@@ -41,6 +41,7 @@
                 O nome e a foto associados à sua Conta do Google serão
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
+                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb</p>
               </h4>
 
               <form class="contact-form" @submit="checkForm"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
@@ -160,7 +161,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50 md-small-size-100 desktop">
                     
-                    <label>Deficiência</label>
+                    <label class="desktop roxo">Deficiência</label>
                     <br />
                     <div id="example-3">
                       <input
@@ -237,7 +238,7 @@
                       
                       <br>
                       <label class="label-file" 
-                        >{{doc}} {{fileName}}
+                        >{{doc}} <span :class="vazio ? 'verde' : 'vermelho'">{{fileName}}</span>
                         <input
                           style="display: none "
                           required=""
@@ -252,7 +253,7 @@
                     <br>
                     <div class="md-layout-item md-size-100">
                       <label class="label-file"
-                        >Foto de perfil(3x4) {{fileName1}}
+                        >Foto de perfil(3x4) <span :class="vazio1 ? 'verde' : 'vermelho'">{{fileName1}}</span> 
                         <input
                         style="display: none"
                           type="file"
@@ -266,7 +267,7 @@
                     <br>
                     <div class="md-layout-item md-size-100">
                       <label class="label-file md-size-200"
-                        >Atestado de matrícula {{fileName2}}
+                        >Atestado de matrícula <span :class="vazio2 ? 'verde' : 'vermelho'">{{fileName2}}</span>
                         <input
                           style="display: none;"
                           type="file"
@@ -283,7 +284,7 @@
 
                 <!-- Checkbox mobile -->
 
-                <h4>Deficiência</h4>
+                <h4 class="mobile">Deficiência</h4>
                 <div class="md-layout-item md-size-100 mobile">
                     <br>
                     <li id="example-3" style="list-style: none">
@@ -353,7 +354,7 @@
                 
                
                 <br />
-                
+                <!-- botão de enviar -->
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
@@ -418,6 +419,10 @@ export default {
       files: [],
       uploadFiles: [],
       my_file: [],
+      fileLetras: '',
+      vazio:'',
+      vazio1:'',
+      vazio2:'',
     };
   },
   computed: {
@@ -427,7 +432,7 @@ export default {
       };
     },
     isComplete () {
-    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file;
+    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file && this.vazio && this.vazio1 && this.vazio2;
   }
   },
   methods: {
@@ -441,6 +446,7 @@ export default {
       if (!this.user_email) {
         this.errors.push("Seu email é obrigatório.");
       }
+      
       e.preventDefault();
     },
     submit: function (event) {
@@ -456,7 +462,7 @@ export default {
      },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
-
+      
       const file = this.$refs[elementRef].files
 
       this.uploadFiles = [...this.uploadFiles, ...file]
@@ -529,16 +535,45 @@ export default {
         }
       },
       onFileChange(event){
+      var vazio1, vazio2 = '';
       var fileData =  event.target.files[0];
       this.fileName=fileData.name;
+      this.fileTamanho = fileData.size;
+      this.fileLetras = fileData.length;
+      if (this.fileTamanho>200000) {
+        this.fileName = 'Máximo de 200kb ultrapassado';
+        this.vazio = ''
+      }else{
+        this.vazio = true
+        
+      }
+      if (this.fileLetras>1) {
+        this.fileName = 'muitas letras'
+      }
+      
       },
+      
       onFileChange1(event){
       var fileData = event.target.files[0];
       this.fileName1 = fileData.name;
+      this.fileTamanho1 = fileData.size;
+      if (this.fileTamanho1>=200000) {
+        this.fileName1 = 'Máximo de 200kb ultrapassado';
+        this.vazio1 = ''
+      }else{
+        this.vazio1 = true
+      }
       },
       onFileChange2(event){
         var fileData = event.target.files[0];
         this.fileName2 = fileData.name;
+        this.fileTamanho2 = fileData.size;
+      if (this.fileTamanho1>=200000) {
+        this.fileName2 = 'Máximo de 200kb ultrapassado';
+        this.vazio2 = ''
+      }else{
+        this.vazio2 = true
+      }
       }
     }
   }
@@ -559,19 +594,19 @@ export default {
 
 .label-file{
   width: 100px;
-  color: #009900;
-  margin-top: 200px;
+  color: #9c27b0;
+  // margin-top: 150px;
   text-align: center;
-  box-sizing: border-box;
+  // box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 13px;
   background-color: white;
   background-position: 10px 10px; 
-  background-repeat: no-repeat;
+  // background-repeat: no-repeat;
   padding: 12px 10px 12px 10px;
-  transition: width 0.4s ease-in-out;
   cursor: pointer;
+  font-weight: 800;
 }
 .desktop{
   display: inline-block;
@@ -583,6 +618,15 @@ export default {
   list-style: none; 
   margin-left: 20px;
 }
+.vermelho{
+  color: #ff0000;
+  font-weight: 600;
+}
+.verde{
+  color: #008000;
+  font-weight: 600;
+}
+
 
 @media screen and (max-width: 500px) {
   .md-layout{
