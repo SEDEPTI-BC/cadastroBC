@@ -41,7 +41,7 @@
                 O nome e a foto associados à sua Conta do Google serão
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
-                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb</p>
+                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb.</p>
               </h4>
 
               <form class="contact-form" @submit="checkForm"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
@@ -521,9 +521,11 @@ export default {
 
           // handle success
           console.log('req sent.')
-          this.files = [];
-          this.uploadFiles = [];
+          // this.files = [];
+          // this.uploadFiles = [];
           console.log(response);
+          alert("Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.")
+          document.location.reload(true);
         })
         .catch(function (error) {
           // handle error
