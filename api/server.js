@@ -14,4 +14,8 @@ app.use(express.json());
 
 app.use(uploadFormRouter);
 
-app.listen(3000, () => console.log("Running on localhost:3000"));
+const apiPort = 8080;
+
+app.listen(apiPort, () =>
+  console.log(`Cadastro-BC API running on localhost:${apiPort}`)
+);

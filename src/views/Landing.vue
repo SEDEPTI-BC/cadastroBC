@@ -21,7 +21,7 @@
       <div class="section section-contacts">
         <div class="container">
           <div class="md-layout">
-            <div class="md-layout-item md-size-70 md-xsmall-size-100 mx-auto">
+            <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Pré-cadastro/Cadastro</h2>
               <h4 class="text-center description">
                 Formulário de solicitação para pré-cadastro/recadastro online.
@@ -41,6 +41,7 @@
                 O nome e a foto associados à sua Conta do Google serão
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
+                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb.</p>
               </h4>
 
               <form class="contact-form" @submit="checkForm"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
@@ -100,7 +101,7 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Número para contato (DDD + número)</label>
+                      <p><label class="desktop">Número para contato(DDD + número)</label><label class="mobile">Número para contato</label></p>
                       <md-input
                         v-model="contact"
                         name="contact"
@@ -146,7 +147,7 @@
                       <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
-                  <div class="md-layout-item md-size-50">
+                  <div class="md-layout-item md-size-50 mx-auto desktop">
                     <md-field maxlength="5">
                       <label>Documentação de identificação com foto  </label>
                       <md-select v-model="doc" required="" name="doc" type="text">
@@ -158,9 +159,9 @@
                 </div>
                 <br>
                 <div class="md-layout">
-                  <div class="md-layout-item md-size-50 md-small-size-100">
+                  <div class="md-layout-item md-size-50 md-small-size-100 desktop">
                     
-                    <label>Deficiência</label>
+                    <label class="desktop roxo">Deficiência</label>
                     <br />
                     <div id="example-3">
                       <input
@@ -221,12 +222,23 @@
                     </div>
                   </div>
                   
+                  <!-- Doumento mobile -->
+                  <div class="md-layout-item mobile" >
+                    <md-field maxlength="5">
+                      <label>Documentação de identificação com foto</label>
+                      <md-select v-model="doc" required="" name="doc" type="text">
+                        <md-option value="Carteira de identidade">Carteira de identidade</md-option>
+                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
+                      </md-select>
+                    </md-field>
+                  </div>
                   <div class="md-layout-item md-size-50 md-small-size-100">
+                    <span class="inputButton">Documentos de identificação</span>
                     <div class="md-layout-item md-size-100">
-                      <span>Doumento de identificação</span>
+                      
                       <br>
                       <label class="label-file" 
-                        >{{fileName}}
+                        >{{doc}} <span :class="vazio ? 'verde' : 'vermelho'">{{fileName}}</span>
                         <input
                           style="display: none "
                           required=""
@@ -241,10 +253,11 @@
                     <br>
                     <div class="md-layout-item md-size-100">
                       <label class="label-file"
-                        >Foto de perfil (3x4)
+                        >Foto de perfil(3x4) <span :class="vazio1 ? 'verde' : 'vermelho'">{{fileName1}}</span> 
                         <input
                         style="display: none"
                           type="file"
+                          @change="onFileChange1"
                           required=""
                           ref="fileProfile"
                           v-on:change="handleFileUpload('fileProfile')"
@@ -253,11 +266,12 @@
                     </div>
                     <br>
                     <div class="md-layout-item md-size-100">
-                      <label class="label-file"
-                        >Atestado de matrícula
+                      <label class="label-file md-size-200"
+                        >Atestado de matrícula <span :class="vazio2 ? 'verde' : 'vermelho'">{{fileName2}}</span>
                         <input
                           style="display: none;"
                           type="file"
+                          @change="onFileChange2" 
                           required=""
                           ref="fileMat"
                           v-on:change="handleFileUpload('fileMat')"
@@ -265,13 +279,84 @@
                       </label>
                     </div>
                   </div>
-                  
                 </div>
+                <br>
+
+                <!-- Checkbox mobile -->
+
+                <h4 class="mobile">Deficiência</h4>
+                <div class="md-layout-item md-size-100 mobile">
+                    <br>
+                    <li id="example-3" style="list-style: none">
+                      <input
+                        type="checkbox"
+                        id="mental"
+                        value="Deficiência mental"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="mental">Mental</label>
+                    </li>
+                    <li class="li-defi">
+                      <input
+                        type="checkbox"
+                        id="auditiva"
+                        value="Deficiência auditiva"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="auditiva">Auditiva</label>
+                    </li>
+                    <li class="li-defi">
+                      <input
+                        type="checkbox"
+                        id="fisica"
+                        value="Deficiência física"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="fisica">Física</label>
+                    </li>
+                </div>
+                <div class="md-layout-item md-size-100 mobile">
+                  <li style="list-style:none">
+                    <input
+                        type="checkbox"
+                        id="visual"
+                        value="Deficiência visual"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="visual">Visual</label>
+                  </li> 
+                  <li class="li-defi">
+                    <input
+                        type="checkbox"
+                        id="multipla"
+                        value="Deficiência multipla"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="multipla">Múltipla</label>
+                  </li>
+                  <li class="li-defi">
+                    <input
+                        type="checkbox"
+                        id="dislexia"
+                        value="Dislexia"
+                        v-model="deficiency"
+                        name="deficiency"
+                      />
+                      <label for="dislexia">Dislexia</label>
+                  </li>
+                </div>    
+                
+                
                
                 <br />
-                
+                <!-- botão de enviar -->
                 <div class="md-layout">
-                  <div class="md-layout-item md-size-33 mx-auto text-center">
+                  <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
                     <md-button class="md-success" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
                       >Enviar cadastro</md-button
@@ -297,7 +382,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/cabecalho.png")
+      default: require("@/assets/img/cabeccalho.png")
     },
     teamImg1: {
       type: String,
@@ -324,14 +409,20 @@ export default {
       CPF: '',
       date: '',
       nationality: '',
-      doc: '',
+      doc: 'Identificação',
       sex: '',
       okay:'',
       deficiency: [],
-      fileName:'Identidade',
+      fileName:'',
+      fileName1:'',
+      fileName2:'',
       files: [],
       uploadFiles: [],
       my_file: [],
+      fileLetras: '',
+      vazio:'',
+      vazio1:'',
+      vazio2:'',
     };
   },
   computed: {
@@ -341,7 +432,7 @@ export default {
       };
     },
     isComplete () {
-    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file;
+    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file && this.vazio && this.vazio1 && this.vazio2;
   }
   },
   methods: {
@@ -355,6 +446,7 @@ export default {
       if (!this.user_email) {
         this.errors.push("Seu email é obrigatório.");
       }
+      
       e.preventDefault();
     },
     submit: function (event) {
@@ -370,7 +462,7 @@ export default {
      },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
-
+      
       const file = this.$refs[elementRef].files
 
       this.uploadFiles = [...this.uploadFiles, ...file]
@@ -424,14 +516,16 @@ export default {
         formData.append("deficiency", this.deficiency)
 
         console.log(formData);
-        await axios.post('http://localhost:3000/upload', formData)
+        await axios.post('http://localhost:8080/upload', formData)
         .then(function (response) {
 
           // handle success
           console.log('req sent.')
-          this.files = [];
-          this.uploadFiles = [];
+          // this.files = [];
+          // this.uploadFiles = [];
           console.log(response);
+          alert("Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.")
+          document.location.reload(true);
         })
         .catch(function (error) {
           // handle error
@@ -443,9 +537,46 @@ export default {
         }
       },
       onFileChange(event){
+      var vazio1, vazio2 = '';
       var fileData =  event.target.files[0];
       this.fileName=fileData.name;
+      this.fileTamanho = fileData.size;
+      this.fileLetras = fileData.length;
+      if (this.fileTamanho>200000) {
+        this.fileName = 'Máximo de 200kb ultrapassado';
+        this.vazio = ''
+      }else{
+        this.vazio = true
+        
+      }
+      if (this.fileLetras>1) {
+        this.fileName = 'muitas letras'
+      }
+      
       },
+      
+      onFileChange1(event){
+      var fileData = event.target.files[0];
+      this.fileName1 = fileData.name;
+      this.fileTamanho1 = fileData.size;
+      if (this.fileTamanho1>=200000) {
+        this.fileName1 = 'Máximo de 200kb ultrapassado';
+        this.vazio1 = ''
+      }else{
+        this.vazio1 = true
+      }
+      },
+      onFileChange2(event){
+        var fileData = event.target.files[0];
+        this.fileName2 = fileData.name;
+        this.fileTamanho2 = fileData.size;
+      if (this.fileTamanho1>=200000) {
+        this.fileName2 = 'Máximo de 200kb ultrapassado';
+        this.vazio2 = ''
+      }else{
+        this.vazio2 = true
+      }
+      }
     }
   }
 </script>
@@ -465,23 +596,53 @@ export default {
 
 .label-file{
   width: 100px;
-  margin-top: 200px;
+  color: #9c27b0;
+  // margin-top: 150px;
   text-align: center;
-  box-sizing: border-box;
+  // box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 13px;
   background-color: white;
   background-position: 10px 10px; 
-  background-repeat: no-repeat;
+  // background-repeat: no-repeat;
   padding: 12px 10px 12px 10px;
-  transition: width 0.4s ease-in-out;
   cursor: pointer;
+  font-weight: 800;
 }
+.desktop{
+  display: inline-block;
+}
+.mobile{
+  display: none;
+}
+.li-defi{
+  list-style: none; 
+  margin-left: 20px;
+}
+.vermelho{
+  color: #ff0000;
+  font-weight: 600;
+}
+.verde{
+  color: #008000;
+  font-weight: 600;
+}
+
 
 @media screen and (max-width: 500px) {
   .md-layout{
     display: flex;
+  }
+  .md-size-50{
+    width: 100;
+  }
+  .desktop{
+    display: none;
+  }
+  .mobile{
+    display: flex;
+    
   }
 }
 
