@@ -516,7 +516,7 @@ export default {
         formData.append("deficiency", this.deficiency)
 
         console.log(formData);
-        await axios.post('http://localhost:3000/upload', formData)
+        await axios.post('http://localhost:8080/upload', formData)
         .then(function (response) {
 
           // handle success
