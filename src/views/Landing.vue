@@ -35,7 +35,7 @@
                 para alunos de pós-graduação, técnicos administrativos e
                 docentes da UFPA é anual.
                 <br />
-                Observações sobre os anexos:
+                <u>Observações sobre os anexos:</u>
                 Discentes: Atestado de matrícula atual (SIGAA)<br />
                 Servidores: Declaração de vínculo funcional (SAGITTA) ou
                 carteira funcional (SIGEPE)<br />
@@ -61,7 +61,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label class="label">Seu nome </label>
+                      <label class="label">Seu nome</label>
                       <md-input
                         style="text-transform: capitalize;"
                         class="name"
