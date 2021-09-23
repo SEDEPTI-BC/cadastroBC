@@ -64,7 +64,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
 
-                      <label>Seu nome completo</label>
+                      <label class="label">Seu nome completo</label>
 
                       <md-input
                         style="text-transform: capitalize;"
@@ -80,7 +80,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
 
-                      <label >Seu nome social</label>
+                      <label class="label" >Seu nome social</label>
                       <md-input style="text-transform: capitalize;" v-model="socialName" name="socialName" type="text"></md-input>
 
                     </md-field>
