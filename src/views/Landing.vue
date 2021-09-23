@@ -386,7 +386,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/cabeccalho.png")
+      default: require("@/assets/img/cabecalho1.png")
     },
     teamImg1: {
       type: String,
