@@ -43,8 +43,8 @@
                 formulário.
                 <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb.</p>
               </h4>
-
-              <form class="contact-form" @submit="checkForm"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
+              <!-- inicio do formulário -->
+              <form class="contact-form"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -59,7 +59,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Seu nome </label>
+                      <label>Seu nome completo</label>
                       <md-input
                         style="text-transform: capitalize;"
                         class="name"
@@ -74,7 +74,7 @@
                   <div class="md-layout-item md-size-50">
                     <md-field>
                       <label >Seu nome social</label>
-                      <md-input v-model="socialName" name="socialName" type="text"></md-input>
+                      <md-input style="text-transform: capitalize;" v-model="socialName" name="socialName" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
@@ -376,6 +376,7 @@
 
 const axios = require('axios');
 import _ from 'lodash';
+import { sendForm } from 'emailjs-com';
 
 export default {
   bodyClass: "landing-page",
@@ -384,10 +385,7 @@ export default {
       type: String,
       default: require("@/assets/img/cabeccalho.png")
     },
-    teamImg1: {
-      type: String,
-      default: require("@/assets/img/faces/avatar.jpg")
-    },
+    
     teamImg2: {
       type: String,
       default: require("@/assets/img/faces/christian.jpg")
@@ -436,30 +434,7 @@ export default {
   }
   },
   methods: {
-    checkForm: function(e) {
-      
-      this.errors = [];
-
-      if (!this.user_name) {
-        this.errors.push("O nome é obrigatório.");
-      }
-      if (!this.user_email) {
-        this.errors.push("Seu email é obrigatório.");
-      }
-      
-      e.preventDefault();
-    },
-    submit: function (event) {
-    // @click.prevent="submit" no button
-      if (!this.user_name ){
-        alert('Por favor, preencha todos os dados obrigatórios')
-      }
-      const name = this.user_name.split(' ').length >= 2 
-      if (!name) {
-        alert ('Digite seu nome completo')
-      }
-      
-     },
+    
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
       
@@ -495,6 +470,17 @@ export default {
       return ""
     },
     async sendForm() {
+      const name = this.user_name.split(' ').length >= 2 
+      if (!name) {
+        this.user_name = ""
+        // alert ('Digite seu nome completo')
+        this.errors = [];
+        
+        if (!this.user_name) {
+        this.errors.push("Digite seu nome completo.");
+        }
+      return sendForm
+      }
       const formData = new FormData()
       _.forEach(this.uploadFiles, file => {
         if (this.validate(file) === "") {
@@ -525,7 +511,7 @@ export default {
           // this.uploadFiles = [];
           console.log(response);
           alert("Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.")
-          document.location.reload(true);
+          document.Location.reload(true);
         })
         .catch(function (error) {
           // handle error
