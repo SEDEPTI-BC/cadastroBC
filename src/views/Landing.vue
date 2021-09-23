@@ -175,7 +175,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label style="color: #000; font-weight: bold" for="jack">Deficiência mental</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="jack">Deficiência mental</label>
                       <br />
                       <input
                         type="checkbox"
@@ -184,7 +184,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label style="color: #000; font-weight: bold" for="john">Deficiência auditiva</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="john">Deficiência auditiva</label>
                       <br />
                       <input
                         type="checkbox"
@@ -193,7 +193,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label style="color: #000; font-weight: bold" for="mike">Deficiência física</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência física</label>
                       <br />
                       <input
                         type="checkbox"
@@ -202,7 +202,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label style="color: #000; font-weight: bold" for="mike">Deficiência visual</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência visual</label>
                       <br />
                       <input
                         type="checkbox"
@@ -211,7 +211,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label style="color: #000; font-weight: bold" for="mike">Deficiência múltipla</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência múltipla</label>
                       <br />
                       <input
                         type="checkbox"
@@ -220,7 +220,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label style="color: #000; font-weight: bold" for="mike">Dislexia</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Dislexia</label>
                       <br />
                       
                     </div>
