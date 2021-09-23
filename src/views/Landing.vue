@@ -470,7 +470,7 @@ export default {
       return ""
     },
     async sendForm() {
-      const name = this.user_name.split(' ').length >= 2 
+      const name = this.user_name.trim().split(' ').length >= 2 
       if (!name) {
         this.user_name = ""
         // alert ('Digite seu nome completo')
@@ -478,6 +478,9 @@ export default {
         
         if (!this.user_name) {
         this.errors.push("Digite seu nome completo.");
+        }
+        if(!this.user_email){
+          this.errors.push("Digite seu email completo")
         }
       return sendForm
       }
