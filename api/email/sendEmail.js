@@ -76,7 +76,7 @@ const mailer = async function(emailAddress, form, files) {
 
   // let attachmentsObject = {};
 
-  const attachments = files.map((fileName) => {
+  const attachments = files.map(fileName => {
     return {
       filename: fileName,
       path: path.join(rootDir, "uploads", fileName)
@@ -88,8 +88,7 @@ const mailer = async function(emailAddress, form, files) {
     {
       from: '"SEDEPTI" <sedepti.devs@gmail.com>', // sender address
       to: emailAddress, // list of receivers
-      subject: "Cadastro BC - TEST", // Subject line
-      text: "Olá! Segue em anexo varios arquivos heh", // plain text body
+      subject: "Cadastro BC - Novo cadastro", // Subject line
       // html: '<b>Hello world?</b>', // html body
       attachments: attachments,
       html: htmlToSend
@@ -98,12 +97,9 @@ const mailer = async function(emailAddress, form, files) {
       if (err) {
         console.log(err);
       }
-      // else {
-      //   console.log(info)
-      // }
 
-      files.forEach((file) => {
-        fs.unlink(path.join(rootDir, "uploads", file), (err) => {
+      files.forEach(file => {
+        fs.unlink(path.join(rootDir, "uploads", file), err => {
           if (err) {
             console.error(err);
           } else {
