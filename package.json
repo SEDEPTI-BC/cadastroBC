@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "start": "nodemon api/server.js",
+    "start": "node api/server.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dev": "npm run serve",
