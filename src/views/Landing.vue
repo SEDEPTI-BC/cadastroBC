@@ -23,7 +23,8 @@
           <div class="md-layout">
             <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
               <h2 class="text-center title">Pré-cadastro/Cadastro</h2>
-              <h4 class="text-center description">
+              <h4 class="text-center description" style="font-size: 19px"> <!-- fonte é de 18 e mudei para 19 -->
+                <strong>
                 Formulário de solicitação para pré-cadastro/recadastro online.
                 Preencher ou marcar principalmente todos os itens obrigatórios.
                 <br />
@@ -34,17 +35,20 @@
                 para alunos de pós-graduação, técnicos administrativos e
                 docentes da UFPA é anual.
                 <br />
-                <strong>Observações sobre os anexos:</strong>
+                <u>Observações sobre os anexos:</u>
                 Discentes: Atestado de matrícula atual (SIGAA)<br />
                 Servidores: Declaração de vínculo funcional (SAGITTA) ou
                 carteira funcional (SIGEPE)<br />
                 O nome e a foto associados à sua Conta do Google serão
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
+                </strong>
                 <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb.</p>
               </h4>
+              <!-- inicio do formulário -->
 
-              <form class="contact-form" @submit="checkForm"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
+              <form class="contact-form"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
+
                 <p v-if="errors.length">
                   <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                   <ul>
@@ -59,7 +63,9 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Seu nome </label>
+
+                      <label class="label">Seu nome completo</label>
+
                       <md-input
                         style="text-transform: capitalize;"
                         class="name"
@@ -73,21 +79,23 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label >Seu nome social</label>
-                      <md-input v-model="socialName" name="socialName" type="text"></md-input>
+
+                      <label class="label" >Seu nome social</label>
+                      <md-input style="text-transform: capitalize;" v-model="socialName" name="socialName" type="text"></md-input>
+
                     </md-field>
                   </div>
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>Seu email</label>
+                      <label class="label">Seu email</label>
                       <md-input v-model="user_email" required="" name="user_email" type="email"></md-input>
                     </md-field>
                   </div>
                    <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label >Informe seu sexo</label>
+                      <label class="label">Informe seu sexo</label>
                       <md-input v-model="sex" required="" name="sex" type="text"></md-input>
                     </md-field>
                   </div>
@@ -95,13 +103,15 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Endereço completo </label>
+                      <label class="label">Endereço completo </label>
                       <md-input v-model="address" required="" name="address" type="text"></md-input>
                     </md-field>
                   </div>
+                  <!-- campo numero de contato mobile e desktop -->
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <p><label class="desktop">Número para contato(DDD + número)</label><label class="mobile">Número para contato</label></p>
+                      <p><label class="desktop label">Número para contato(DDD + número)</label>
+                      <label class="mobile label">Número para contato</label></p>
                       <md-input
                         v-model="contact"
                         name="contact"
@@ -116,7 +126,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Data de nascimento </label>
+                      <label class="label">Data de nascimento </label>
                       <md-input
                         v-model="date"
                         name="date"
@@ -128,7 +138,7 @@
                   </div>
                   <div class="md-layout-item md-size-50">
                     <md-field maxlength="5">
-                      <label>CPF  </label>
+                      <label class="label">CPF  </label>
                       <md-input
                         v-model="CPF"
                         name="CPF"
@@ -143,15 +153,15 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50">
                     <md-field>
-                      <label>Nacionalidade </label>
+                      <label class="label">Nacionalidade </label>
                       <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50 mx-auto desktop">
                     <md-field maxlength="5">
-                      <label>Documentação de identificação com foto  </label>
-                      <md-select v-model="doc" required="" name="doc" type="text">
-                        <md-option value="Carteira de identidade">Carteira de identidade</md-option>
+                      <label class="label">Documentação de identificação com foto  </label>
+                      <md-select class="label" v-model="doc" required="" name="doc" type="text">
+                        <md-option  value="Carteira de identidade">Carteira de identidade</md-option>
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
                       </md-select>
                     </md-field>
@@ -161,7 +171,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50 md-small-size-100 desktop">
                     
-                    <label class="desktop roxo">Deficiência</label>
+                    <label class="desktop roxo label">Deficiência</label>
                     <br />
                     <div id="example-3">
                       <input
@@ -171,7 +181,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="jack">Deficiência mental</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="jack">Deficiência mental</label>
                       <br />
                       <input
                         type="checkbox"
@@ -180,7 +190,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="john">Deficiência auditiva</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="john">Deficiência auditiva</label>
                       <br />
                       <input
                         type="checkbox"
@@ -189,7 +199,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="mike">Deficiência física</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência física</label>
                       <br />
                       <input
                         type="checkbox"
@@ -198,7 +208,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="mike">Deficiência visual</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência visual</label>
                       <br />
                       <input
                         type="checkbox"
@@ -207,7 +217,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="mike">Deficiência múltipla</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência múltipla</label>
                       <br />
                       <input
                         type="checkbox"
@@ -216,7 +226,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="mike">Dislexia</label>
+                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Dislexia</label>
                       <br />
                       
                     </div>
@@ -225,7 +235,7 @@
                   <!-- Doumento mobile -->
                   <div class="md-layout-item mobile" >
                     <md-field maxlength="5">
-                      <label>Documentação de identificação com foto</label>
+                      <label class="label">Documentação de identificação com foto</label>
                       <md-select v-model="doc" required="" name="doc" type="text">
                         <md-option value="Carteira de identidade">Carteira de identidade</md-option>
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
@@ -233,7 +243,7 @@
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50 md-small-size-100">
-                    <span class="inputButton">Documentos de identificação</span>
+                    <span class="inputButton label">Documentos de identificação</span>
                     <div class="md-layout-item md-size-100">
                       
                       <br>
@@ -284,7 +294,7 @@
 
                 <!-- Checkbox mobile -->
 
-                <h4 class="mobile">Deficiência</h4>
+                <h4 class="mobile label">Deficiência</h4>
                 <div class="md-layout-item md-size-100 mobile">
                     <br>
                     <li id="example-3" style="list-style: none">
@@ -295,7 +305,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="mental">Mental</label>
+                      <label style="font-weight: bold; color: #000 !important;" for="mental">Mental</label>
                     </li>
                     <li class="li-defi">
                       <input
@@ -305,7 +315,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="auditiva">Auditiva</label>
+                      <label style="font-weight: bold; color: #000 !important;" for="auditiva">Auditiva</label>
                     </li>
                     <li class="li-defi">
                       <input
@@ -315,7 +325,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="fisica">Física</label>
+                      <label style="font-weight: bold; color: #000 !important;" for="fisica">Física</label>
                     </li>
                 </div>
                 <div class="md-layout-item md-size-100 mobile">
@@ -327,7 +337,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="visual">Visual</label>
+                      <label style="font-weight: bold; color: #000 !important;" for="visual">Visual</label>
                   </li> 
                   <li class="li-defi">
                     <input
@@ -337,7 +347,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="multipla">Múltipla</label>
+                      <label style="font-weight: bold; color: #000 !important;" for="multipla">Múltipla</label>
                   </li>
                   <li class="li-defi">
                     <input
@@ -347,7 +357,7 @@
                         v-model="deficiency"
                         name="deficiency"
                       />
-                      <label for="dislexia">Dislexia</label>
+                      <label style="font-weight: bold; color: #000 !important;" for="dislexia">Dislexia</label>
                   </li>
                 </div>    
                 
@@ -358,9 +368,10 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <md-button class="md-success" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
-                      >Enviar cadastro</md-button
-                    >
+                    <vue-recaptcha sitekey="6LdA_pUbAAAAAPPnRdmSLIphFz4hW1UQ16sFaqqm">
+                      <md-button class="md-success" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
+                        >Enviar cadastro</md-button>
+                    </vue-recaptcha>
                   </div>
                 </div>
               </form>
@@ -377,17 +388,20 @@
 const axios = require('axios');
 import _ from 'lodash';
 
+import { sendForm } from 'emailjs-com';
+
+import VueRecaptcha from 'vue-recaptcha';
+
+
 export default {
   bodyClass: "landing-page",
+  components: { VueRecaptcha },
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/cabeccalho.png")
+      default: require("@/assets/img/cabecalho1.png")
     },
-    teamImg1: {
-      type: String,
-      default: require("@/assets/img/faces/avatar.jpg")
-    },
+    
     teamImg2: {
       type: String,
       default: require("@/assets/img/faces/christian.jpg")
@@ -436,30 +450,7 @@ export default {
   }
   },
   methods: {
-    checkForm: function(e) {
-      
-      this.errors = [];
-
-      if (!this.user_name) {
-        this.errors.push("O nome é obrigatório.");
-      }
-      if (!this.user_email) {
-        this.errors.push("Seu email é obrigatório.");
-      }
-      
-      e.preventDefault();
-    },
-    submit: function (event) {
-    // @click.prevent="submit" no button
-      if (!this.user_name ){
-        alert('Por favor, preencha todos os dados obrigatórios')
-      }
-      const name = this.user_name.split(' ').length >= 2 
-      if (!name) {
-        alert ('Digite seu nome completo')
-      }
-      
-     },
+    
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
       
@@ -495,6 +486,20 @@ export default {
       return ""
     },
     async sendForm() {
+      const name = this.user_name.trim().split(' ').length >= 2 
+      if (!name) {
+        this.user_name = ""
+        // alert ('Digite seu nome completo')
+        this.errors = [];
+        
+        if (!this.user_name) {
+        this.errors.push("Digite seu nome completo.");
+        }
+        if(!this.user_email){
+          this.errors.push("Digite seu email completo")
+        }
+      return sendForm
+      }
       const formData = new FormData()
       _.forEach(this.uploadFiles, file => {
         if (this.validate(file) === "") {
@@ -525,7 +530,7 @@ export default {
           // this.uploadFiles = [];
           console.log(response);
           alert("Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.")
-          document.location.reload(true);
+          document.Location.reload(true);
         })
         .catch(function (error) {
           // handle error
@@ -609,6 +614,11 @@ export default {
   padding: 12px 10px 12px 10px;
   cursor: pointer;
   font-weight: 800;
+}
+.label{
+  font-weight: bold;
+  color: #000 !important;
+  font-size: 16px;
 }
 .desktop{
   display: inline-block;
