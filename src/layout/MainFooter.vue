@@ -30,8 +30,8 @@
         </ul>
       </nav>
       <div class="copyright">
-        &copy; {{ year }}, <md-icon></md-icon>
-        <a href="http://bc.ufpa.br/creditos/" target="_blank">Desenvolvido pelo time da Biblioteca Central UFPA.</a>
+        &copy; {{ year }},Desenvolvido pelo <md-icon></md-icon>
+        <a href="http://bc.ufpa.br/creditos/" target="_blank">time da Biblioteca Central UFPA.</a>
       </div>
     </div>
   </footer>
