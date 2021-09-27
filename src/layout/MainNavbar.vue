@@ -9,7 +9,9 @@
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start ">
         <h3 class="md-title " data-toggle="dropdown">
-          <a href="bc.ufpa.br>">Biblioteca Central UFPA</a>
+          <a href="http://bc.ufpa.br/" style="color: #000 !important ">
+            Biblioteca Central UFPA</a
+          >
         </h3>
       </div>
       <div class="md-toolbar-section-end">
@@ -121,25 +123,28 @@
                 </a>
               </li>
 
-              <md-list-item href="" target="_blank">
-                <i class="fab fa-twitter"></i>
+              <md-list-item
+                href="https://twitter.com/BibliotecaUfpa"
+                target="_blank"
+              >
+                <i class="fab fa-twitter" style="color:#000"></i>
                 <p class="hidden-lg">Twitter</p>
                 <md-tooltip md-direction="bottom"
-                  >Follow us on Twitter</md-tooltip
+                  >Siga a gente no Twitter</md-tooltip
                 >
               </md-list-item>
               <md-list-item
                 href="https://www.facebook.com/bcufpa"
                 target="_blank"
               >
-                <i class="fab fa-facebook-square"></i>
+                <i class="fab fa-facebook-square" style="color:#000"></i>
                 <p class="hidden-lg">Facebook</p>
                 <md-tooltip md-direction="bottom"
                   >Nos siga no Facebook</md-tooltip
                 >
               </md-list-item>
               <md-list-item href="https://instagram.com/bcufpa" target="_blank">
-                <i class="fab fa-instagram"></i>
+                <i class="fab fa-instagram" style="color:#000"></i>
                 <p class="hidden-lg">Instagram</p>
                 <md-tooltip md-direction="bottom"
                   >Siga a gente no Instagram</md-tooltip
