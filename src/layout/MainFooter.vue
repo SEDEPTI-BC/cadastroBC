@@ -8,30 +8,30 @@
       <nav>
         <ul>
           <li>
-            <a href="/#">
+            <a href="/">
               Criado por
             </a>
           </li>
           <li>
-            <a href="/#">
+            <a href="http://bc.ufpa.br/sistema-de-bibliotecas/">
               Sobre
             </a>
           </li>
           <li>
-            <a href="/#">
+            <a href="http://bc.ufpa.br/">
               Site
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="/#">
               Licenças
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <div class="copyright">
-        &copy; {{ year }}, Feito por <md-icon></md-icon>
-        <a href="https://www.creative-tim.com/" target="_blank">time da Biblioteca Central UFPA.</a>
+        &copy; {{ year }},Desenvolvido pelo <md-icon></md-icon>
+        <a href="http://bc.ufpa.br/creditos/" target="_blank">time da Biblioteca Central UFPA.</a>
       </div>
     </div>
   </footer>
