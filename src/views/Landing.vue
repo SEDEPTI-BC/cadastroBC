@@ -22,7 +22,7 @@
         <div class="container">
           <div class="md-layout">
             <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
-              <h2 class="text-center title"><strong>CADASTRO/RECADASTRO</strong></h2>
+              <h2 class="text-center title"><strong>PRÉ-CADASTRO/RECADASTRO</strong></h2>
               <h4 class="text-center description" style="font-size: 19px"> <!-- fonte é de 18 e mudei para 19 -->
                 <strong>
                 Formulário de solicitação para pré-cadastro/recadastro online.
@@ -399,7 +399,7 @@ export default {
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/FINALcabecalho.png")
+      default: require("@/assets/img/cabecalhoFINAL2.png")
     },
   },
   data() {
