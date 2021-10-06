@@ -29,7 +29,7 @@
                 Preencher ou marcar principalmente todos os itens obrigatórios.
                 <br />
                 A efetivação do cadastro/recadastro estará finalizado em até
-                dois dias úteis a contar da data de solicitação.
+                24 horas a contar da data de solicitação.
                 <br />
                 A renovação de cadastro para alunos de graduação é semestral e
                 para alunos de pós-graduação, técnicos administrativos e
