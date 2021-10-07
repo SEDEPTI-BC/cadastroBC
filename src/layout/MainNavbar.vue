@@ -9,7 +9,11 @@
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start ">
         <h3 class="md-title " data-toggle="dropdown">
-          <a href="http://bc.ufpa.br/" style="color: #000 !important ">
+          <img src="../../dist/Logo_Biblioteca.png" height="35" width="35" />
+          <a
+            href="http://bc.ufpa.br/"
+            style="color: #000 !important; margin-left: 8px "
+          >
             Biblioteca Central UFPA</a
           >
         </h3>

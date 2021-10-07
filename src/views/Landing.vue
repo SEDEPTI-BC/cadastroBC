@@ -1,34 +1,19 @@
 <template>
-  <div class="wrapper">
-    <parallax class="section page-header " :style="headerStyle">
-      <div class="container">
-        <div class="md-layout">
-          <div
-            class="md-layout-item md-size-50 md-small-size-70 md-xsmall-size-100"
-          >
-            <h1 class="title"></h1>
-            <h4>
-            </h4>
-            <br />
-          </div>
-        </div>
-      </div>
-    </parallax>
-    <div class="main main-raised">
-      <div class="section">
-        <div class="container"></div>
-      </div>
-      <div class="section section-contacts">
-        <div class="container">
-          <div class="md-layout">
-            <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
+  <div class="wrapper  ">
+    <br><br><br><br><br><br><br><br>
+    <div class="main main-raised" >
+      <div class="section section-contacts"  >
+        <!-- <img src="../assets/img/cabecalhoFINAL2.png"> -->
+        <!-- <div class="container">
+          <div class="md-layout"> -->
+            <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto" >
               <h2 class="text-center title"><strong>PRÉ-CADASTRO/RECADASTRO</strong></h2>
               <h4 class="text-center description" style="font-size: 19px"> <!-- fonte é de 18 e mudei para 19 -->
                 <strong>
                 Formulário de solicitação para pré-cadastro/recadastro online.
                 Preencher ou marcar principalmente todos os itens obrigatórios.
                 <br />
-                A efetivação do cadastro/recadastro estará finalizado em até
+                A efetivação do pré-cadastro/recadastro estará finalizada em até
                 24 horas a contar da data de solicitação.
                 <br />
                 A renovação de cadastro para alunos de graduação é semestral e
@@ -378,8 +363,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      <!-- </div>
+    </div> -->
   </div>
 </template>
 
