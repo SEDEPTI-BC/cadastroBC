@@ -12,13 +12,13 @@
           <img src="../../dist/Logo_Biblioteca.png" height="35" width="35" />
           <a
             href="http://bc.ufpa.br/"
-            style="color: #000 !important; margin-left: 8px "
+            style="color: #000 !important; margin-left: 18px "
           >
             Biblioteca Central UFPA</a
           >
         </h3>
       </div>
-      <div class="md-toolbar-section-end">
+      <div class="">
         <md-button
           class="md-just-icon md-simple md-toolbar-toggle"
           :class="{ toggled: toggledClass }"
