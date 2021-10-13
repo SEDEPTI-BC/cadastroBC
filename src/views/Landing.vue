@@ -369,7 +369,7 @@
                   <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
                     <vue-recaptcha sitekey="6LdA_pUbAAAAAPPnRdmSLIphFz4hW1UQ16sFaqqm">
-                      <md-button class="md-success" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
+                      <md-button class="md-success" type="submit" :disabled= !isComplete @click.prevent="sendForm"  value="" 
                         >Enviar cadastro</md-button>
                     </vue-recaptcha>
                   </div>
