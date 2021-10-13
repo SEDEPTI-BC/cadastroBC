@@ -9,7 +9,7 @@
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start ">
         <h3 class="md-title " data-toggle="dropdown">
-          <img src="../../dist/Logo_Biblioteca.png" height="35" width="35" />
+          <img src="../assets/img/Logo_Biblioteca.png" height="35" width="35" />
           <a
             href="http://bc.ufpa.br/"
             style="color: #000 !important; margin-left: 18px "
