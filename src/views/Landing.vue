@@ -143,13 +143,24 @@
                     </md-field>
                   </div>
                   <div class="md-layout-item md-size-50 mx-auto desktop">
-                    <md-field maxlength="5">
+                    <span class="inputButton label" style="margin-top:10px">Documentos de Identificação necessários.</span>
+                    <!-- <md-field maxlength="5">
                       <label class="label">Documentação de identificação com foto  </label>
                       <md-select class="label" v-model="doc" required="" name="doc" type="text">
                         <md-option  value="Carteira de identidade">Carteira de identidade</md-option>
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
                       </md-select>
-                    </md-field>
+                    </md-field> -->
+                  </div>
+                  <div class="md-layout-item md-size-100 mx-auto mobile">
+                    <span class="inputButton label" style="margin-top:10px">Documentos de Identificação necessários.</span>
+                    <!-- <md-field maxlength="5">
+                      <label class="label">Documentação de identificação com foto  </label>
+                      <md-select class="label" v-model="doc" required="" name="doc" type="text">
+                        <md-option  value="Carteira de identidade">Carteira de identidade</md-option>
+                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
+                      </md-select>
+                    </md-field> -->
                   </div>
                 </div>
                 <br>
@@ -218,7 +229,7 @@
                   </div>
                   
                   <!-- Doumento mobile -->
-                  <div class="md-layout-item mobile" >
+                  <!-- <div class="md-layout-item mobile" >
                     <md-field maxlength="5">
                       <label class="label">Documentação de identificação com foto</label>
                       <md-select v-model="doc" required="" name="doc" type="text">
@@ -226,52 +237,52 @@
                         <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
                       </md-select>
                     </md-field>
+                  </div> -->
+                  <div class="md-layout-item md-size-50 md-small-size-100 desktop">
+                    <!-- <span class="inputButton  vermelho" style="margin-top:-20px">Documentos permitidos: .PDF, .PNG e .JPEG</span> -->
+                    <ol style="margin-left: 20px; margin-top: -50px">
+                      <li class="oa" >Documento de identificação (CNH ou identidade)</li>
+                      <li class="la">Foto de perfil (3x4)</li>
+                      <li class="la">Comprovante de matricula</li>
+                      <li class="la">Comprovante de residência</li>
+                    </ol>
+                    <div class="md-layout-item md-size-100">
+                      <b-field >
+                        <b-upload v-model="dropFiles"
+                            multiple
+                            drag-drop
+                            rounded
+                            style="margin-left:-15px"
+                            >
+                            <section class="section" style="padding: 30px 50px">
+                                <div class="content has-text-centered">
+                                    <p>
+                                        <b-icon
+                                            icon="upload"
+                                            type="is-primary">
+                                        </b-icon>
+                                    </p>
+                                    <p>Deixe aqui seus documentos</p>
+                                </div>
+                            </section>
+                        </b-upload>
+                    </b-field>
+                    <div class="tags">
+                        <span v-for="(file, index) in dropFiles"
+                            :key="index"
+                            class="tag is-primary" >
+                            {{file.name}}
+                            <button class="delete is-small"
+                                type="button"
+                                @click="deleteDropFile(index)">
+                            </button>
+                        </span>
+                    </div> 
                   </div>
-                  <div class="md-layout-item md-size-50 md-small-size-100">
-                    <span class="inputButton label">Documentos de identificação</span>
+                  
+                    <br>
                     <div class="md-layout-item md-size-100">
                       
-                      <br>
-                      <label class="label-file" 
-                        >{{doc}} <span :class="vazio ? 'verde' : 'vermelho'">{{fileName}}</span>
-                        <input
-                          style="display: none "
-                          required=""
-                          @change="onFileChange"
-                          type="file"
-                          ref="fileID"
-                          v-on:change="handleFileUpload('fileID')"
-                        />
-                      </label>
-                      <!-- <span>{{fileName}}</span> -->
-                    </div>
-                    <br>
-                    <div class="md-layout-item md-size-100">
-                      <label class="label-file"
-                        >Foto de perfil(3x4) <span :class="vazio1 ? 'verde' : 'vermelho'">{{fileName1}}</span> 
-                        <input
-                        style="display: none"
-                          type="file"
-                          @change="onFileChange1"
-                          required=""
-                          ref="fileProfile"
-                          v-on:change="handleFileUpload('fileProfile')"
-                        />
-                      </label>
-                    </div>
-                    <br>
-                    <div class="md-layout-item md-size-100">
-                      <label class="label-file md-size-200"
-                        >Atestado de matrícula <span :class="vazio2 ? 'verde' : 'vermelho'">{{fileName2}}</span>
-                        <input
-                          style="display: none;"
-                          type="file"
-                          @change="onFileChange2" 
-                          required=""
-                          ref="fileMat"
-                          v-on:change="handleFileUpload('fileMat')"
-                        />
-                      </label>
                     </div>
                   </div>
                 </div>
@@ -377,7 +388,6 @@ import { sendForm } from 'emailjs-com';
 
 import VueRecaptcha from 'vue-recaptcha';
 
-
 export default {
   bodyClass: "landing-page",
   components: { VueRecaptcha },
@@ -413,6 +423,7 @@ export default {
       vazio:'',
       vazio1:'',
       vazio2:'',
+      dropFiles: []
     };
   },
   computed: {
@@ -426,7 +437,9 @@ export default {
   }
   },
   methods: {
-    
+    deleteDropFile(index) {
+      this.dropFiles.splice(index, 1)
+    },
     handleFileUpload(elementRef) {    
       // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
       
@@ -613,6 +626,9 @@ export default {
 .verde{
   color: #008000;
   font-weight: 600;
+}
+.ola{
+  display: inline;
 }
 
 
