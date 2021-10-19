@@ -28,7 +28,7 @@
                 registrados quando você fizer upload de arquivos e enviar este
                 formulário.
                 </strong>
-                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb.</p>
+                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb. São aceitos como arquivos PDF , PNG e JPEG.</p>
               </h4>
               <!-- inicio do formulário -->
 
