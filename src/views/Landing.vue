@@ -142,16 +142,7 @@
                       <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
                     </md-field>
                   </div>
-                  <div class="md-layout-item md-size-50 mx-auto desktop">
-                    <span class="inputButton label" style="margin-top:10px">Documentos de Identificação necessários.</span>
-                    <!-- <md-field maxlength="5">
-                      <label class="label">Documentação de identificação com foto  </label>
-                      <md-select class="label" v-model="doc" required="" name="doc" type="text">
-                        <md-option  value="Carteira de identidade">Carteira de identidade</md-option>
-                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
-                      </md-select>
-                    </md-field> -->
-                  </div>
+                  
                   <div class="md-layout-item md-size-100 mx-auto mobile">
                     <span class="inputButton label" style="margin-top:10px">Documentos de Identificação necessários.</span>
                     <!-- <md-field maxlength="5">
@@ -238,52 +229,52 @@
                       </md-select>
                     </md-field>
                   </div> -->
+
+                  <!-- input files desktop -->
                   <div class="md-layout-item md-size-50 md-small-size-100 desktop">
-                    <!-- <span class="inputButton  vermelho" style="margin-top:-20px">Documentos permitidos: .PDF, .PNG e .JPEG</span> -->
-                    <ol style="margin-left: 20px; margin-top: -50px">
-                      <li class="oa" >Documento de identificação (CNH ou identidade)</li>
-                      <li class="la">Foto de perfil (3x4)</li>
-                      <li class="la">Comprovante de matricula</li>
-                      <li class="la">Comprovante de residência</li>
-                    </ol>
-                    <div class="md-layout-item md-size-100">
-                      <b-field >
-                        <b-upload v-model="dropFiles"
-                            multiple
-                            drag-drop
-                            rounded
-                            style="margin-left:-15px"
-                            >
-                            <section class="section" style="padding: 30px 50px">
-                                <div class="content has-text-centered">
-                                    <p>
-                                        <b-icon
-                                            icon="upload"
-                                            type="is-primary">
-                                        </b-icon>
-                                    </p>
-                                    <p>Deixe aqui seus documentos</p>
-                                </div>
-                            </section>
-                        </b-upload>
-                    </b-field>
-                    <div class="tags">
-                        <span v-for="(file, index) in dropFiles"
-                            :key="index"
-                            class="tag is-primary" >
-                            {{file.name}}
-                            <button class="delete is-small"
-                                type="button"
-                                @click="deleteDropFile(index)">
-                            </button>
-                        </span>
-                    </div> 
-                  </div>
-                  
-                    <br>
-                    <div class="md-layout-item md-size-100">
-                      
+                    <label class="label">Documentos de Identificação necessários. </label>
+                      <!-- <span class="inputButton  vermelho" style="margin-top:-20px">Documentos permitidos: .PDF, .PNG e .JPEG</span> -->
+                      <div class="md-layout-item md-size-100" style="margin-top: 20px">
+                        <b-field >
+                          <b-upload v-model="dropFiles"
+                              multiple
+                              drag-drop
+                              rounded
+                              style="margin-left:-15px"
+                              >
+                              <section class="section" style="padding: 30px 50px">
+                                  <div class="content has-text-centered">
+                                      <p>
+                                          <b-icon
+                                              icon="upload"
+                                              type="is-primary">
+                                          </b-icon>
+                                      </p>
+                                      <p>Deixe aqui seus documentos </p>
+                                      <p class="vermelho" style="margin-top: -20px">PDF, PNG ou JPEG</p>
+                                  </div>
+                              </section>
+                          </b-upload>
+                        <ol style="margin-left: 20px; margin-top: 0px">
+                              <li >Documento de identificação (CNH ou identidade)</li>
+                              <li >Foto de perfil (3x4)</li>
+                              <li >Comprovante de matricula</li>
+                              <li >Comprovante de residência</li>
+                        </ol>  
+                      </b-field>
+                      <div class="tags">
+                          <span v-for="(file, index) in dropFiles"
+                              :key="index"
+                              class="tag is-primary" >
+                              {{file.name}}
+                              <button class="delete is-small"
+                                  type="button"
+                                  @click="deleteDropFile(index)">
+                              </button>
+                          </span>
+                      </div> 
                     </div>
+                  
                   </div>
                 </div>
                 <br>
