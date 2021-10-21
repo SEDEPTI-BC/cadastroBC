@@ -231,51 +231,55 @@
                   </div> -->
 
                   <!-- input files desktop -->
-                  <div class="md-layout-item md-size-50 md-small-size-100 desktop">
-                    <label class="label">Documentos de Identificação necessários. </label>
-                      <!-- <span class="inputButton  vermelho" style="margin-top:-20px">Documentos permitidos: .PDF, .PNG e .JPEG</span> -->
-                      <div class="md-layout-item md-size-100" style="margin-top: 20px">
-                        <b-field >
-                          <b-upload v-model="dropFiles"
-                              multiple
-                              drag-drop
-                              rounded
-                              style="margin-left:-15px"
-                              >
-                              <section class="section" style="padding: 30px 50px">
-                                  <div class="content has-text-centered">
-                                      <p>
-                                          <b-icon
-                                              icon="upload"
-                                              type="is-primary">
-                                          </b-icon>
-                                      </p>
+                  <section>
+                      <div class="buttons">
+                          <b-button
+                            label="Launch card modal (keep scroll)"
+                            type="is-primary"
+                            size="is-medium"
+                            @click="isCardModalActive = true" 
+                          />
+                      </div>
+                      <b-modal v-model="isCardModalActive" :width="740" auto-focus  :scroll="true"	>
+                          <label class="label">Documentos de Identificação necessários. </label>
+                            <!-- <span class="inputButton  vermelho" style="margin-top:-20px">Documentos permitidos: .PDF, .PNG e .JPEG</span> -->
+                            <div class="md-layout-item md-size-100" style="margin-top: 20px">
+                              <b-field >
+                                <b-upload v-model="dropFiles"
+                                    multiple
+                                    drag-drop
+                                    rounded
+                                    style="margin-left:-15px"
+                                  >
+                                  <section class="section" style="padding: 30px 50px">
+                                    <div class="content has-text-centered">
+                                      <p><b-icon icon="upload" type="is-primary"></b-icon> </p>
                                       <p>Deixe aqui seus documentos </p>
                                       <p class="vermelho" style="margin-top: -20px">PDF, PNG ou JPEG</p>
-                                  </div>
-                              </section>
-                          </b-upload>
-                        <ol style="margin-left: 20px; margin-top: 0px">
-                              <li >Documento de identificação (CNH ou identidade)</li>
-                              <li >Foto de perfil (3x4)</li>
-                              <li >Comprovante de matricula</li>
-                              <li >Comprovante de residência</li>
-                        </ol>  
-                      </b-field>
-                      <div class="tags">
-                          <span v-for="(file, index) in dropFiles"
-                              :key="index"
-                              class="tag is-primary" >
-                              {{file.name}}
-                              <button class="delete is-small"
-                                  type="button"
-                                  @click="deleteDropFile(index)">
-                              </button>
-                          </span>
-                      </div> 
-                    </div>
-                  
-                  </div>
+                                    </div>
+                                  </section>
+                                </b-upload>
+                            <ol style="margin-left: 20px; margin-top: 0px">
+                                  <li style="color: #fff">Documento de identificação (CNH ou identidade)</li>
+                                  <li style="color: #fff">Foto de perfil (3x4)</li>
+                                  <li style="color: #fff">Comprovante de matricula</li>
+                                  <li style="color: #fff">Comprovante de residência</li>
+                            </ol>  
+                          </b-field>
+                          <div class="tags">
+                              <span v-for="(file, index) in dropFiles"
+                                  :key="index"
+                                  class="tag is-primary" >
+                                  {{file.name}}
+                                  <button class="delete is-small"
+                                      type="button"
+                                      @click="deleteDropFile(index)">
+                                  </button>
+                              </span>
+                          </div> 
+                        </div>
+                      </b-modal>
+                  </section>
                 </div>
                 <br>
 
@@ -390,6 +394,8 @@ export default {
   },
   data() {
     return {
+      isImageModalActive: false,
+      isCardModalActive: false,
       errors: [],
       enviar:'',
       user_name: '',
