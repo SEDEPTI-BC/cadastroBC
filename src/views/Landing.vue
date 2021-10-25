@@ -219,70 +219,75 @@
                     </div>
                   </div>
                   
-                  <!-- Doumento mobile -->
-                  <!-- <div class="md-layout-item mobile" >
-                    <md-field maxlength="5">
-                      <label class="label">Documentação de identificação com foto</label>
-                      <md-select v-model="doc" required="" name="doc" type="text">
-                        <md-option value="Carteira de identidade">Carteira de identidade</md-option>
-                        <md-option value="CNH">Carteira Nacional de Habilitação</md-option>
-                      </md-select>
-                    </md-field>
-                  </div> -->
-
                   <!-- input files desktop -->
-                  <section>
-                      <div class="buttons">
-                          <b-button
-                            label="Launch card modal (keep scroll)"
-                            type="is-primary"
-                            size="is-medium"
-                            @click="isCardModalActive = true" 
-                          />
-                      </div>
-                      <b-modal v-model="isCardModalActive" :width="740" auto-focus  :scroll="true"	>
-                          <label class="label">Documentos de Identificação necessários. </label>
-                            <!-- <span class="inputButton  vermelho" style="margin-top:-20px">Documentos permitidos: .PDF, .PNG e .JPEG</span> -->
-                            <div class="md-layout-item md-size-100" style="margin-top: 20px">
-                              <b-field >
-                                <b-upload v-model="dropFiles"
-                                    multiple
-                                    drag-drop
-                                    rounded
-                                    style="margin-left:-15px"
-                                  >
-                                  <section class="section" style="padding: 30px 50px">
-                                    <div class="content has-text-centered">
-                                      <p><b-icon icon="upload" type="is-primary"></b-icon> </p>
-                                      <p>Deixe aqui seus documentos </p>
-                                      <p class="vermelho" style="margin-top: -20px">PDF, PNG ou JPEG</p>
-                                    </div>
-                                  </section>
-                                </b-upload>
-                            <ol style="margin-left: 20px; margin-top: 0px">
-                                  <li style="color: #fff">Documento de identificação (CNH ou identidade)</li>
-                                  <li style="color: #fff">Foto de perfil (3x4)</li>
-                                  <li style="color: #fff">Comprovante de matricula</li>
-                                  <li style="color: #fff">Comprovante de residência</li>
-                            </ol>  
-                          </b-field>
-                          <div class="tags">
-                              <span v-for="(file, index) in dropFiles"
-                                  :key="index"
-                                  class="tag is-primary" >
-                                  {{file.name}}
-                                  <button class="delete is-small"
-                                      type="button"
-                                      @click="deleteDropFile(index)">
-                                  </button>
-                              </span>
-                          </div> 
-                        </div>
-                      </b-modal>
-                  </section>
+                  <div class="md-layout">
+                  <div class="md-layout-item md-size-33">
+                    <md-button
+                      class="md-primary md-round md-block "
+                      @click="classicModal = true"
+                      ><md-icon>library_books</md-icon> Envie seus documentos</md-button
+                    >
+                    <modal v-if="classicModal" @close="classicModalHide">
+                      <template slot="header">
+                        <h4 class="modal-title"></h4>
+                        <md-button
+                          class="md-simple md-just-icon md-round modal-default-button"
+                          @click="classicModalHide"
+                        >
+                          <md-icon>clear</md-icon>
+                        </md-button>
+                      </template>
+
+                    <template slot="body">
+                      <label class="label">Documentos de Identificação necessários. </label>
+                      <p>
+                        <strong>1.</strong> Identidade ou CNH <strong>2.</strong> Comprovante de Matricula<br>
+                        <strong>3.</strong> Foto de perfil (3x4) <strong>4.</strong> Comprovante de residência
+                      </p>
+                        <div class="md-layout-item md-size-100" >
+                          <b-field class="campo">
+                            <b-upload v-model="dropFiles"
+                                multiple
+                                expanded
+                                drag-drop
+                                rounded
+                              >
+                              <section class="section" style="padding: 30px 50px">
+                                <div class="content has-text-centered">
+                                  <p><b-icon icon="upload" type="is-primary"></b-icon> </p>
+                                  <p>Deixe aqui seus documentos </p>
+                                  <p class="vermelho" style="margin-top: -20px">PDF, PNG ou JPEG</p>
+                                </div>
+                              </section>
+                            </b-upload>
+                              </b-field>
+                              <div class="tags">
+                                  <span v-for="(file, index) in dropFiles"
+                                      :key="index"
+                                      class="tag is-primary" >
+                                      {{file.name}}
+                                      <button class="delete is-small"
+                                          type="button"
+                                          @click="deleteDropFile(index)">
+                                      </button>
+                                  </span>
+                              </div> 
+                            </div>
+                    </template>
+
+                    <template slot="footer">
+                      <md-button
+                        class="md-danger md-simple"
+                        @click="classicModalHide"
+                        >Fechar</md-button
+                      >
+                    </template>
+                  </modal>
+                  </div>
+                  </div>
                 </div>
                 <br>
-
+              
                 <!-- Checkbox mobile -->
 
                 <h4 class="mobile label">Deficiência</h4>
@@ -378,14 +383,13 @@
 
 const axios = require('axios');
 import _ from 'lodash';
-
 import { sendForm } from 'emailjs-com';
-
 import VueRecaptcha from 'vue-recaptcha';
-
+import { Modal } from "@/components";
+// import Modal from "./components/JavascriptComponentsSection";
 export default {
   bodyClass: "landing-page",
-  components: { VueRecaptcha },
+  components: { VueRecaptcha, Modal  },
   props: {
     header: {
       type: String,
@@ -394,6 +398,7 @@ export default {
   },
   data() {
     return {
+      classicModal: false,
       isImageModalActive: false,
       isCardModalActive: false,
       errors: [],
@@ -434,6 +439,9 @@ export default {
   }
   },
   methods: {
+    classicModalHide() {
+      this.classicModal = false;
+    },
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1)
     },
@@ -627,6 +635,12 @@ export default {
 .ola{
   display: inline;
 }
+.campo{
+  
+  text-align: center;
+  position: relative;
+}
+
 
 
 @media screen and (max-width: 500px) {
