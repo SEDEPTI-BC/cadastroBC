@@ -332,6 +332,8 @@
                                 expanded
                                 drag-drop
                                 rounded
+                                :disabled='isUploadAreaDisabled'
+                                @input="validateNumberOfFiles"
                               >
                               <section class="section" style="padding: 30px 50px">
                                 <div class="content has-text-centered">
@@ -360,7 +362,7 @@
                       <md-button
                         class="md-danger md-simple"
                         @click="classicModalHide"
-                        >Fechar</md-button
+                        >Concluir</md-button
                       >
                     </template>
                     </modal>
@@ -444,7 +446,8 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
-                    <vue-recaptcha sitekey="6LdA_pUbAAAAAPPnRdmSLIphFz4hW1UQ16sFaqqm">
+                    <vue-recaptcha :sitekey='recaptchaSitekey'>
+                      <!-- sendForm -->
                       <md-button class="md-success md-round" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
                         >Enviar cadastro</md-button>
                     </vue-recaptcha>
@@ -460,7 +463,6 @@
 </template>
 
 <script>
-
 const axios = require('axios');
 import _ from 'lodash';
 import { sendForm } from 'emailjs-com';
@@ -478,6 +480,8 @@ export default {
   },
   data() {
     return {
+      recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
+      isUploadAreaDisabled: false,
       classicModal: false,
       isImageModalActive: false,
       isCardModalActive: false,
@@ -518,33 +522,25 @@ export default {
     return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file && this.vazio && this.vazio1 && this.vazio2;
   }
   },
+
   methods: {
+    validateNumberOfFiles() {
+      if (this.dropFiles.length > 3) {
+        this.isUploadAreaDisabled = true
+      }
+    },
+    // testDropfiles() {
+    //   console.log(this.dropFiles)
+    // },
     classicModalHide() {
       this.classicModal = false;
     },
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1)
+      if (this.dropFiles.length < 4) {
+        this.isUploadAreaDisabled = false
+      }
     },
-    handleFileUpload(elementRef) {    
-      // if elementRef === 'fileID' => fileID_name = this.$refs[elementRef].files.name
-      
-      const file = this.$refs[elementRef].files
-
-      this.uploadFiles = [...this.uploadFiles, ...file]
-
-      this.files = [
-        ...this.files,
-        ..._.map(file, file => ({
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          invalidMessage: this.validate(file) //TODO: usar isso pra mostrar msg de erro no form
-        }))
-      ]
-      // console.log(this.files)
-      
-    },
-
     validate(file) {
       const MAX_SIZE = 200000;
       const allowedTypes = ["image/png", "image/jpeg", "application/pdf"]
@@ -575,9 +571,9 @@ export default {
       return sendForm
       }
       const formData = new FormData()
-      _.forEach(this.uploadFiles, file => {
+      _.forEach(this.dropFiles, file => {
         if (this.validate(file) === "") {
-        formData.append('files', file) 
+          formData.append('files', file) 
         }
       })      
       try {
@@ -594,14 +590,10 @@ export default {
         formData.append("sex", this.sex)
         formData.append("deficiency", this.deficiency)
 
-        console.log(formData);
-        await axios.post('upload', formData)
+        // console.log(formData);
+        await axios.post('http://localhost:8080/upload', formData)
         .then(function (response) {
 
-          // handle success
-          console.log('req sent.')
-          // this.files = [];
-          // this.uploadFiles = [];
           console.log(response);
           alert("Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.")
           document.Location.reload(true);
