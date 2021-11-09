@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 
 const cors = require("cors");
@@ -14,7 +16,7 @@ app.use(express.json());
 
 app.use(uploadFormRouter);
 
-const apiPort = 8080;
+const apiPort = process.env.VUE_APP_API_PORT;
 
 app.listen(apiPort, () =>
   console.log(`Cadastro-BC API running on localhost:${apiPort}`)
