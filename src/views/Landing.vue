@@ -7,7 +7,7 @@
         <!-- <div class="container">
           <div class="md-layout"> -->
             <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto" >
-              <h2 class="text-center title desktop" style="margin-left: 500px" >PRÉ-CADASTRO/RECADASTRO</h2>
+              <h2 class="text-center title text-responsive" >PRÉ-CADASTRO/RECADASTRO</h2>
               <!-- <h2 class=" title" style="margin-left: 50px"><p class=" text-center title mobile">PRÉ-CADASTRO/<br>RECADASTRO</p></h2> -->
               <h4 class="text-center description" style="font-size: 19px"> <!-- fonte é de 18 e mudei para 19 -->
                 <strong>
@@ -530,9 +530,6 @@ export default {
         this.isUploadAreaDisabled = true
       }
     },
-    // testDropfiles() {
-    //   console.log(this.dropFiles)
-    // },
     classicModalHide() {
       this.classicModal = false;
     },
@@ -592,7 +589,7 @@ export default {
         formData.append("deficiency", this.deficiency)
 
         // console.log(formData);
-        await axios.post('http://localhost:8080/upload', formData)
+        await axios.post(`http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`, formData)
         .then(function (response) {
 
           console.log(response);
@@ -654,6 +651,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.text-responsive {
+  font-size: 3rem;
+}
 .md-card-actions.text-center {
   display: flex;
   justify-content: center !important;
@@ -715,11 +715,18 @@ export default {
 }
 
 
-
 @media screen and (max-width: 500px) {
-  .md-layout{
-    display: flex;
+  .text-responsive {
+    font-size: 1.5rem;
   }
+
+  .description {
+    font-size: 1rem;
+  }
+  .section {
+    padding: 20px 0;
+  }
+
   .md-size-50{
     width: 100;
   }
