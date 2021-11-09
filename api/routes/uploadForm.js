@@ -38,12 +38,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  fileFilter
+  fileFilter,
 });
 
 router.use(
   express.urlencoded({
-    extended: true
+    extended: true,
   })
 );
 
@@ -53,14 +53,14 @@ router.get("/upload", (req, res, next) => {
   res.send("Upload get route working!");
 });
 
-router.post("/upload", upload.array("files", 3), (req, res) => {
+router.post("/upload", upload.array("files", 4), (req, res) => {
   console.log("Aight! finding form files...");
   const files = req.files;
   let filenames = [];
 
   const form = req.body;
 
-  files.forEach(element => {
+  files.forEach((element) => {
     filenames.push(element.originalname);
   });
   console.log("files found: " + filenames.length);
