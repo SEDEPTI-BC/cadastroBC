@@ -446,6 +446,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-size-50 mx-auto text-center">
                     <!-- <md-input type="submit" value="enviar"></md-input> -->
+
                     <vue-recaptcha :sitekey='recaptchaSitekey'>
                       <!-- sendForm -->
                       <md-button class="md-success md-round" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
