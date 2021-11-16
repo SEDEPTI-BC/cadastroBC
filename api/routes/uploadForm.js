@@ -14,6 +14,8 @@ const path = require('path')
 
 // const bodyParser = require("body-parser");
 
+let filenames = []
+
 const fileFilter = function(req, file, cb) {
   const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
 
@@ -32,22 +34,29 @@ const storage = multer.diskStorage({
     cb(null, path.join(rootDir, 'uploads'))
   },
   filename: function(req, file, cb) {
-    let extension = ''
-    console.log(file)
-    switch (file.mimetype) {
-      case 'image/jpeg':
-        extension = '.jpeg'
-        break
-      case 'application/pdf':
-        extension = '.pdf'
-        break
-      case 'image/png':
-        extension = '.png'
-        break
-    }
+    // let extension = ''
+    // console.log(file)
+    // switch (file.mimetype) {
+    //   case 'image/jpeg':
+    //     extension = '.jpeg'
+    //     break
+    //   case 'application/pdf':
+    //     extension = '.pdf'
+    //     break
+    //   case 'image/png':
+    //     extension = '.png'
+    //     break
+    // }
 
-    let newFileName = file.filename + '-' + Date.now() + extension
-    console.log(newFileName)
+    let filenameArray = file.originalname.split('.')
+
+    let extension = filenameArray.pop()
+    let filename = filenameArray.join()
+
+    let newFileName = filename + '-' + Date.now() + '.' + extension
+
+    // filenames.push(newFileName)
+    // console.log(newFileName)
     cb(null, newFileName)
   },
 })
@@ -70,18 +79,21 @@ router.get('/upload', (req, res, next) => {
 })
 
 router.post('/upload', upload.array('files', 4), (req, res) => {
-  console.log('Aight! finding form files...')
+  // console.log('Aight! finding form files...')
   const files = req.files
-  let filenames = []
+  // let filenames = []
 
   const form = req.body
 
+  // console.log(files)
   files.forEach(element => {
-    filenames.push(element.originalname)
+    filenames.push(element.filename)
   })
-  console.log('files found: ' + filenames.length)
+  // console.log('files found: ' + filenames.length)
 
   mailer(process.env.EMAIL_DESTINATARIO, form, filenames)
+
+  filenames = []
 
   res.send({ form })
 })

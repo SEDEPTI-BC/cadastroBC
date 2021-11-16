@@ -57,7 +57,6 @@ const mailer = async function(emailAddress, form, files) {
     })
   })
 
-  console.log('creating transporter...')
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     // host: "smtp.gmail.com",
@@ -101,8 +100,6 @@ const mailer = async function(emailAddress, form, files) {
         fs.unlink(path.join(rootDir, 'uploads', file), err => {
           if (err) {
             console.error(err)
-          } else {
-            console.log('cleared')
           }
         })
       })
