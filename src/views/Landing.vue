@@ -1,653 +1,781 @@
 <template>
-  <div class="wrapper  ">
-    <br><br><br><br><br><br><br><br>
-    <div class="main main-raised" >
-      <div class="section section-contacts"  >
+  <div class="wrapper">
+    <br /><br /><br /><br /><br /><br /><br /><br />
+    <div class="main main-raised">
+      <div class="section section-contacts">
         <!-- <img src="../assets/img/cabecalhoFINAL2.png"> -->
         <!-- <div class="container">
           <div class="md-layout"> -->
-            <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto" >
-              <h2 class="text-center title text-responsive" >PRÉ-CADASTRO/RECADASTRO</h2>
-              <!-- <h2 class=" title" style="margin-left: 50px"><p class=" text-center title mobile">PRÉ-CADASTRO/<br>RECADASTRO</p></h2> -->
-              <h4 class="text-center description" style="font-size: 19px"> <!-- fonte é de 18 e mudei para 19 -->
-                <strong>
-                Formulário de solicitação para pré-cadastro/recadastro online.
-                Preencher ou marcar principalmente todos os itens obrigatórios.
-                <br />
-                A efetivação do pré-cadastro/recadastro estará finalizada em até
-                24 horas a contar da data de solicitação.
-                <br />
-                A renovação de cadastro para alunos de graduação é semestral e
-                para alunos de pós-graduação, técnicos administrativos e
-                docentes da UFPA é anual.
-                <br />
-                <u>Observações sobre os anexos:</u>
-                Discentes: Atestado de matrícula atual (SIGAA)<br />
-                Servidores: Declaração de vínculo funcional (SAGITTA) ou
-                carteira funcional (SIGEPE)<br />
-                O nome e a foto associados à sua Conta do Google serão
-                registrados quando você fizer upload de arquivos e enviar este
-                formulário.
-                </strong>
-                <p class="vermelho">O tamanho dos arquivos não deve ultrapassar 200Kb. São aceitos como arquivos PDF , PNG e JPEG.</p>
-              </h4>
-              <!-- inicio do formulário -->
+        <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
+          <h2 class="text-center title text-responsive">
+            PRÉ-CADASTRO/RECADASTRO
+          </h2>
+          <!-- <h2 class=" title" style="margin-left: 50px"><p class=" text-center title mobile">PRÉ-CADASTRO/<br>RECADASTRO</p></h2> -->
+          <h4 class="text-center description" style="font-size: 19px">
+            <!-- fonte é de 18 e mudei para 19 -->
+            <strong>
+              Formulário de solicitação para pré-cadastro/recadastro online.
+              Preencher ou marcar principalmente todos os itens obrigatórios.
+              <br />
+              A efetivação do pré-cadastro/recadastro estará finalizada em até
+              24 horas a contar da data de solicitação.
+              <br />
+              A renovação de cadastro para alunos de graduação é semestral e
+              para alunos de pós-graduação, técnicos administrativos e docentes
+              da UFPA é anual.
+              <br />
+              <u>Observações sobre os anexos:</u>
+              Discentes: Atestado de matrícula atual (SIGAA)<br />
+              Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
+              funcional (SIGEPE)<br />
+              O nome e a foto associados à sua Conta do Google serão registrados
+              quando você fizer upload de arquivos e enviar este formulário.
+            </strong>
+            <p class="vermelho">
+              O tamanho dos arquivos não deve ultrapassar 200Kb. São aceitos
+              como arquivos PDF , PNG e JPEG.
+            </p>
+          </h4>
+          <!-- inicio do formulário -->
+          <form
+            class="contact-form"
+            enctype="multipart/form-data"
+            onsubmit="setTimeout(function(){window.location.reload();},10);"
+            name="formulario"
+          >
+            <div v-if="errors.length">
+              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+              <ul>
+                <li v-for="error in errors" :key="error.id">
+                  {{ error }}
+                </li>
+              </ul>
+            </div>
 
-              <form class="contact-form"  enctype="multipart/form-data" onsubmit="setTimeout(function(){window.location.reload();},10);" name="formulario">
+            <!-- campos de nome e nome social -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label class="label">Seu nome completo</label>
+                  <md-input
+                    style="text-transform: capitalize"
+                    class="name"
+                    v-model="$v.form.idName.$model"
+                    id="name"
+                    required=""
+                    name="user_name"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label class="label">Seu nome social</label>
+                  <md-input
+                    style="text-transform: capitalize"
+                    v-model="form.socialName"
+                    name="socialName"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+            </div>
 
-                <p v-if="errors.length">
-                  <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-                  <ul>
-                    <li v-for="error in errors" :key="error.id">
-                      {{ error }}
-                    </li>
-                  </ul>
+            <!-- campo de email, sexo e nacionalidade -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-50">
+                <md-field maxlength="5">
+                  <label class="label">Seu email</label>
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required=""
+                    name="email"
+                    type="email"
+                  ></md-input>
+                </md-field>
+              </div>
+              <!-- sexo para desktop -->
+              <div class="md-layout-item md-size-25 desktop">
+                <md-field>
+                  <label class="label">Informe seu sexo</label>
+                  <md-input
+                    v-model="$v.form.sex.$model"
+                    required=""
+                    name="sex"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+              <!-- sexo para dispositivos mobiles -->
+              <div class="md-layout-item md-size-50 mobile">
+                <md-field>
+                  <label class="label">Informe seu sexo</label>
+                  <md-input
+                    v-model="$v.form.sex.$model"
+                    required=""
+                    name="sex"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+              <!-- nacionalidade para desktop -->
+              <div class="md-layout-item md-size-25 desktop">
+                <md-field>
+                  <label class="label">Nacionalidade </label>
+                  <md-input
+                    v-model="$v.form.nationality.$model"
+                    required=""
+                    name="nationality"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+            </div>
+
+            <!-- Campos de endereço e Numero -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-50 desktop">
+                <md-field>
+                  <label class="label">Endereço completo </label>
+                  <md-input
+                    v-model="$v.form.address.$model"
+                    required=""
+                    name="address"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-50 mobile">
+                <md-field>
+                  <label class="label">Nacionalidade </label>
+                  <md-input
+                    v-model="$v.form.nationality.$model"
+                    required=""
+                    name="nationality"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+              <!-- campo numero de contato mobile e desktop -->
+              <div class="md-layout-item md-size-50">
+                <md-field maxlength="5">
+                  <p>
+                    <label class="desktop label"
+                      >Número para contato(DDD + número)</label
+                    >
+                    <label class="mobile label">Número para contato</label>
+                  </p>
+                  <md-input
+                    v-model="$v.form.contact.$model"
+                    name="contact"
+                    required=""
+                    type="text"
+                    v-mask="'(##)#####-####'"
+                  ></md-input>
+                </md-field>
+              </div>
+            </div>
+
+            <!-- campos de daata de nascimento e CPF -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-50">
+                <md-field>
+                  <label class="label">Data de nascimento </label>
+                  <md-input
+                    v-model="$v.form.birthdate.$model"
+                    name="birthdate"
+                    required=""
+                    type="text"
+                    v-mask="'##/##/####'"
+                  ></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-50">
+                <md-field maxlength="5">
+                  <label class="label">CPF </label>
+                  <md-input
+                    v-model="$v.form.cpf.$model"
+                    name="cpf"
+                    required=""
+                    type="text"
+                    v-mask="'###.###.###-##'"
+                  ></md-input>
+                </md-field>
+              </div>
+            </div>
+
+            <!-- campo de nacionalidade e modal de upload de arquivos mobile -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-100 mobile">
+                <md-field>
+                  <label class="label">Endereço completo </label>
+                  <md-input
+                    v-model="$v.form.address.$model"
+                    required=""
+                    name="address"
+                    type="text"
+                  ></md-input>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-100 mobile">
+                <md-button
+                  class="md-primary md-round md-block"
+                  @click="classicModal = true"
+                  ><md-icon>library_books</md-icon> Envio de
+                  documentos</md-button
+                >
+                <modal v-if="classicModal" @close="classicModalHide">
+                  <template slot="header">
+                    <h4 class="modal-title"></h4>
+                    <md-button
+                      class="
+                        md-simple md-just-icon md-round
+                        modal-default-button
+                      "
+                      @click="classicModalHide"
+                    >
+                      <md-icon>clear</md-icon>
+                    </md-button>
+                  </template>
+
+                  <template slot="body">
+                    <label class="label"
+                      >Documentos de Identificação necessários.
+                    </label>
+                    <p>
+                      <strong>1.</strong> Identidade ou CNH(frente e verso)
+                      <strong>2.</strong> Comprovante de Matricula<br />
+                      <strong>3.</strong> Foto de perfil (3x4)
+                      <strong>4.</strong> Comprovante de residência
+                    </p>
+                    <div class="md-layout-item md-size-100">
+                      <b-field class="campo">
+                        <b-upload
+                          v-model="$v.form.dropFiles.$model"
+                          multiple
+                          expanded
+                          drag-drop
+                          rounded
+                        >
+                          <section class="section" style="padding: 30px 50px">
+                            <div class="content has-text-centered">
+                              <p>
+                                <b-icon
+                                  icon="upload"
+                                  type="is-primary"
+                                ></b-icon>
+                              </p>
+                              <p>Deixe aqui seus documentos</p>
+                              <p class="vermelho" style="margin-top: -20px">
+                                PDF, PNG ou JPEG
+                              </p>
+                            </div>
+                          </section>
+                        </b-upload>
+                      </b-field>
+                      <div class="tags">
+                        <span
+                          v-for="(file, index) in form.dropFiles"
+                          :key="index"
+                          class="tag is-primary"
+                        >
+                          {{ file.name }}
+                          <button
+                            class="delete is-small"
+                            type="button"
+                            @click="deleteDropFile(index)"
+                          ></button>
+                        </span>
+                      </div>
+                    </div>
+                  </template>
+                  <template slot="footer">
+                    <md-button
+                      class="md-danger md-simple"
+                      @click="classicModalHide"
+                      >Fechar</md-button
+                    >
+                  </template>
+                </modal>
+              </div>
+            </div>
+
+            <!-- campos de deficiência e upload de arquivos desktop -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-50 md-small-size-100 desktop">
+                <p>
+                  <label class="desktop roxo label">Deficiência</label>
+                  <br />
                 </p>
 
-                
-                <!-- campos de nome e nome social -->
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label class="label">Seu nome completo</label>
-                      <md-input
-                        style="text-transform: capitalize;"
-                        class="name"
-                        v-model="user_name"
-                        id="name"
-                        required=""
-                        name="user_name"
-                        type="text"
-                      ></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
+                <div id="example-3">
+                  <input
+                    type="checkbox"
+                    id="mental"
+                    value="Deficiência mental"
+                    v-model="form.deficiency"
+                    name="deficiency"
+                  />
+                  <label
+                    style="color: #000; font-weight: bold; margin-left: 4px"
+                    for="jack"
+                    >Deficiência mental</label
+                  >
 
-                      <label class="label" >Seu nome social</label>
-                      <md-input style="text-transform: capitalize;" v-model="socialName" name="socialName" type="text"></md-input>
+                  <input
+                    type="checkbox"
+                    id="auditiva"
+                    value="Deficiência auditiva"
+                    v-model="form.deficiency"
+                    style="margin-left: 33px"
+                    name="deficiency"
+                  />
+                  <label
+                    style="color: #000; font-weight: bold; margin-left: 4px"
+                    for="john"
+                    >Deficiência auditiva</label
+                  >
 
-                    </md-field>
-                  </div>
+                  <input
+                    type="checkbox"
+                    id="fisica"
+                    style="margin-left: 43px"
+                    value="Deficiência física"
+                    v-model="form.deficiency"
+                    name="deficiency"
+                  />
+                  <label
+                    style="color: #000; font-weight: bold; margin-left: 4px"
+                    for="mike"
+                    >Deficiência física</label
+                  >
+                  <br />
+                  <input
+                    type="checkbox"
+                    id="visual"
+                    value="Deficiência visual"
+                    v-model="form.deficiency"
+                    name="deficiency"
+                  />
+                  <label
+                    style="color: #000; font-weight: bold; margin-left: 4px"
+                    for="mike"
+                    >Deficiência visual</label
+                  >
+
+                  <input
+                    type="checkbox"
+                    id="multipla"
+                    value="Deficiência multipla"
+                    v-model="form.deficiency"
+                    style="margin-left: 40px"
+                    name="deficiency"
+                  />
+                  <label
+                    style="color: #000; font-weight: bold; margin-left: 4px"
+                    for="mike"
+                    >Deficiência múltipla</label
+                  >
+
+                  <input
+                    type="checkbox"
+                    id="dislexia"
+                    style="margin-left: 40px"
+                    value="Dislexia"
+                    v-model="form.deficiency"
+                    name="deficiency"
+                  />
+                  <label
+                    style="color: #000; font-weight: bold; margin-left: 4px"
+                    for="mike"
+                    >Dislexia</label
+                  >
+                  <br />
                 </div>
+              </div>
 
-                <!-- campo de email, sexo e nacionalidade -->
-                <div class="md-layout  ">
-                  <div class="md-layout-item md-size-50">
-                    <md-field maxlength="5" >
-                      <label class="label">Seu email</label>
-                      <md-input v-model="user_email" required="" name="user_email" type="email"></md-input>
-                    </md-field>
-                  </div>
-                  <!-- sexo para desktop -->
-                  <div class="md-layout-item md-size-25 desktop">
-                    <md-field>
-                      <label class="label">Informe seu sexo</label>
-                      <md-input v-model="sex" required="" name="sex" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <!-- sexo para dispositivos mobiles -->
-                  <div class="md-layout-item md-size-50 mobile">
-                    <md-field>
-                      <label class="label">Informe seu sexo</label>
-                      <md-input v-model="sex" required="" name="sex" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <!-- nacionalidade para desktop -->
-                  <div class="md-layout-item md-size-25 desktop">
-                    <md-field>
-                      <label class="label">Nacionalidade </label>
-                      <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
-                    </md-field>
-                  </div> 
-                </div>
+              <!-- Modal para upload de arquivos -->
+              <div
+                class="md-layout-item md-size-33 desktop"
+                style="margin-left: 150px; margin-top: 40px"
+              >
+                <md-button
+                  class="md-primary md-round md-block"
+                  @click="classicModal = true"
+                  ><md-icon>library_books</md-icon> Envie seus
+                  documentos</md-button
+                >
+                <modal v-if="classicModal" @close="classicModalHide">
+                  <template slot="header">
+                    <h4 class="modal-title"></h4>
+                    <md-button
+                      class="
+                        md-simple md-just-icon md-round
+                        modal-default-button
+                      "
+                      @click="classicModalHide"
+                    >
+                      <md-icon>clear</md-icon>
+                    </md-button>
+                  </template>
 
-                <!-- Campos de endereço e Numero -->
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-50 desktop">
-                    <md-field>
-                      <label class="label">Endereço completo </label>
-                      <md-input v-model="address" required="" name="address" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-50 mobile">
-                    <md-field>
-                      <label class="label">Nacionalidade </label>
-                      <md-input v-model="nationality" required="" name="nationality" type="text"></md-input>
-                    </md-field>
-                  </div> 
-                  <!-- campo numero de contato mobile e desktop -->
-                  <div class="md-layout-item md-size-50">
-                    <md-field maxlength="5">
-                      <p><label class="desktop label">Número para contato(DDD + número)</label>
-                      <label class="mobile label">Número para contato</label></p>
-                      <md-input
-                        v-model="contact"
-                        name="contact"
-                        required=""
-                        type="text"
-                        v-mask="'(##)#####-####'"
-                      ></md-input>
-                    </md-field>
-                  </div>
-                </div>
-
-                <!-- campos de daata de nascimento e CPF -->
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-50">
-                    <md-field>
-                      <label class="label">Data de nascimento </label>
-                      <md-input
-                        v-model="date"
-                        name="date"
-                        required=""
-                        type="text"
-                        v-mask="'##/##/####'"
-                      ></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-50">
-                    <md-field maxlength="5">
-                      <label class="label">CPF  </label>
-                      <md-input
-                        v-model="CPF"
-                        name="CPF"
-                        required=""
-                        type="text"
-                        v-mask="'###.###.###-##'"
-                      ></md-input>
-                    </md-field>
-                  </div>
-                </div>
-
-                <!-- campo de nacionalidade e modal de upload de arquivos mobile -->
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-100 mobile">
-                    <md-field>
-                      <label class="label">Endereço completo </label>
-                      <md-input v-model="address" required="" name="address" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-size-100 mobile">
-                     <md-button
-                        class="md-primary md-round md-block "
-                        @click="classicModal = true"
-                        ><md-icon>library_books</md-icon> Envio de documentos</md-button
-                      >
-                    <modal v-if="classicModal" @close="classicModalHide">
-                      <template slot="header">
-                        <h4 class="modal-title"></h4>
-                        <md-button
-                          class="md-simple md-just-icon md-round modal-default-button"
-                          @click="classicModalHide"
-                        >
-                          <md-icon>clear</md-icon>
-                        </md-button>
-                      </template>
-
-                    <template slot="body">
-                      <label class="label">Documentos de Identificação necessários. </label>
-                      <p>
-                        <strong>1.</strong> Identidade ou CNH(frente e verso) <strong>2.</strong> Comprovante de Matricula<br>
-                        <strong>3.</strong> Foto de perfil (3x4) <strong>4.</strong> Comprovante de residência
-                      </p>
-                        <div class="md-layout-item md-size-100" >
-                          <b-field class="campo">
-                            <b-upload v-model="dropFiles"
-                                multiple
-                                expanded
-                                drag-drop
-                                rounded
-                              >
-                              <section class="section" style="padding: 30px 50px">
-                                <div class="content has-text-centered">
-                                  <p><b-icon icon="upload" type="is-primary"></b-icon> </p>
-                                  <p>Deixe aqui seus documentos </p>
-                                  <p class="vermelho" style="margin-top: -20px">PDF, PNG ou JPEG</p>
-                                </div>
-                              </section>
-                            </b-upload>
-                              </b-field>
-                              <div class="tags">
-                                  <span v-for="(file, index) in dropFiles"
-                                      :key="index"
-                                      class="tag is-primary" >
-                                      {{file.name}}
-                                      <button class="delete is-small"
-                                          type="button"
-                                          @click="deleteDropFile(index)">
-                                      </button>
-                                  </span>
-                              </div> 
-                            </div>
-                    </template>
-                    <template slot="footer">
-                      <md-button
-                        class="md-danger md-simple"
-                        @click="classicModalHide"
-                        >Fechar</md-button
-                      >
-                    </template>
-                    </modal>
-                  </div>
-                </div>
-
-                <!-- campos de deficiência e upload de arquivos desktop -->
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-50 md-small-size-100 desktop" >
+                  <template slot="body">
+                    <label class="label"
+                      >Documentos de Identificação necessários.
+                    </label>
                     <p>
-                    <label class="desktop roxo label">Deficiência</label>
-                    <br />
-                    <div id="example-3">
-                      <input
-                        type="checkbox"
-                        id="mental"
-                        value="Deficiência mental"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="jack">Deficiência mental</label>
-                      
-                      <input
-                        type="checkbox"
-                        id="auditiva"
-                        value="Deficiência auditiva"
-                        v-model="deficiency"
-                        style="margin-left: 33px"
-                        name="deficiency"
-                      />
-                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="john">Deficiência auditiva</label>
-                      
-                      <input
-                        type="checkbox"
-                        id="fisica"
-                        style="margin-left: 43px"
-                        value="Deficiência física"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência física</label>
-                      <br />
-                      <input
-                        type="checkbox"
-                        id="visual"
-                        value="Deficiência visual"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência visual</label>
-                     
-                      <input
-                        type="checkbox"
-                        id="multipla"
-                        value="Deficiência multipla"
-                        v-model="deficiency"
-                        style="margin-left: 40px"
-                        name="deficiency"
-                      />
-                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Deficiência múltipla</label>
-                     
-                      <input
-                        type="checkbox"
-                        id="dislexia"
-                        style="margin-left: 40px"
-                        value="Dislexia"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="color: #000; font-weight: bold; margin-left: 4px" for="mike">Dislexia</label>
-                      <br />
-                      
-                    </div>
-                  </div>
-
-                  <!-- Modal para upload de arquivos -->
-                  <div class="md-layout-item md-size-33 desktop" style="margin-left: 150px; margin-top: 40px">
-                      <md-button
-                        class="md-primary md-round md-block "
-                        @click="classicModal = true"
-                        ><md-icon>library_books</md-icon> Envie seus documentos</md-button
-                      >
-                    <modal v-if="classicModal" @close="classicModalHide">
-                      <template slot="header">
-                        <h4 class="modal-title"></h4>
-                        <md-button
-                          class="md-simple md-just-icon md-round modal-default-button"
-                          @click="classicModalHide"
+                      <strong>1.</strong> Identidade ou CNH(frente e verso)
+                      <strong>2.</strong> Comprovante de Matricula<br />
+                      <strong>3.</strong> Foto de perfil (3x4)
+                      <strong>4.</strong> Comprovante de residência
+                    </p>
+                    <div class="md-layout-item md-size-100">
+                      <b-field class="campo">
+                        <b-upload
+                          v-model="form.dropFiles"
+                          multiple
+                          expanded
+                          drag-drop
+                          rounded
+                          :disabled="isUploadAreaDisabled"
+                          @input="validateNumberOfFiles"
                         >
-                          <md-icon>clear</md-icon>
-                        </md-button>
-                      </template>
-
-                    <template slot="body">
-                      <label class="label">Documentos de Identificação necessários. </label>
-                      <p>
-                        <strong>1.</strong> Identidade ou CNH(frente e verso) <strong>2.</strong> Comprovante de Matricula<br>
-                        <strong>3.</strong> Foto de perfil (3x4) <strong>4.</strong> Comprovante de residência
-                      </p>
-                        <div class="md-layout-item md-size-100" >
-                          <b-field class="campo">
-                            <b-upload v-model="dropFiles"
-                                multiple
-                                expanded
-                                drag-drop
-                                rounded
-                                :disabled='isUploadAreaDisabled'
-                                @input="validateNumberOfFiles"
-                              >
-                              <section class="section" style="padding: 30px 50px">
-                                <div class="content has-text-centered">
-                                  <p><b-icon icon="upload" type="is-primary"></b-icon> </p>
-                                  <p>Deixe aqui seus documentos </p>
-                                  <p class="vermelho" style="margin-top: -20px">PDF, PNG ou JPEG</p>
-                                </div>
-                              </section>
-                            </b-upload>
-                              </b-field>
-                              <div class="tags">
-                                  <span v-for="(file, index) in dropFiles"
-                                      :key="index"
-                                      class="tag is-primary" >
-                                      {{file.name}}
-                                      <button class="delete is-small"
-                                          type="button"
-                                          @click="deleteDropFile(index)">
-                                      </button>
-                                  </span>
-                              </div> 
+                          <section class="section" style="padding: 30px 50px">
+                            <div class="content has-text-centered">
+                              <p>
+                                <b-icon
+                                  icon="upload"
+                                  type="is-primary"
+                                ></b-icon>
+                              </p>
+                              <p>Deixe aqui seus documentos</p>
+                              <p class="vermelho" style="margin-top: -20px">
+                                PDF, PNG ou JPEG
+                              </p>
                             </div>
-                    </template>
+                          </section>
+                        </b-upload>
+                      </b-field>
+                      <div class="tags">
+                        <span
+                          v-for="(file, index) in form.dropFiles"
+                          :key="index"
+                          class="tag is-primary"
+                        >
+                          {{ file.name }}
+                          <button
+                            class="delete is-small"
+                            type="button"
+                            @click="deleteDropFile(index)"
+                          ></button>
+                        </span>
+                      </div>
+                    </div>
+                  </template>
 
-                    <template slot="footer">
-                      <md-button
-                        class="md-danger md-simple"
-                        @click="classicModalHide"
-                        >Concluir</md-button
-                      >
-                    </template>
-                    </modal>
-                  </div>
-                </div>
-                <br>
-              
-                <!-- Checkbox mobile -->
-
-                <h4 class="mobile label">Deficiência</h4>
-                <div class="md-layout-item md-size-100 mobile">
-                    <br>
-                    <li id="example-3" style="list-style: none">
-                      <input
-                        type="checkbox"
-                        id="mental"
-                        value="Deficiência mental"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="font-weight: bold; color: #000 !important;" for="mental">Mental</label>
-                    </li>
-                    <li class="li-defi">
-                      <input
-                        type="checkbox"
-                        id="auditiva"
-                        value="Deficiência auditiva"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="font-weight: bold; color: #000 !important;" for="auditiva">Auditiva</label>
-                    </li>
-                    <li class="li-defi">
-                      <input
-                        type="checkbox"
-                        id="fisica"
-                        value="Deficiência física"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="font-weight: bold; color: #000 !important;" for="fisica">Física</label>
-                    </li>
-                </div>
-                <div class="md-layout-item md-size-100 mobile">
-                  <li style="list-style:none">
-                    <input
-                        type="checkbox"
-                        id="visual"
-                        value="Deficiência visual"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="font-weight: bold; color: #000 !important;" for="visual">Visual</label>
-                  </li> 
-                  <li class="li-defi">
-                    <input
-                        type="checkbox"
-                        id="multipla"
-                        value="Deficiência multipla"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="font-weight: bold; color: #000 !important;" for="multipla">Múltipla</label>
-                  </li>
-                  <li class="li-defi">
-                    <input
-                        type="checkbox"
-                        id="dislexia"
-                        value="Dislexia"
-                        v-model="deficiency"
-                        name="deficiency"
-                      />
-                      <label style="font-weight: bold; color: #000 !important;" for="dislexia">Dislexia</label>
-                  </li>
-                </div>    
-                
-                
-               
-                <br />
-                <!-- botão de enviar -->
-                <div class="md-layout">
-                  <div class="md-layout-item md-size-50 mx-auto text-center">
-                    <!-- <md-input type="submit" value="enviar"></md-input> -->
-
-                    <vue-recaptcha :sitekey='recaptchaSitekey'>
-                      <!-- sendForm -->
-                      <md-button class="md-success md-round" type="submit" :disabled='!isComplete' @click.prevent="sendForm"  value="" 
-                        >Enviar cadastro</md-button>
-                    </vue-recaptcha>
-                  </div>
-                </div>
-              </form>
+                  <template slot="footer">
+                    <md-button
+                      class="md-danger md-simple"
+                      @click="classicModalHide"
+                      >Concluir</md-button
+                    >
+                  </template>
+                </modal>
+              </div>
             </div>
-          </div>
+            <br />
+
+            <!-- Checkbox mobile -->
+
+            <h4 class="mobile label">Deficiência</h4>
+            <div class="md-layout-item md-size-100 mobile">
+              <br />
+              <li id="example-3" style="list-style: none">
+                <input
+                  type="checkbox"
+                  id="mental"
+                  value="Deficiência mental"
+                  v-model="form.deficiency"
+                  name="deficiency"
+                />
+                <label
+                  style="font-weight: bold; color: #000 !important"
+                  for="mental"
+                  >Mental</label
+                >
+              </li>
+              <li class="li-defi">
+                <input
+                  type="checkbox"
+                  id="auditiva"
+                  value="Deficiência auditiva"
+                  v-model="form.deficiency"
+                  name="deficiency"
+                />
+                <label
+                  style="font-weight: bold; color: #000 !important"
+                  for="auditiva"
+                  >Auditiva</label
+                >
+              </li>
+              <li class="li-defi">
+                <input
+                  type="checkbox"
+                  id="fisica"
+                  value="Deficiência física"
+                  v-model="form.deficiency"
+                  name="deficiency"
+                />
+                <label
+                  style="font-weight: bold; color: #000 !important"
+                  for="fisica"
+                  >Física</label
+                >
+              </li>
+            </div>
+            <div class="md-layout-item md-size-100 mobile">
+              <li style="list-style: none">
+                <input
+                  type="checkbox"
+                  id="visual"
+                  value="Deficiência visual"
+                  v-model="form.deficiency"
+                  name="deficiency"
+                />
+                <label
+                  style="font-weight: bold; color: #000 !important"
+                  for="visual"
+                  >Visual</label
+                >
+              </li>
+              <li class="li-defi">
+                <input
+                  type="checkbox"
+                  id="multipla"
+                  value="Deficiência multipla"
+                  v-model="form.deficiency"
+                  name="deficiency"
+                />
+                <label
+                  style="font-weight: bold; color: #000 !important"
+                  for="multipla"
+                  >Múltipla</label
+                >
+              </li>
+              <li class="li-defi">
+                <input
+                  type="checkbox"
+                  id="dislexia"
+                  value="Dislexia"
+                  v-model="form.deficiency"
+                  name="deficiency"
+                />
+                <label
+                  style="font-weight: bold; color: #000 !important"
+                  for="dislexia"
+                  >Dislexia</label
+                >
+              </li>
+            </div>
+
+            <br />
+            <!-- botão de enviar -->
+            <div class="">
+              <div class="md-layout-item md-size-50 mx-auto text-center">
+                <!-- <md-input type="submit" value="enviar"></md-input> -->
+
+                <vue-recaptcha :sitekey="recaptchaSitekey">
+                  <md-button
+                    class="md-success md-round"
+                    @click="submit"
+                    value="Enviar Cadastro"
+                    >Enviar Cadastro</md-button
+                  >
+                </vue-recaptcha>
+              </div>
+            </div>
+          </form>
         </div>
-      <!-- </div>
-    </div> -->
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-const axios = require('axios');
-import _ from 'lodash';
-import { sendForm } from 'emailjs-com';
-import VueRecaptcha from 'vue-recaptcha';
-import { Modal } from "@/components";
+const axios = require('axios')
+import _ from 'lodash'
+import { required, minLength } from 'vuelidate/lib/validators'
+// import { sendForm } from 'emailjs-com'
+import VueRecaptcha from 'vue-recaptcha'
+import { Modal } from '@/components'
 // import Modal from "./components/JavascriptComponentsSection";
 export default {
-  bodyClass: "landing-page",
-  components: { VueRecaptcha, Modal  },
+  bodyClass: 'landing-page',
+  components: { VueRecaptcha, Modal },
   props: {
     header: {
       type: String,
-      default: require("@/assets/img/cabecalhoFINAL2.png")
+      default: require('@/assets/img/cabecalhoFINAL2.png'),
     },
   },
   data() {
     return {
+      form: {
+        idName: '', // nome na identidade
+        socialName: '',
+        address: '',
+        email: '',
+        contact: '',
+        cpf: '',
+        birthdate: '', //data de nascimento
+        nationality: '',
+        sex: '',
+        deficiency: [],
+        dropFiles: [],
+      },
+      isSubmitButtonDisabled: true,
       recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
       isUploadAreaDisabled: false,
       classicModal: false,
       isImageModalActive: false,
       isCardModalActive: false,
       errors: [],
-      enviar:'',
-      user_name: '',
-      socialName:'',
-      address: '',
-      user_email: '',
-      contact: '',
-      CPF: '',
-      date: '',
-      nationality: '',
-      doc: 'Identificação',
-      sex: '',
-      okay:'',
-      deficiency: [],
-      fileName:'',
-      fileName1:'',
-      fileName2:'',
-      files: [],
-      uploadFiles: [],
-      my_file: [],
-      fileLetras: '',
-      vazio:'',
-      vazio1:'',
-      vazio2:'',
-      dropFiles: []
-    };
+      enviar: '',
+    }
+  },
+  validations: {
+    form: {
+      idName: {
+        required,
+      },
+      address: {
+        required,
+      },
+      email: {
+        required,
+      },
+      contact: {
+        required,
+      },
+      cpf: {
+        required,
+      },
+      birthdate: {
+        required,
+      },
+      nationality: {
+        required,
+      },
+      sex: {
+        required,
+      },
+      dropFiles: {
+        required,
+        minLength: minLength(4),
+      },
+    },
   },
   computed: {
     headerStyle() {
       return {
-        backgroundImage: `url(${this.header})`
-      };
+        backgroundImage: `url(${this.header})`,
+      }
     },
-    isComplete () {
-    return this.user_name && this.user_email && this.address && this.contact && this.CPF && this.date && this.nationality && this.sex && this.doc && this.files && this.fileName && this.uploadFiles && this.my_file && this.vazio && this.vazio1 && this.vazio2;
-  }
   },
 
   methods: {
+    submit() {
+      if (this.$v.$invalid) {
+        console.log('ERROR ERROR ERRROR')
+      } else {
+        console.log('FORM OK')
+        this.sendForm()
+      }
+    },
     validateNumberOfFiles() {
-      if (this.dropFiles.length > 3) {
+      if (this.form.dropFiles.length > 3) {
         this.isUploadAreaDisabled = true
       }
     },
     classicModalHide() {
-      this.classicModal = false;
+      this.classicModal = false
     },
     deleteDropFile(index) {
-      this.dropFiles.splice(index, 1)
-      if (this.dropFiles.length < 4) {
+      this.form.dropFiles.splice(index, 1)
+      if (this.form.dropFiles.length < 4) {
         this.isUploadAreaDisabled = false
       }
     },
     validate(file) {
-      const MAX_SIZE = 200000;
-      const allowedTypes = ["image/png", "image/jpeg", "application/pdf"]
+      const MAX_SIZE = 200000
+      const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
 
       if (file.size > MAX_SIZE) {
-        return `Max size: ${MAX_SIZE/1000}Kb`
+        return `Max size: ${MAX_SIZE / 1000}Kb`
       }
 
       if (!allowedTypes.includes(file.type)) {
-        return "File type not allowed"
+        return 'File type not allowed'
       }
 
-      return ""
+      return ''
     },
     async sendForm() {
-      const name = this.user_name.trim().split(' ').length >= 2 
-      if (!name) {
-        this.user_name = ""
-        // alert ('Digite seu nome completo')
-        this.errors = [];
-        
-        if (!this.user_name) {
-        this.errors.push("Digite seu nome completo.");
-        }
-        if(!this.user_email){
-          this.errors.push("Digite seu email completo")
-        }
-      return sendForm
-      }
+      // const name = this.form.idName.trim().split(' ').length >= 2
+      // if (!name) {
+      //   this.form.idName = ''
+      //   // alert ('Digite seu nome completo')
+      //   this.errors = []
+
+      //   if (!this.form.idName) {
+      //     this.errors.push('Digite seu nome completo.')
+      //   }
+      //   if (!this.form.email) {
+      //     this.errors.push('Digite seu email completo')
+      //   }
+      //   return sendForm
+      // }
       const formData = new FormData()
-      _.forEach(this.dropFiles, file => {
-        if (this.validate(file) === "") {
-          formData.append('files', file) 
+      _.forEach(this.form.dropFiles, (file) => {
+        if (this.validate(file) === '') {
+          formData.append('files', file)
         }
-      })      
+      })
       try {
-        //TODO: Verificar se o form é valido antes do resto do codigo.
-        formData.append("user_name", this.user_name)
-        formData.append("socialName", this.socialName)
-        formData.append("address", this.address)
-        formData.append("user_email", this.user_email)
-        formData.append("contact", this.contact)
-        formData.append("CPF", this.CPF)
-        formData.append("date", this.date)
-        formData.append("nationality", this.nationality)
-        formData.append("doc", this.doc)
-        formData.append("sex", this.sex)
-        formData.append("deficiency", this.deficiency)
+        formData.append('idName', this.form.idName)
+        formData.append('socialName', this.form.socialName)
+        formData.append('address', this.form.address)
+        formData.append('email', this.form.email)
+        formData.append('contact', this.form.contact)
+        formData.append('cpf', this.form.cpf)
+        formData.append('birthdate', this.form.birthdate)
+        formData.append('nationality', this.form.nationality)
+        formData.append('sex', this.form.sex)
+        formData.append('deficiency', this.form.deficiency)
 
         // console.log(formData);
-        await axios.post(`http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`, formData)
-        .then(function (response) {
-
-          console.log(response);
-          alert("Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.")
-          document.Location.reload(true);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        
-        } catch (error) {
-          console.log(error)
-        }
-      },
-      onFileChange(event){
-      var vazio1, vazio2 = '';
-      var fileData =  event.target.files[0];
-      this.fileName=fileData.name;
-      this.fileTamanho = fileData.size;
-      this.fileLetras = fileData.length;
-      if (this.fileTamanho>200000) {
-        this.fileName = 'Máximo de 200kb ultrapassado';
-        this.vazio = ''
-      }else{
-        this.vazio = true
-        
+        await axios
+          .post(
+            `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
+            formData
+          )
+          .then(function (response) {
+            console.log(response)
+            alert(
+              'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
+            )
+            document.Location.reload(true)
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error)
+          })
+      } catch (error) {
+        console.log(error)
       }
-      if (this.fileLetras>1) {
-        this.fileName = 'muitas letras'
-      }
-      
-      },
-      
-      onFileChange1(event){
-      var fileData = event.target.files[0];
-      this.fileName1 = fileData.name;
-      this.fileTamanho1 = fileData.size;
-      if (this.fileTamanho1>=200000) {
-        this.fileName1 = 'Máximo de 200kb ultrapassado';
-        this.vazio1 = ''
-      }else{
-        this.vazio1 = true
-      }
-      },
-      onFileChange2(event){
-        var fileData = event.target.files[0];
-        this.fileName2 = fileData.name;
-        this.fileTamanho2 = fileData.size;
-      if (this.fileTamanho1>=200000) {
-        this.fileName2 = 'Máximo de 200kb ultrapassado';
-        this.vazio2 = ''
-      }else{
-        this.vazio2 = true
-      }
-      }
-    }
-  }
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -666,7 +794,7 @@ export default {
   margin-top: 15px;
 }
 
-.label-file{
+.label-file {
   width: 100px;
   color: #9c27b0;
   // margin-top: 150px;
@@ -676,44 +804,42 @@ export default {
   border-radius: 4px;
   font-size: 13px;
   background-color: white;
-  background-position: 10px 10px; 
+  background-position: 10px 10px;
   // background-repeat: no-repeat;
   padding: 12px 10px 12px 10px;
   cursor: pointer;
   font-weight: 800;
 }
-.label{
+.label {
   font-weight: bold;
   color: #000 !important;
   font-size: 16px;
 }
-.desktop{
+.desktop {
   display: inline-block;
 }
-.mobile{
+.mobile {
   display: none;
 }
-.li-defi{
-  list-style: none; 
+.li-defi {
+  list-style: none;
   margin-left: 20px;
 }
-.vermelho{
+.vermelho {
   color: #ff0000;
   font-weight: 600;
 }
-.verde{
+.verde {
   color: #008000;
   font-weight: 600;
 }
-.ola{
+.ola {
   display: inline;
 }
-.campo{
-  
+.campo {
   text-align: center;
   position: relative;
 }
-
 
 @media screen and (max-width: 500px) {
   .text-responsive {
@@ -727,18 +853,14 @@ export default {
     padding: 20px 0;
   }
 
-  .md-size-50{
+  .md-size-50 {
     width: 100;
   }
-  .desktop{
+  .desktop {
     display: none;
   }
-  .mobile{
+  .mobile {
     display: flex;
-    
   }
 }
-
-
-
 </style>
