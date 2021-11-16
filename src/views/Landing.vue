@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper  ">
+  <div class="wrapper">
     <br /><br /><br /><br /><br /><br /><br /><br />
     <div class="main main-raised">
       <div class="section section-contacts">
@@ -58,7 +58,7 @@
                 <md-field>
                   <label class="label">Seu nome completo</label>
                   <md-input
-                    style="text-transform: capitalize;"
+                    style="text-transform: capitalize"
                     class="name"
                     v-model="$v.form.idName.$model"
                     id="name"
@@ -72,7 +72,7 @@
                 <md-field>
                   <label class="label">Seu nome social</label>
                   <md-input
-                    style="text-transform: capitalize;"
+                    style="text-transform: capitalize"
                     v-model="form.socialName"
                     name="socialName"
                     type="text"
@@ -82,7 +82,7 @@
             </div>
 
             <!-- campo de email, sexo e nacionalidade -->
-            <div class="md-layout  ">
+            <div class="md-layout">
               <div class="md-layout-item md-size-50">
                 <md-field maxlength="5">
                   <label class="label">Seu email</label>
@@ -219,7 +219,7 @@
               </div>
               <div class="md-layout-item md-size-100 mobile">
                 <md-button
-                  class="md-primary md-round md-block "
+                  class="md-primary md-round md-block"
                   @click="classicModal = true"
                   ><md-icon>library_books</md-icon> Envio de
                   documentos</md-button
@@ -228,7 +228,10 @@
                   <template slot="header">
                     <h4 class="modal-title"></h4>
                     <md-button
-                      class="md-simple md-just-icon md-round modal-default-button"
+                      class="
+                        md-simple md-just-icon md-round
+                        modal-default-button
+                      "
                       @click="classicModalHide"
                     >
                       <md-icon>clear</md-icon>
@@ -262,9 +265,7 @@
                                   type="is-primary"
                                 ></b-icon>
                               </p>
-                              <p>
-                                Deixe aqui seus documentos
-                              </p>
+                              <p>Deixe aqui seus documentos</p>
                               <p class="vermelho" style="margin-top: -20px">
                                 PDF, PNG ou JPEG
                               </p>
@@ -399,7 +400,7 @@
                 style="margin-left: 150px; margin-top: 40px"
               >
                 <md-button
-                  class="md-primary md-round md-block "
+                  class="md-primary md-round md-block"
                   @click="classicModal = true"
                   ><md-icon>library_books</md-icon> Envie seus
                   documentos</md-button
@@ -408,7 +409,10 @@
                   <template slot="header">
                     <h4 class="modal-title"></h4>
                     <md-button
-                      class="md-simple md-just-icon md-round modal-default-button"
+                      class="
+                        md-simple md-just-icon md-round
+                        modal-default-button
+                      "
                       @click="classicModalHide"
                     >
                       <md-icon>clear</md-icon>
@@ -444,9 +448,7 @@
                                   type="is-primary"
                                 ></b-icon>
                               </p>
-                              <p>
-                                Deixe aqui seus documentos
-                              </p>
+                              <p>Deixe aqui seus documentos</p>
                               <p class="vermelho" style="margin-top: -20px">
                                 PDF, PNG ou JPEG
                               </p>
@@ -497,7 +499,7 @@
                   name="deficiency"
                 />
                 <label
-                  style="font-weight: bold; color: #000 !important;"
+                  style="font-weight: bold; color: #000 !important"
                   for="mental"
                   >Mental</label
                 >
@@ -511,7 +513,7 @@
                   name="deficiency"
                 />
                 <label
-                  style="font-weight: bold; color: #000 !important;"
+                  style="font-weight: bold; color: #000 !important"
                   for="auditiva"
                   >Auditiva</label
                 >
@@ -525,14 +527,14 @@
                   name="deficiency"
                 />
                 <label
-                  style="font-weight: bold; color: #000 !important;"
+                  style="font-weight: bold; color: #000 !important"
                   for="fisica"
                   >Física</label
                 >
               </li>
             </div>
             <div class="md-layout-item md-size-100 mobile">
-              <li style="list-style:none">
+              <li style="list-style: none">
                 <input
                   type="checkbox"
                   id="visual"
@@ -541,7 +543,7 @@
                   name="deficiency"
                 />
                 <label
-                  style="font-weight: bold; color: #000 !important;"
+                  style="font-weight: bold; color: #000 !important"
                   for="visual"
                   >Visual</label
                 >
@@ -555,7 +557,7 @@
                   name="deficiency"
                 />
                 <label
-                  style="font-weight: bold; color: #000 !important;"
+                  style="font-weight: bold; color: #000 !important"
                   for="multipla"
                   >Múltipla</label
                 >
@@ -569,7 +571,7 @@
                   name="deficiency"
                 />
                 <label
-                  style="font-weight: bold; color: #000 !important;"
+                  style="font-weight: bold; color: #000 !important"
                   for="dislexia"
                   >Dislexia</label
                 >
@@ -603,7 +605,7 @@
 const axios = require('axios')
 import _ from 'lodash'
 import { required, minLength } from 'vuelidate/lib/validators'
-import { sendForm } from 'emailjs-com'
+// import { sendForm } from 'emailjs-com'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
 // import Modal from "./components/JavascriptComponentsSection";
@@ -639,24 +641,6 @@ export default {
       isCardModalActive: false,
       errors: [],
       enviar: '',
-      // user_name: '',
-      // socialName:'',
-      // address: '',
-      // user_email: '',
-      // contact: '',
-      // CPF: '',
-      // date: '',
-      // nationality: '',
-      // doc: 'Identificação',
-      // sex: '',
-      // deficiency: [],
-      // files: [],
-      // my_file: [],
-      // fileLetras: '',
-      // vazio:'',
-      // vazio1:'',
-      // vazio2:'',
-      // dropFiles: []
     }
   },
   validations: {
@@ -697,21 +681,6 @@ export default {
         backgroundImage: `url(${this.header})`,
       }
     },
-    isComplete() {
-      return (
-        this.user_name &&
-        this.user_email &&
-        this.address &&
-        this.contact &&
-        this.CPF &&
-        this.date &&
-        this.nationality &&
-        this.sex &&
-        this.doc &&
-        this.files &&
-        this.fileName
-      )
-    },
   },
 
   methods: {
@@ -732,8 +701,8 @@ export default {
       this.classicModal = false
     },
     deleteDropFile(index) {
-      this.dropFiles.splice(index, 1)
-      if (this.dropFiles.length < 4) {
+      this.form.dropFiles.splice(index, 1)
+      if (this.form.dropFiles.length < 4) {
         this.isUploadAreaDisabled = false
       }
     },
@@ -767,7 +736,7 @@ export default {
       //   return sendForm
       // }
       const formData = new FormData()
-      _.forEach(this.form.dropFiles, file => {
+      _.forEach(this.form.dropFiles, (file) => {
         if (this.validate(file) === '') {
           formData.append('files', file)
         }
@@ -790,14 +759,14 @@ export default {
             `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
             formData
           )
-          .then(function(response) {
+          .then(function (response) {
             console.log(response)
             alert(
               'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
             )
             document.Location.reload(true)
           })
-          .catch(function(error) {
+          .catch(function (error) {
             // handle error
             console.log(error)
           })
