@@ -687,6 +687,7 @@ export default {
     submit() {
       if (this.$v.$invalid) {
         console.log('ERROR ERROR ERRROR')
+        alert('Formulário inválido, verifique suas informações')
       } else {
         console.log('FORM OK')
         this.sendForm()
@@ -711,6 +712,8 @@ export default {
       const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
 
       if (file.size > MAX_SIZE) {
+        console.log('toooo big')
+        alert('Arquivos excedem o tamanho limite')
         return `Max size: ${MAX_SIZE / 1000}Kb`
       }
 
@@ -721,20 +724,6 @@ export default {
       return ''
     },
     async sendForm() {
-      // const name = this.form.idName.trim().split(' ').length >= 2
-      // if (!name) {
-      //   this.form.idName = ''
-      //   // alert ('Digite seu nome completo')
-      //   this.errors = []
-
-      //   if (!this.form.idName) {
-      //     this.errors.push('Digite seu nome completo.')
-      //   }
-      //   if (!this.form.email) {
-      //     this.errors.push('Digite seu email completo')
-      //   }
-      //   return sendForm
-      // }
       const formData = new FormData()
       _.forEach(this.form.dropFiles, (file) => {
         if (this.validate(file) === '') {
