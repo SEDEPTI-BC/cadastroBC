@@ -63,10 +63,13 @@
                     v-model="$v.form.idName.$model"
                     id="name"
                     required=""
-                    name="user_name"
+                    name="idName"
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.idName.required">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field>
@@ -93,6 +96,9 @@
                     type="email"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.email.required">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
@@ -105,6 +111,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.sex.required">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
@@ -117,6 +126,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.sex.required">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
@@ -129,6 +141,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.nationality.required">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -144,6 +159,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.address.required">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50 mobile">
                 <md-field>
@@ -155,6 +173,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.nationality.required">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- campo numero de contato mobile e desktop -->
               <div class="md-layout-item md-size-50">
@@ -173,6 +194,9 @@
                     v-mask="'(##)#####-####'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.contact.required">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -189,6 +213,9 @@
                     v-mask="'##/##/####'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.birthdate.required">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field maxlength="5">
@@ -201,6 +228,9 @@
                     v-mask="'###.###.###-##'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.cpf.required">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -216,6 +246,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.address.required">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-100 mobile">
                 <md-button
@@ -297,6 +330,9 @@
                     >
                   </template>
                 </modal>
+                <div class="error" v-if="!$v.form.dropFiles.required">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -481,6 +517,9 @@
                     >
                   </template>
                 </modal>
+                <div class="error" v-if="!$v.form.dropFiles.required">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
             <br />
@@ -488,7 +527,7 @@
             <!-- Checkbox mobile -->
 
             <h4 class="mobile label">Deficiência</h4>
-            <div class="md-layout-item md-size-100 mobile">
+            <div class="md-layout-item md-size-100 deficiency mobile">
               <br />
               <li id="example-3" style="list-style: none">
                 <input
@@ -533,7 +572,7 @@
                 >
               </li>
             </div>
-            <div class="md-layout-item md-size-100 mobile">
+            <div class="md-layout-item md-size-100 deficiency mobile">
               <li style="list-style: none">
                 <input
                   type="checkbox"
@@ -605,7 +644,6 @@
 const axios = require('axios')
 import _ from 'lodash'
 import { required, minLength } from 'vuelidate/lib/validators'
-// import { sendForm } from 'emailjs-com'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
 // import Modal from "./components/JavascriptComponentsSection";
@@ -779,6 +817,18 @@ export default {
   margin-top: 30px;
 }
 
+.md-layout {
+  .md-field {
+    /* margin-bottom: 0rem; */
+    margin-bottom: 0;
+  }
+
+  .error {
+    font-size: 0.8rem;
+    color: #ff0000;
+  }
+}
+
 .md-has-textarea + .md-layout {
   margin-top: 15px;
 }
@@ -850,6 +900,11 @@ export default {
   }
   .mobile {
     display: flex;
+    flex-direction: column;
+
+    &.md-layout-item.deficiency {
+      flex-direction: row;
+    }
   }
 }
 </style>
