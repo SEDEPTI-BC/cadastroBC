@@ -43,15 +43,6 @@
             onsubmit="setTimeout(function(){window.location.reload();},10);"
             name="formulario"
           >
-            <div v-if="errors.length">
-              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-              <ul>
-                <li v-for="error in errors" :key="error.id">
-                  {{ error }}
-                </li>
-              </ul>
-            </div>
-
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
@@ -67,7 +58,7 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.idName.required">
+                <div class="error" v-if="!$v.form.idName.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -96,7 +87,7 @@
                     type="email"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.email.required">
+                <div class="error" v-if="!$v.form.email.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -111,7 +102,7 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.sex.required">
+                <div class="error" v-if="!$v.form.sex.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -126,7 +117,7 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.sex.required">
+                <div class="error" v-if="!$v.form.sex.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -141,7 +132,10 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.nationality.required">
+                <div
+                  class="error"
+                  v-if="!$v.form.nationality.required && errors"
+                >
                   Campo obrigatório
                 </div>
               </div>
@@ -159,7 +153,7 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.address.required">
+                <div class="error" v-if="!$v.form.address.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -173,7 +167,10 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.nationality.required">
+                <div
+                  class="error"
+                  v-if="!$v.form.nationality.required && errors"
+                >
                   Campo obrigatório
                 </div>
               </div>
@@ -194,7 +191,7 @@
                     v-mask="'(##)#####-####'"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.contact.required">
+                <div class="error" v-if="!$v.form.contact.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -213,7 +210,7 @@
                     v-mask="'##/##/####'"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.birthdate.required">
+                <div class="error" v-if="!$v.form.birthdate.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -228,7 +225,7 @@
                     v-mask="'###.###.###-##'"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.cpf.required">
+                <div class="error" v-if="!$v.form.cpf.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -246,7 +243,7 @@
                     type="text"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.address.required">
+                <div class="error" v-if="!$v.form.address.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -330,7 +327,7 @@
                     >
                   </template>
                 </modal>
-                <div class="error" v-if="!$v.form.dropFiles.required">
+                <div class="error" v-if="!$v.form.dropFiles.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -517,7 +514,7 @@
                     >
                   </template>
                 </modal>
-                <div class="error" v-if="!$v.form.dropFiles.required">
+                <div class="error" v-if="!$v.form.dropFiles.required && errors">
                   Campo obrigatório
                 </div>
               </div>
@@ -626,7 +623,8 @@
                 <vue-recaptcha :sitekey="recaptchaSitekey">
                   <md-button
                     class="md-success md-round"
-                    @click="submit"
+                    type="submit"
+                    @click.prevent="submit"
                     value="Enviar Cadastro"
                     >Enviar Cadastro</md-button
                   >
@@ -671,14 +669,13 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
+      errors: false,
       isSubmitButtonDisabled: true,
       recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
       isUploadAreaDisabled: false,
       classicModal: false,
       isImageModalActive: false,
       isCardModalActive: false,
-      errors: [],
-      enviar: '',
     }
   },
   validations: {
@@ -724,10 +721,10 @@ export default {
   methods: {
     submit() {
       if (this.$v.$invalid) {
-        console.log('ERROR ERROR ERRROR')
+        this.errors = true
         alert('Formulário inválido, verifique suas informações')
       } else {
-        console.log('FORM OK')
+        this.errors = false
         this.sendForm()
       }
     },
