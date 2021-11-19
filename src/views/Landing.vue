@@ -43,15 +43,6 @@
             onsubmit="setTimeout(function(){window.location.reload();},10);"
             name="formulario"
           >
-            <div v-if="errors.length">
-              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-              <ul>
-                <li v-for="error in errors" :key="error.id">
-                  {{ error }}
-                </li>
-              </ul>
-            </div>
-
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
@@ -63,10 +54,13 @@
                     v-model="$v.form.idName.$model"
                     id="name"
                     required=""
-                    name="user_name"
+                    name="idName"
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.idName.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field>
@@ -93,6 +87,9 @@
                     type="email"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.email.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
@@ -105,6 +102,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.sex.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
@@ -117,6 +117,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.sex.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
@@ -129,6 +132,12 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div
+                  class="error"
+                  v-if="!$v.form.nationality.required && errors"
+                >
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -144,6 +153,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.address.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50 mobile">
                 <md-field>
@@ -155,6 +167,12 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div
+                  class="error"
+                  v-if="!$v.form.nationality.required && errors"
+                >
+                  Campo obrigatório
+                </div>
               </div>
               <!-- campo numero de contato mobile e desktop -->
               <div class="md-layout-item md-size-50">
@@ -173,6 +191,9 @@
                     v-mask="'(##)#####-####'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.contact.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -189,6 +210,9 @@
                     v-mask="'##/##/####'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.birthdate.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field maxlength="5">
@@ -201,6 +225,9 @@
                     v-mask="'###.###.###-##'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.cpf.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -216,6 +243,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.address.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-100 mobile">
                 <md-button
@@ -297,6 +327,9 @@
                     >
                   </template>
                 </modal>
+                <div class="error" v-if="!$v.form.dropFiles.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -481,6 +514,9 @@
                     >
                   </template>
                 </modal>
+                <div class="error" v-if="!$v.form.dropFiles.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
             <br />
@@ -488,7 +524,7 @@
             <!-- Checkbox mobile -->
 
             <h4 class="mobile label">Deficiência</h4>
-            <div class="md-layout-item md-size-100 mobile">
+            <div class="md-layout-item md-size-100 deficiency mobile">
               <br />
               <li id="example-3" style="list-style: none">
                 <input
@@ -533,7 +569,7 @@
                 >
               </li>
             </div>
-            <div class="md-layout-item md-size-100 mobile">
+            <div class="md-layout-item md-size-100 deficiency mobile">
               <li style="list-style: none">
                 <input
                   type="checkbox"
@@ -587,7 +623,8 @@
                 <vue-recaptcha :sitekey="recaptchaSitekey">
                   <md-button
                     class="md-success md-round"
-                    @click="submit"
+                    type="submit"
+                    @click.prevent="submit"
                     value="Enviar Cadastro"
                     >Enviar Cadastro</md-button
                   >
@@ -605,7 +642,6 @@
 const axios = require('axios')
 import _ from 'lodash'
 import { required, minLength } from 'vuelidate/lib/validators'
-// import { sendForm } from 'emailjs-com'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
 // import Modal from "./components/JavascriptComponentsSection";
@@ -633,14 +669,13 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
+      errors: false,
       isSubmitButtonDisabled: true,
       recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
       isUploadAreaDisabled: false,
       classicModal: false,
       isImageModalActive: false,
       isCardModalActive: false,
-      errors: [],
-      enviar: '',
     }
   },
   validations: {
@@ -686,9 +721,10 @@ export default {
   methods: {
     submit() {
       if (this.$v.$invalid) {
-        console.log('ERROR ERROR ERRROR')
+        this.errors = true
+        alert('Formulário inválido, verifique suas informações')
       } else {
-        console.log('FORM OK')
+        this.errors = false
         this.sendForm()
       }
     },
@@ -711,6 +747,8 @@ export default {
       const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
 
       if (file.size > MAX_SIZE) {
+        console.log('toooo big')
+        alert('Arquivos excedem o tamanho limite')
         return `Max size: ${MAX_SIZE / 1000}Kb`
       }
 
@@ -721,20 +759,6 @@ export default {
       return ''
     },
     async sendForm() {
-      // const name = this.form.idName.trim().split(' ').length >= 2
-      // if (!name) {
-      //   this.form.idName = ''
-      //   // alert ('Digite seu nome completo')
-      //   this.errors = []
-
-      //   if (!this.form.idName) {
-      //     this.errors.push('Digite seu nome completo.')
-      //   }
-      //   if (!this.form.email) {
-      //     this.errors.push('Digite seu email completo')
-      //   }
-      //   return sendForm
-      // }
       const formData = new FormData()
       _.forEach(this.form.dropFiles, (file) => {
         if (this.validate(file) === '') {
@@ -788,6 +812,18 @@ export default {
 }
 .contact-form {
   margin-top: 30px;
+}
+
+.md-layout {
+  .md-field {
+    /* margin-bottom: 0rem; */
+    margin-bottom: 0;
+  }
+
+  .error {
+    font-size: 0.8rem;
+    color: #ff0000;
+  }
 }
 
 .md-has-textarea + .md-layout {
@@ -861,6 +897,11 @@ export default {
   }
   .mobile {
     display: flex;
+    flex-direction: column;
+
+    &.md-layout-item.deficiency {
+      flex-direction: row;
+    }
   }
 }
 </style>
