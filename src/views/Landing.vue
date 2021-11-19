@@ -32,8 +32,8 @@
               quando você fizer upload de arquivos e enviar este formulário.
             </strong>
             <p class="vermelho">
-              O tamanho dos arquivos não deve ultrapassar 200Kb. São aceitos
-              como arquivos PDF , PNG e JPEG.
+              O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
+              arquivos PDF , PNG e JPEG.
             </p>
           </h4>
           <!-- inicio do formulário -->
@@ -514,9 +514,19 @@
                     >
                   </template>
                 </modal>
-                <div class="error" v-if="!$v.form.dropFiles.required && errors">
-                  Campo obrigatório
+                <div class="error" v-if="errors">
+                  <p v-if="!$v.form.dropFiles.required">Campo obrigatório</p>
+                  <p v-if="!$v.form.dropFiles.minLength">
+                    Por favor, anexe a quantidade de arquivos requisitada
+                  </p>
+                  <p v-if="uploadErrors">
+                    Um ou mais arquivos excedem o tamanho limite ou possuem um
+                    formato inválido
+                  </p>
                 </div>
+                <!-- <div class="error" v-if="!$v.form.dropFiles.required && errors">
+                  Campo obrigatório
+                </div> -->
               </div>
             </div>
             <br />
@@ -670,6 +680,7 @@ export default {
         dropFiles: [],
       },
       errors: false,
+      uploadErrors: false,
       isSubmitButtonDisabled: true,
       recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
       isUploadAreaDisabled: false,
@@ -710,6 +721,16 @@ export default {
       },
     },
   },
+  watch: {
+    'form.dropFiles'() {
+      this.uploadErrors = false
+      _.forEach(this.form.dropFiles, (file) => {
+        if (this.validate(file) !== '') {
+          this.uploadErrors = true
+        }
+      })
+    },
+  },
   computed: {
     headerStyle() {
       return {
@@ -743,59 +764,60 @@ export default {
       }
     },
     validate(file) {
-      const MAX_SIZE = 200000
+      const MAX_SIZE = 2000000
       const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
 
       if (file.size > MAX_SIZE) {
-        console.log('toooo big')
-        alert('Arquivos excedem o tamanho limite')
-        return `Max size: ${MAX_SIZE / 1000}Kb`
+        return `Tamanho maximo: ${MAX_SIZE / 1000000}Mb`
       }
 
       if (!allowedTypes.includes(file.type)) {
-        return 'File type not allowed'
+        return 'Tipo de arquivo não permitido'
       }
 
       return ''
     },
     async sendForm() {
-      const formData = new FormData()
-      _.forEach(this.form.dropFiles, (file) => {
-        if (this.validate(file) === '') {
-          formData.append('files', file)
-        }
-      })
-      try {
-        formData.append('idName', this.form.idName)
-        formData.append('socialName', this.form.socialName)
-        formData.append('address', this.form.address)
-        formData.append('email', this.form.email)
-        formData.append('contact', this.form.contact)
-        formData.append('cpf', this.form.cpf)
-        formData.append('birthdate', this.form.birthdate)
-        formData.append('nationality', this.form.nationality)
-        formData.append('sex', this.form.sex)
-        formData.append('deficiency', this.form.deficiency)
+      if (this.uploadErrors) {
+        this.errors = true
+      } else {
+        try {
+          const formData = new FormData()
+          _.forEach(this.form.dropFiles, (file) => {
+            if (this.validate(file) === '') {
+              formData.append('files', file)
+            }
+          })
+          formData.append('idName', this.form.idName)
+          formData.append('socialName', this.form.socialName)
+          formData.append('address', this.form.address)
+          formData.append('email', this.form.email)
+          formData.append('contact', this.form.contact)
+          formData.append('cpf', this.form.cpf)
+          formData.append('birthdate', this.form.birthdate)
+          formData.append('nationality', this.form.nationality)
+          formData.append('sex', this.form.sex)
+          formData.append('deficiency', this.form.deficiency)
 
-        // console.log(formData);
-        await axios
-          .post(
-            `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
-            formData
-          )
-          .then(function (response) {
-            console.log(response)
-            alert(
-              'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
+          // console.log(formData);
+          await axios
+            .post(
+              `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
+              formData
             )
-            document.Location.reload(true)
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error)
-          })
-      } catch (error) {
-        console.log(error)
+            .then(function (response) {
+              alert(
+                'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
+              )
+              document.Location.reload(true)
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error)
+            })
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
   },
@@ -816,7 +838,6 @@ export default {
 
 .md-layout {
   .md-field {
-    /* margin-bottom: 0rem; */
     margin-bottom: 0;
   }
 
@@ -833,15 +854,12 @@ export default {
 .label-file {
   width: 100px;
   color: #9c27b0;
-  // margin-top: 150px;
   text-align: center;
-  // box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 13px;
   background-color: white;
   background-position: 10px 10px;
-  // background-repeat: no-repeat;
   padding: 12px 10px 12px 10px;
   cursor: pointer;
   font-weight: 800;
