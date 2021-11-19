@@ -32,8 +32,8 @@
               quando você fizer upload de arquivos e enviar este formulário.
             </strong>
             <p class="vermelho">
-              O tamanho dos arquivos não deve ultrapassar 200Kb. São aceitos
-              como arquivos PDF , PNG e JPEG.
+              O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
+              arquivos PDF , PNG e JPEG.
             </p>
           </h4>
           <!-- inicio do formulário -->
@@ -43,15 +43,6 @@
             onsubmit="setTimeout(function(){window.location.reload();},10);"
             name="formulario"
           >
-            <div v-if="errors.length">
-              <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
-              <ul>
-                <li v-for="error in errors" :key="error.id">
-                  {{ error }}
-                </li>
-              </ul>
-            </div>
-
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
@@ -63,10 +54,13 @@
                     v-model="$v.form.idName.$model"
                     id="name"
                     required=""
-                    name="user_name"
+                    name="idName"
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.idName.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field>
@@ -93,6 +87,9 @@
                     type="email"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.email.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
@@ -105,6 +102,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.sex.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
@@ -117,6 +117,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.sex.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
@@ -129,6 +132,12 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div
+                  class="error"
+                  v-if="!$v.form.nationality.required && errors"
+                >
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -144,6 +153,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.address.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50 mobile">
                 <md-field>
@@ -155,6 +167,12 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div
+                  class="error"
+                  v-if="!$v.form.nationality.required && errors"
+                >
+                  Campo obrigatório
+                </div>
               </div>
               <!-- campo numero de contato mobile e desktop -->
               <div class="md-layout-item md-size-50">
@@ -173,6 +191,9 @@
                     v-mask="'(##)#####-####'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.contact.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -189,6 +210,9 @@
                     v-mask="'##/##/####'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.birthdate.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field maxlength="5">
@@ -201,6 +225,9 @@
                     v-mask="'###.###.###-##'"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.cpf.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -216,6 +243,9 @@
                     type="text"
                   ></md-input>
                 </md-field>
+                <div class="error" v-if="!$v.form.address.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
               <div class="md-layout-item md-size-100 mobile">
                 <md-button
@@ -297,6 +327,9 @@
                     >
                   </template>
                 </modal>
+                <div class="error" v-if="!$v.form.dropFiles.required && errors">
+                  Campo obrigatório
+                </div>
               </div>
             </div>
 
@@ -481,6 +514,19 @@
                     >
                   </template>
                 </modal>
+                <div class="error" v-if="errors">
+                  <p v-if="!$v.form.dropFiles.required">Campo obrigatório</p>
+                  <p v-if="!$v.form.dropFiles.minLength">
+                    Por favor, anexe a quantidade de arquivos requisitada
+                  </p>
+                  <p v-if="uploadErrors">
+                    Um ou mais arquivos excedem o tamanho limite ou possuem um
+                    formato inválido
+                  </p>
+                </div>
+                <!-- <div class="error" v-if="!$v.form.dropFiles.required && errors">
+                  Campo obrigatório
+                </div> -->
               </div>
             </div>
             <br />
@@ -488,7 +534,7 @@
             <!-- Checkbox mobile -->
 
             <h4 class="mobile label">Deficiência</h4>
-            <div class="md-layout-item md-size-100 mobile">
+            <div class="md-layout-item md-size-100 deficiency mobile">
               <br />
               <li id="example-3" style="list-style: none">
                 <input
@@ -533,7 +579,7 @@
                 >
               </li>
             </div>
-            <div class="md-layout-item md-size-100 mobile">
+            <div class="md-layout-item md-size-100 deficiency mobile">
               <li style="list-style: none">
                 <input
                   type="checkbox"
@@ -587,7 +633,8 @@
                 <vue-recaptcha :sitekey="recaptchaSitekey">
                   <md-button
                     class="md-success md-round"
-                    @click="submit"
+                    type="submit"
+                    @click.prevent="submit"
                     value="Enviar Cadastro"
                     >Enviar Cadastro</md-button
                   >
@@ -605,10 +652,8 @@
 const axios = require('axios')
 import _ from 'lodash'
 import { required, minLength } from 'vuelidate/lib/validators'
-// import { sendForm } from 'emailjs-com'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
-// import Modal from "./components/JavascriptComponentsSection";
 export default {
   bodyClass: 'landing-page',
   components: { VueRecaptcha, Modal },
@@ -633,14 +678,14 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
+      errors: false,
+      uploadErrors: false,
       isSubmitButtonDisabled: true,
       recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
       isUploadAreaDisabled: false,
       classicModal: false,
       isImageModalActive: false,
       isCardModalActive: false,
-      errors: [],
-      enviar: '',
     }
   },
   validations: {
@@ -675,6 +720,16 @@ export default {
       },
     },
   },
+  watch: {
+    'form.dropFiles'() {
+      this.uploadErrors = false
+      _.forEach(this.form.dropFiles, (file) => {
+        if (this.validate(file) !== '') {
+          this.uploadErrors = true
+        }
+      })
+    },
+  },
   computed: {
     headerStyle() {
       return {
@@ -686,9 +741,10 @@ export default {
   methods: {
     submit() {
       if (this.$v.$invalid) {
-        console.log('ERROR ERROR ERRROR')
+        this.errors = true
+        alert('Formulário inválido, verifique suas informações')
       } else {
-        console.log('FORM OK')
+        this.errors = false
         this.sendForm()
       }
     },
@@ -707,71 +763,60 @@ export default {
       }
     },
     validate(file) {
-      const MAX_SIZE = 200000
+      const MAX_SIZE = 2000000
       const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
 
       if (file.size > MAX_SIZE) {
-        return `Max size: ${MAX_SIZE / 1000}Kb`
+        return `Tamanho maximo: ${MAX_SIZE / 1000000}Mb`
       }
 
       if (!allowedTypes.includes(file.type)) {
-        return 'File type not allowed'
+        return 'Tipo de arquivo não permitido'
       }
 
       return ''
     },
     async sendForm() {
-      // const name = this.form.idName.trim().split(' ').length >= 2
-      // if (!name) {
-      //   this.form.idName = ''
-      //   // alert ('Digite seu nome completo')
-      //   this.errors = []
+      if (this.uploadErrors) {
+        this.errors = true
+      } else {
+        try {
+          const formData = new FormData()
+          _.forEach(this.form.dropFiles, (file) => {
+            if (this.validate(file) === '') {
+              formData.append('files', file)
+            }
+          })
+          formData.append('idName', this.form.idName)
+          formData.append('socialName', this.form.socialName)
+          formData.append('address', this.form.address)
+          formData.append('email', this.form.email)
+          formData.append('contact', this.form.contact)
+          formData.append('cpf', this.form.cpf)
+          formData.append('birthdate', this.form.birthdate)
+          formData.append('nationality', this.form.nationality)
+          formData.append('sex', this.form.sex)
+          formData.append('deficiency', this.form.deficiency)
 
-      //   if (!this.form.idName) {
-      //     this.errors.push('Digite seu nome completo.')
-      //   }
-      //   if (!this.form.email) {
-      //     this.errors.push('Digite seu email completo')
-      //   }
-      //   return sendForm
-      // }
-      const formData = new FormData()
-      _.forEach(this.form.dropFiles, (file) => {
-        if (this.validate(file) === '') {
-          formData.append('files', file)
-        }
-      })
-      try {
-        formData.append('idName', this.form.idName)
-        formData.append('socialName', this.form.socialName)
-        formData.append('address', this.form.address)
-        formData.append('email', this.form.email)
-        formData.append('contact', this.form.contact)
-        formData.append('cpf', this.form.cpf)
-        formData.append('birthdate', this.form.birthdate)
-        formData.append('nationality', this.form.nationality)
-        formData.append('sex', this.form.sex)
-        formData.append('deficiency', this.form.deficiency)
-
-        // console.log(formData);
-        await axios
-          .post(
-            `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
-            formData
-          )
-          .then(function (response) {
-            console.log(response)
-            alert(
-              'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
+          // console.log(formData);
+          await axios
+            .post(
+              `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
+              formData
             )
-            document.Location.reload(true)
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error)
-          })
-      } catch (error) {
-        console.log(error)
+            .then(function (response) {
+              alert(
+                'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
+              )
+              document.Location.reload(true)
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error)
+            })
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
   },
@@ -790,6 +835,17 @@ export default {
   margin-top: 30px;
 }
 
+.md-layout {
+  .md-field {
+    margin-bottom: 0;
+  }
+
+  .error {
+    font-size: 0.8rem;
+    color: #ff0000;
+  }
+}
+
 .md-has-textarea + .md-layout {
   margin-top: 15px;
 }
@@ -797,15 +853,12 @@ export default {
 .label-file {
   width: 100px;
   color: #9c27b0;
-  // margin-top: 150px;
   text-align: center;
-  // box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
   font-size: 13px;
   background-color: white;
   background-position: 10px 10px;
-  // background-repeat: no-repeat;
   padding: 12px 10px 12px 10px;
   cursor: pointer;
   font-weight: 800;
@@ -861,6 +914,11 @@ export default {
   }
   .mobile {
     display: flex;
+    flex-direction: column;
+
+    &.md-layout-item.deficiency {
+      flex-direction: row;
+    }
   }
 }
 </style>
