@@ -654,7 +654,6 @@ import _ from 'lodash'
 import { required, minLength } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
-// import Modal from "./components/JavascriptComponentsSection";
 export default {
   bodyClass: 'landing-page',
   components: { VueRecaptcha, Modal },
