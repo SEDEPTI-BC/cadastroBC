@@ -145,7 +145,7 @@
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
                 <md-field>
-                  <label class="label">Endereço completo </label>
+                  <label class="label">Endereço completo (CEP, rua, bairro) </label>
                   <md-input
                     v-model="$v.form.address.$model"
                     required=""
@@ -344,7 +344,7 @@
                 <div id="example-3">
                   <input
                     type="checkbox"
-                    id="mental"
+                    id="Deficiência mental"
                     value="Deficiência mental"
                     v-model="form.deficiency"
                     name="deficiency"
@@ -357,7 +357,7 @@
 
                   <input
                     type="checkbox"
-                    id="auditiva"
+                    id="Deficiência auditiva"
                     value="Deficiência auditiva"
                     v-model="form.deficiency"
                     style="margin-left: 33px"
@@ -371,7 +371,7 @@
 
                   <input
                     type="checkbox"
-                    id="fisica"
+                    id="Deficiência fisica"
                     style="margin-left: 43px"
                     value="Deficiência física"
                     v-model="form.deficiency"
@@ -398,7 +398,7 @@
 
                   <input
                     type="checkbox"
-                    id="multipla"
+                    id="Deficiência multipla"
                     value="Deficiência multipla"
                     v-model="form.deficiency"
                     style="margin-left: 40px"
