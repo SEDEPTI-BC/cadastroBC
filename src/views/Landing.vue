@@ -40,93 +40,104 @@
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field>
-                  <label class="label">Seu nome completo</label>
-                  <md-input
+                <field>
+                  <label class="label">Nome*</label>
+                  <input
                     style="text-transform: capitalize"
-                    class="name"
                     v-model="$v.form.idName.$model"
                     id="name"
-                    required=""
+                    class="ca-input"
+                    required
+                    placeholder="Ex.: Carlos Freitas"
                     name="idName"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.idName.required && errors">
                   Campo obrigatório
                 </div>
               </div>
               <div class="md-layout-item md-size-50">
-                <md-field>
+                <field>
                   <label class="label">Seu nome social</label>
-                  <md-input
+                  <input
                     style="text-transform: capitalize"
                     v-model="form.socialName"
                     name="socialName"
+                    placeholder="Seu nome social"
                     type="text"
-                  ></md-input>
-                </md-field>
+                    class="ca-input"
+                  />
+                </field>
               </div>
             </div>
 
             <!-- campo de email, sexo e nacionalidade -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <label class="label">Seu email</label>
-                  <md-input
+                <field maxlength="5">
+                  <label class="label">Seu email*</label>
+                  <input
                     v-model="$v.form.email.$model"
                     required
                     name="email"
                     type="email"
+                    class="ca-input"
+                    placeholder="Ex.: carlos@gmail.com"
                     pattern=".+@globex\.com"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.email.required && errors">
                   Campo obrigatório
                 </div>
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field>
-                  <label class="label">Informe seu sexo</label>
-                  <md-input
+                <field>
+                  <label class="label">Informe seu sexo*</label>
+                  <input
                     v-model="$v.form.sex.$model"
                     required=""
+                    class="ca-input"
                     name="sex"
+                    placeholder="Sexo"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
                   Campo obrigatório
                 </div>
               </div>
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
-                <md-field>
+                <field>
                   <label class="label">Informe seu sexo</label>
-                  <md-input
+                  <input
                     v-model="$v.form.sex.$model"
                     required=""
+                    class="ca-input"
+                    placeholder="Sexo"
                     name="sex"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
                   Campo obrigatório
                 </div>
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field>
-                  <label class="label">Nacionalidade </label>
-                  <md-input
+                <field>
+                  <label class="label">Nacionalidade* </label>
+                  <input
                     v-model="$v.form.nationality.$model"
                     required=""
+                    class="ca-input"
+                    placeholder="Ex.: brasileiro"
                     name="nationality"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div
                   class="error"
                   v-if="!$v.form.nationality.required && errors"
@@ -139,31 +150,34 @@
             <!-- Campos de endereço e Numero -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
-                <md-field>
-                  <label class="label"
-                    >Endereço completo (CEP, rua, bairro)
-                  </label>
-                  <md-input
+                <field>
+                  <label class="label">Endereço completo* </label>
+                  <input
                     v-model="$v.form.address.$model"
-                    required=""
+                    required
+                    class="ca-input"
+                    placeholder="CEP, rua, número, bairro, cidade"
                     name="address"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.address.required && errors">
                   Campo obrigatório
                 </div>
               </div>
+              <!-- nacionalidade mobile -->
               <div class="md-layout-item md-size-50 mobile">
-                <md-field>
-                  <label class="label">Nacionalidade </label>
-                  <md-input
+                <field>
+                  <label class="label">Nacionalidade*</label>
+                  <input
                     v-model="$v.form.nationality.$model"
-                    required=""
+                    required
+                    placeholder="Ex.: brasileiro"
+                    class="ca-input"
                     name="nationality"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div
                   class="error"
                   v-if="!$v.form.nationality.required && errors"
@@ -172,57 +186,59 @@
                 </div>
               </div>
               <!-- campo numero de contato mobile e desktop -->
-              <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <p>
-                    <label class="desktop label"
-                      >Número para contato(DDD + número)</label
-                    >
-                    <label class="mobile label">Número para contato</label>
-                  </p>
-                  <md-input
+              <div class="md-layout-item md-size-50 ">
+                <field maxlength="5">
+                  <label class="desktop label">Número para contato*</label>
+                  <label class="mobile label">N° de contato</label>
+                  <input
                     v-model="$v.form.contact.$model"
                     name="contact"
-                    required=""
+                    class="ca-input"
+                    placeholder="Ex.: (99)99999-9999"
+                    required
                     type="text"
                     v-mask="'(##)#####-####'"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.contact.required && errors">
                   Campo obrigatório
                 </div>
               </div>
             </div>
 
-            <!-- campos de daata de nascimento e CPF -->
+            <!-- campos de data de nascimento e CPF -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field>
-                  <label class="label">Data de nascimento </label>
-                  <md-input
+                <field>
+                  <label class="label">Data de nascimento*</label>
+                  <input
                     v-model="$v.form.birthdate.$model"
                     alt="só números"
                     name="birthdate"
+                    class="ca-input"
+                    placeholder="Ex.: 99/99/9999"
                     required=""
                     type="text"
                     v-mask="'##/##/####'"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.birthdate.required && errors">
                   Campo obrigatório
                 </div>
               </div>
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <label class="label">CPF </label>
-                  <md-input
+                <field maxlength="5">
+                  <label class="label">CPF*</label>
+                  <input
                     v-model="$v.form.cpf.$model"
                     name="cpf"
-                    required=""
+                    required
+                    class="ca-input"
+                    placeholder="Ex.: 999.999.999-99"
                     type="text"
                     v-mask="'###.###.###-##'"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.cpf.required && errors">
                   Campo obrigatório
                 </div>
@@ -891,9 +907,7 @@ export default {
   color: #008000;
   font-weight: 600;
 }
-.ola {
-  display: inline;
-}
+
 .campo {
   text-align: center;
   position: relative;
@@ -903,6 +917,11 @@ export default {
 }
 .margem1 {
   margin-top: 6%;
+}
+.ca-input {
+  border: none;
+  border-bottom: 2px solid black;
+  width: 100%;
 }
 
 @media screen and (max-width: 500px) {
