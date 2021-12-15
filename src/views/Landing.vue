@@ -1,41 +1,35 @@
 <template>
   <div class="wrapper">
-    <br /><br /><br /><br /><br /><br /><br /><br />
-    <div class="main main-raised">
-      <div class="section section-contacts">
+    <div class="main main-raised margem">
+      <div class="section section-contacts ">
         <!-- <img src="../assets/img/cabecalhoFINAL2.png"> -->
         <!-- <div class="container">
           <div class="md-layout"> -->
-        <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
-          <h2 class="text-center title text-responsive">
+        <div
+          class="md-layout-item md-size-85 md-xsmall-size-100 mx-auto margem1"
+        >
+          <h1 class="text-center title text-responsive">
             PRÉ-CADASTRO/RECADASTRO
-          </h2>
+          </h1>
           <!-- <h2 class=" title" style="margin-left: 50px"><p class=" text-center title mobile">PRÉ-CADASTRO/<br>RECADASTRO</p></h2> -->
-          <h4 class="text-center description" style="font-size: 19px">
-            <!-- fonte é de 18 e mudei para 19 -->
-            <strong>
-              Formulário de solicitação para pré-cadastro/recadastro online.
-              Preencher ou marcar principalmente todos os itens obrigatórios.
-              <br />
-              A efetivação do pré-cadastro/recadastro estará finalizada em até
-              24 horas a contar da data de solicitação.
-              <br />
-              A renovação de cadastro para alunos de graduação é semestral e
-              para alunos de pós-graduação, técnicos administrativos e docentes
-              da UFPA é anual.
-              <br />
-              <u>Observações sobre os anexos:</u>
-              Discentes: Atestado de matrícula atual (SIGAA)<br />
-              Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
-              funcional (SIGEPE)<br />
-              O nome e a foto associados à sua Conta do Google serão registrados
-              quando você fizer upload de arquivos e enviar este formulário.
-            </strong>
-            <p class="vermelho">
+          <p class="text-center description" style="font-size: 19px">
+            <!-- fonte é de 18 e mudou para 19 -->
+            Preencher ou marcar principalmente todos os itens obrigatórios. A
+            efetivação do pré-cadastro/recadastro estará finalizada em até 24
+            horas a contar da data de solicitação. A renovação de cadastro para
+            alunos de graduação é semestral e para alunos de pós-graduação,
+            técnicos administrativos e docentes da UFPA é anual. Observações
+            sobre os anexos: Discentes: Atestado de matrícula atual (SIGAA)
+            Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
+            funcional (SIGEPE). O nome e a foto associados à sua Conta do Google
+            serão registrados quando você fizer upload de arquivos e enviar este
+            formulário.
+            <span class="vermelho">
               O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
-              arquivos PDF , PNG e JPEG.
-            </p>
-          </h4>
+              arquivos PDF , PNG e JPEG. Todos os campos com * são obrigatórios.
+            </span>
+          </p>
+
           <!-- inicio do formulário -->
           <form
             class="contact-form"
@@ -82,9 +76,10 @@
                   <label class="label">Seu email</label>
                   <md-input
                     v-model="$v.form.email.$model"
-                    required=""
+                    required
                     name="email"
                     type="email"
+                    pattern=".+@globex\.com"
                   ></md-input>
                 </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
@@ -145,7 +140,9 @@
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
                 <md-field>
-                  <label class="label">Endereço completo (CEP, rua, bairro) </label>
+                  <label class="label"
+                    >Endereço completo (CEP, rua, bairro)
+                  </label>
                   <md-input
                     v-model="$v.form.address.$model"
                     required=""
@@ -204,6 +201,7 @@
                   <label class="label">Data de nascimento </label>
                   <md-input
                     v-model="$v.form.birthdate.$model"
+                    alt="só números"
                     name="birthdate"
                     required=""
                     type="text"
@@ -336,18 +334,18 @@
             <!-- campos de deficiência e upload de arquivos desktop -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 md-small-size-100 desktop">
-                <p>
-                  <label class="desktop roxo label">Deficiência</label>
+                <p class="desktop roxo label">
+                  Deficiência
                   <br />
                 </p>
 
                 <div id="example-3">
                   <input
                     type="checkbox"
-                    id="Deficiência mental"
                     value="Deficiência mental"
                     v-model="form.deficiency"
                     name="deficiency"
+                    title="Deficiência mental"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -357,11 +355,11 @@
 
                   <input
                     type="checkbox"
-                    id="Deficiência auditiva"
                     value="Deficiência auditiva"
                     v-model="form.deficiency"
                     style="margin-left: 33px"
                     name="deficiency"
+                    title="Deficiência auditiva"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -371,11 +369,11 @@
 
                   <input
                     type="checkbox"
-                    id="Deficiência fisica"
                     style="margin-left: 43px"
                     value="Deficiência física"
                     v-model="form.deficiency"
                     name="deficiency"
+                    title="Deficiência fisica"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -385,10 +383,11 @@
                   <br />
                   <input
                     type="checkbox"
-                    id="visual"
-                    value="Deficiência visual"
+                    value="Deficiencia visual"
                     v-model="form.deficiency"
                     name="deficiency"
+                    data-message="Esse é do primeiro botão"
+                    title="Deficiencia visual"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -398,11 +397,11 @@
 
                   <input
                     type="checkbox"
-                    id="Deficiência multipla"
                     value="Deficiência multipla"
                     v-model="form.deficiency"
                     style="margin-left: 40px"
                     name="deficiency"
+                    title="Deficiência multipla"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -481,10 +480,15 @@
                                   type="is-primary"
                                 ></b-icon>
                               </p>
-                              <p>Deixe aqui seus documentos</p>
-                              <p class="vermelho" style="margin-top: -20px">
-                                PDF, PNG ou JPEG
+                              <p>
+                                Faça o upload dos seus documentos<br />
+                                <span class="vermelho" style="margin-top: -20px"
+                                  >PDF, PNG, JPEG</span
+                                >
                               </p>
+                              <!-- <p class="vermelho" style="margin-top: -20px">
+                                PDF, PNG ou JPEG
+                              </p> -->
                             </div>
                           </section>
                         </b-upload>
@@ -532,7 +536,6 @@
             <br />
 
             <!-- Checkbox mobile -->
-
             <h4 class="mobile label">Deficiência</h4>
             <div class="md-layout-item md-size-100 deficiency mobile">
               <br />
@@ -615,6 +618,7 @@
                   value="Dislexia"
                   v-model="form.deficiency"
                   name="deficiency"
+                  aria-checked="false"
                 />
                 <label
                   style="font-weight: bold; color: #000 !important"
@@ -666,6 +670,7 @@ export default {
   data() {
     return {
       form: {
+        testes: [],
         idName: '', // nome na identidade
         socialName: '',
         address: '',
@@ -723,7 +728,7 @@ export default {
   watch: {
     'form.dropFiles'() {
       this.uploadErrors = false
-      _.forEach(this.form.dropFiles, (file) => {
+      _.forEach(this.form.dropFiles, file => {
         if (this.validate(file) !== '') {
           this.uploadErrors = true
         }
@@ -782,7 +787,7 @@ export default {
       } else {
         try {
           const formData = new FormData()
-          _.forEach(this.form.dropFiles, (file) => {
+          _.forEach(this.form.dropFiles, file => {
             if (this.validate(file) === '') {
               formData.append('files', file)
             }
@@ -804,13 +809,13 @@ export default {
               `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
               formData
             )
-            .then(function (response) {
+            .then(function(response) {
               alert(
                 'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
               )
               document.Location.reload(true)
             })
-            .catch(function (error) {
+            .catch(function(error) {
               // handle error
               console.log(error)
             })
@@ -892,6 +897,12 @@ export default {
 .campo {
   text-align: center;
   position: relative;
+}
+.margem {
+  margin-top: 0%;
+}
+.margem1 {
+  margin-top: 6%;
 }
 
 @media screen and (max-width: 500px) {
