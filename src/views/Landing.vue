@@ -22,7 +22,9 @@
             sobre os anexos: Discentes: Atestado de matrícula atual (SIGAA)
             Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
             funcional (SIGEPE). O nome e a foto associados à sua Conta do Google
-            serão registrados quando você fizer upload de arquivos e enviar este
+            serão registrados<b>
+              quando você fizer upload de arquivos e enviar este
+            </b>
             formulário.
             <span class="vermelho">
               O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
@@ -48,7 +50,8 @@
                     id="name"
                     class="ca-input"
                     required
-                    placeholder="Ex.: Carlos Freitas"
+                    placeholder="Nome completo"
+                    aria-label="insira seu nome completo"
                     name="idName"
                     type="text"
                   />
@@ -216,7 +219,7 @@
                     alt="só números"
                     name="birthdate"
                     class="ca-input"
-                    placeholder="Ex.: 99/99/9999"
+                    placeholder="Data de nascimento"
                     required=""
                     type="text"
                     v-mask="'##/##/####'"
