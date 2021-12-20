@@ -82,7 +82,12 @@
                     pattern=".+@globex\.com"
                   ></md-input>
                 </md-field>
-                <div class="error" v-if="!$v.form.email.required && errors">
+                <div
+                  class="error"
+                  v-if="
+                    !$v.form.email.email || !$v.form.email.required && errors 
+                  "
+                >
                   Campo obrigatório
                 </div>
               </div>
@@ -655,7 +660,7 @@
 <script>
 const axios = require('axios')
 import _ from 'lodash'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
 export default {
@@ -703,6 +708,7 @@ export default {
       },
       email: {
         required,
+        email,
       },
       contact: {
         required,
