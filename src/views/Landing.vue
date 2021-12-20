@@ -60,6 +60,7 @@
                   <md-input
                     style="text-transform: capitalize"
                     v-model="form.socialName"
+                    aria-label="Insira seu nome social"
                     name="socialName"
                     type="text"
                     class="ca-input"
@@ -78,6 +79,7 @@
                     required
                     name="email"
                     type="email"
+                    aria-label="insira seu email"
                     class="ca-input"
                     pattern=".+@globex\.com"
                   ></md-input>
@@ -93,6 +95,7 @@
                   <md-input
                     v-model="$v.form.sex.$model"
                     required=""
+                    aria-label="informe seu sexo"
                     name="sex" 
                     type="text"
                   ></md-input>
@@ -108,6 +111,7 @@
                   <input
                     v-model="$v.form.sex.$model"
                     required=""
+                    aria-label="insira seu sexo"
                     class="ca-input"
                     name="sex"
                     type="text"
@@ -125,6 +129,7 @@
                     v-model="$v.form.nationality.$model"
                     required=""
                     class="ca-input"
+                    aria-label="insira sua nacionalidade"
                     name="nationality"
                     type="text"
                   ></md-input>
@@ -146,6 +151,7 @@
                   <md-input
                     v-model="$v.form.address.$model"
                     required
+                    aria-label="endereço completo (cep, rua, numero)"
                     class="ca-input"
                     name="address"
                     type="text"
@@ -162,6 +168,7 @@
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required
+                    aria-label="insira sua nacionalidade"
                     class="ca-input"
                     name="nationality"
                     type="text"
@@ -182,6 +189,7 @@
                   <md-input
                     v-model="$v.form.contact.$model"
                     name="contact"
+                    aria-label="insira numero para contatos com ddd; apenas números"
                     class="ca-input"
                     required
                     type="text"
@@ -203,6 +211,7 @@
                     v-model="$v.form.birthdate.$model"
                     alt="só números"
                     name="birthdate"
+                    aria-label="data de nascimento; apenas números"
                     class="ca-input"
                     required=""
                     type="text"
@@ -219,6 +228,7 @@
                   <md-input
                     v-model="$v.form.cpf.$model"
                     name="cpf"
+                    aria-label="insira seu CPF; apenas números"
                     required
                     class="ca-input"
                     type="text"
@@ -434,20 +444,21 @@
                 style="margin-left: 150px; margin-top: 40px"
               >
                 <md-button
-                  class="md-primary md-round md-block"
+                  class="md-success md-round md-block"
                   @click="classicModal = true"
                   ><md-icon>library_books</md-icon> Envie seus
                   documentos</md-button
                 >
                 <modal v-if="classicModal" @close="classicModalHide">
                   <template slot="header">
-                    <h4 class="modal-title"></h4>
                     <md-button
                       class="
                         md-simple md-just-icon md-round
                         modal-default-button
                       "
                       @click="classicModalHide"
+                      aria-modal="true"
+                      role="dialog"
                     >
                       <md-icon>clear</md-icon>
                     </md-button>
