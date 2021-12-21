@@ -79,13 +79,13 @@
                     required
                     name="email"
                     type="email"
-                    aria-label="insira seu email"
-                    class="ca-input"
-                    pattern=".+@globex\.com"
                   ></md-input>
                 </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
                   Campo obrigatório
+                </div>
+                <div class="error" v-if="!$v.form.email.email && errors">
+                  Preecha o campo corretamente
                 </div>
               </div>
               <!-- sexo para desktop -->
@@ -668,7 +668,7 @@
 <script>
 const axios = require('axios')
 import _ from 'lodash'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
 export default {
@@ -716,6 +716,7 @@ export default {
       },
       email: {
         required,
+        email,
       },
       contact: {
         required,
