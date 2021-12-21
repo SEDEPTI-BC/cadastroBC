@@ -79,16 +79,13 @@
                     required
                     name="email"
                     type="email"
-                    pattern=".+@globex\.com"
                   ></md-input>
                 </md-field>
-                <div
-                  class="error"
-                  v-if="
-                    !$v.form.email.email || !$v.form.email.required && errors 
-                  "
-                >
+                <div class="error" v-if="!$v.form.email.required && errors">
                   Campo obrigatório
+                </div>
+                <div class="error" v-if="!$v.form.email.email && errors">
+                  Preecha o campo corretamente
                 </div>
               </div>
               <!-- sexo para desktop -->
