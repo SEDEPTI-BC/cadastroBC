@@ -39,13 +39,14 @@
             <div class="md-layout">
               <div class="md-layout-item md-size-50 ">
                 <md-field>
-                  <label class="label">Nome completo</label>
+                  <label class="label" aria-label="insira seu nome completo"
+                    >Nome completo</label
+                  >
                   <md-input
                     style="text-transform: capitalize"
                     v-model="$v.form.idName.$model"
                     id="name"
                     required
-                    aria-label="insira seu nome completo"
                     name="idName"
                     type="text"
                   ></md-input>
@@ -56,11 +57,12 @@
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field>
-                  <label class="label">Seu nome social</label>
+                  <label class="label" aria-label="Insira seu nome social"
+                    >Seu nome social</label
+                  >
                   <md-input
                     style="text-transform: capitalize"
                     v-model="form.socialName"
-                    aria-label="Insira seu nome social"
                     name="socialName"
                     type="text"
                     class="ca-input"
@@ -73,7 +75,17 @@
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
                 <md-field maxlength="5">
-                  <label class="label">Seu email</label>
+                  <label
+                    aria-label="Insira seu email"
+                    v-bind:class="{ active: labelEmail }"
+                    >Seu email</label
+                  >
+                  <label
+                    class="label"
+                    aria-label="Insira seu email corretamente"
+                    style="display: none"
+                    >Seu email fwfioegergeg</label
+                  >
                   <md-input
                     v-model="$v.form.email.$model"
                     required
@@ -91,12 +103,13 @@
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
                 <md-field>
-                  <label class="label">Informe seu sexo</label>
+                  <label class="label" aria-label="informe seu sexo"
+                    >Informe seu sexo</label
+                  >
                   <md-input
                     v-model="$v.form.sex.$model"
-                    required=""
-                    aria-label="informe seu sexo"
-                    name="sex" 
+                    required
+                    name="sex"
                     type="text"
                   ></md-input>
                 </md-field>
@@ -107,11 +120,12 @@
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
                 <field>
-                  <label class="label">Informe seu sexo</label>
+                  <label class="label" aria-label="insira seu sexo"
+                    >Informe seu sexo</label
+                  >
                   <input
                     v-model="$v.form.sex.$model"
                     required=""
-                    aria-label="insira seu sexo"
                     class="ca-input"
                     name="sex"
                     type="text"
@@ -124,12 +138,13 @@
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
                 <md-field>
-                  <label class="label">Nacionalidade</label>
+                  <label class="label" aria-label="insira sua nacionalidade"
+                    >Nacionalidade</label
+                  >
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required=""
                     class="ca-input"
-                    aria-label="insira sua nacionalidade"
                     name="nationality"
                     type="text"
                   ></md-input>
@@ -147,11 +162,14 @@
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
                 <md-field>
-                  <label class="label">Endereço completo</label>
+                  <label
+                    class="label"
+                    aria-label="endereço completo (cep, rua, numero)"
+                    >Endereço completo</label
+                  >
                   <md-input
                     v-model="$v.form.address.$model"
                     required
-                    aria-label="endereço completo (cep, rua, numero)"
                     class="ca-input"
                     name="address"
                     type="text"
@@ -164,11 +182,12 @@
               <!-- nacionalidade mobile -->
               <div class="md-layout-item md-size-50 mobile">
                 <md-field>
-                  <label class="label">Nacionalidade</label>
+                  <label class="label" aria-label="insira sua nacionalidade"
+                    >Nacionalidade</label
+                  >
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required
-                    aria-label="insira sua nacionalidade"
                     class="ca-input"
                     name="nationality"
                     type="text"
@@ -184,12 +203,19 @@
               <!-- campo numero de contato mobile e desktop -->
               <div class="md-layout-item md-size-50 ">
                 <md-field maxlength="5">
-                  <label class="desktop label">Número para contato</label>
-                  <label class="mobile label">N° de contato</label>
+                  <label
+                    class="desktop label"
+                    aria-label="insira numero para contatos com ddd; apenas números"
+                    >Número para contato</label
+                  >
+                  <label
+                    class="mobile label"
+                    aria-label="insira numero para contatos com ddd; apenas números"
+                    >N° de contato</label
+                  >
                   <md-input
                     v-model="$v.form.contact.$model"
                     name="contact"
-                    aria-label="insira numero para contatos com ddd; apenas números"
                     class="ca-input"
                     required
                     type="text"
@@ -696,6 +722,7 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
+      labelEmail: true,
       errors: false,
       uploadErrors: false,
       isSubmitButtonDisabled: true,
