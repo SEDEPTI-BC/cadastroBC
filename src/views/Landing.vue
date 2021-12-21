@@ -8,10 +8,9 @@
         <div
           class="md-layout-item md-size-85 md-xsmall-size-100 mx-auto margem1"
         >
-          <h1 class="text-center title text-responsive">
+          <h1 class="text-center title text-responsive" id="cadastro">
             PRÉ-CADASTRO/RECADASTRO
           </h1>
-          <!-- <h2 class=" title" style="margin-left: 50px"><p class=" text-center title mobile">PRÉ-CADASTRO/<br>RECADASTRO</p></h2> -->
           <p class="text-center description" style="font-size: 19px">
             <!-- fonte é de 18 e mudou para 19 -->
             Preencher ou marcar principalmente todos os itens obrigatórios. A
@@ -22,7 +21,6 @@
             sobre os anexos: Discentes: Atestado de matrícula atual (SIGAA)
             Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
             funcional (SIGEPE). O nome e a foto associados à sua Conta do Google
-            serão registrados quando você fizer upload de arquivos e enviar este
             formulário.
             <span class="vermelho">
               O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
@@ -39,15 +37,15 @@
           >
             <!-- campos de nome e nome social -->
             <div class="md-layout">
-              <div class="md-layout-item md-size-50">
+              <div class="md-layout-item md-size-50 ">
                 <md-field>
-                  <label class="label">Seu nome completo</label>
+                  <label class="label">Nome completo</label>
                   <md-input
                     style="text-transform: capitalize"
-                    class="name"
                     v-model="$v.form.idName.$model"
                     id="name"
-                    required=""
+                    required
+                    aria-label="insira seu nome completo"
                     name="idName"
                     type="text"
                   ></md-input>
@@ -62,8 +60,10 @@
                   <md-input
                     style="text-transform: capitalize"
                     v-model="form.socialName"
+                    aria-label="Insira seu nome social"
                     name="socialName"
                     type="text"
+                    class="ca-input"
                   ></md-input>
                 </md-field>
               </div>
@@ -95,7 +95,8 @@
                   <md-input
                     v-model="$v.form.sex.$model"
                     required=""
-                    name="sex"
+                    aria-label="informe seu sexo"
+                    name="sex" 
                     type="text"
                   ></md-input>
                 </md-field>
@@ -105,15 +106,17 @@
               </div>
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
-                <md-field>
+                <field>
                   <label class="label">Informe seu sexo</label>
-                  <md-input
+                  <input
                     v-model="$v.form.sex.$model"
                     required=""
+                    aria-label="insira seu sexo"
+                    class="ca-input"
                     name="sex"
                     type="text"
-                  ></md-input>
-                </md-field>
+                  />
+                </field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
                   Campo obrigatório
                 </div>
@@ -121,10 +124,12 @@
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
                 <md-field>
-                  <label class="label">Nacionalidade </label>
+                  <label class="label">Nacionalidade</label>
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required=""
+                    class="ca-input"
+                    aria-label="insira sua nacionalidade"
                     name="nationality"
                     type="text"
                   ></md-input>
@@ -142,12 +147,12 @@
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
                 <md-field>
-                  <label class="label"
-                    >Endereço completo (CEP, rua, bairro)
-                  </label>
+                  <label class="label">Endereço completo</label>
                   <md-input
                     v-model="$v.form.address.$model"
-                    required=""
+                    required
+                    aria-label="endereço completo (cep, rua, numero)"
+                    class="ca-input"
                     name="address"
                     type="text"
                   ></md-input>
@@ -156,12 +161,15 @@
                   Campo obrigatório
                 </div>
               </div>
+              <!-- nacionalidade mobile -->
               <div class="md-layout-item md-size-50 mobile">
                 <md-field>
-                  <label class="label">Nacionalidade </label>
+                  <label class="label">Nacionalidade</label>
                   <md-input
                     v-model="$v.form.nationality.$model"
-                    required=""
+                    required
+                    aria-label="insira sua nacionalidade"
+                    class="ca-input"
                     name="nationality"
                     type="text"
                   ></md-input>
@@ -174,18 +182,16 @@
                 </div>
               </div>
               <!-- campo numero de contato mobile e desktop -->
-              <div class="md-layout-item md-size-50">
+              <div class="md-layout-item md-size-50 ">
                 <md-field maxlength="5">
-                  <p>
-                    <label class="desktop label"
-                      >Número para contato(DDD + número)</label
-                    >
-                    <label class="mobile label">Número para contato</label>
-                  </p>
+                  <label class="desktop label">Número para contato</label>
+                  <label class="mobile label">N° de contato</label>
                   <md-input
                     v-model="$v.form.contact.$model"
                     name="contact"
-                    required=""
+                    aria-label="insira numero para contatos com ddd; apenas números"
+                    class="ca-input"
+                    required
                     type="text"
                     v-mask="'(##)#####-####'"
                   ></md-input>
@@ -196,15 +202,17 @@
               </div>
             </div>
 
-            <!-- campos de daata de nascimento e CPF -->
+            <!-- campos de data de nascimento e CPF -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
                 <md-field>
-                  <label class="label">Data de nascimento </label>
+                  <label class="label">Data de nascimento</label>
                   <md-input
                     v-model="$v.form.birthdate.$model"
                     alt="só números"
                     name="birthdate"
+                    aria-label="data de nascimento; apenas números"
+                    class="ca-input"
                     required=""
                     type="text"
                     v-mask="'##/##/####'"
@@ -216,11 +224,13 @@
               </div>
               <div class="md-layout-item md-size-50">
                 <md-field maxlength="5">
-                  <label class="label">CPF </label>
+                  <label class="label">CPF</label>
                   <md-input
                     v-model="$v.form.cpf.$model"
                     name="cpf"
-                    required=""
+                    aria-label="insira seu CPF; apenas números"
+                    required
+                    class="ca-input"
                     type="text"
                     v-mask="'###.###.###-##'"
                   ></md-input>
@@ -434,20 +444,21 @@
                 style="margin-left: 150px; margin-top: 40px"
               >
                 <md-button
-                  class="md-primary md-round md-block"
+                  class="md-success md-round md-block"
                   @click="classicModal = true"
                   ><md-icon>library_books</md-icon> Envie seus
                   documentos</md-button
                 >
                 <modal v-if="classicModal" @close="classicModalHide">
                   <template slot="header">
-                    <h4 class="modal-title"></h4>
                     <md-button
                       class="
                         md-simple md-just-icon md-round
                         modal-default-button
                       "
                       @click="classicModalHide"
+                      aria-modal="true"
+                      role="dialog"
                     >
                       <md-icon>clear</md-icon>
                     </md-button>
@@ -894,9 +905,7 @@ export default {
   color: #008000;
   font-weight: 600;
 }
-.ola {
-  display: inline;
-}
+
 .campo {
   text-align: center;
   position: relative;
@@ -906,6 +915,9 @@ export default {
 }
 .margem1 {
   margin-top: 6%;
+}
+.ca-input {
+  border-bottom: 2px solid black;
 }
 
 @media screen and (max-width: 500px) {
