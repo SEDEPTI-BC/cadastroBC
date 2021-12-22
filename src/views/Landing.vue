@@ -38,7 +38,7 @@
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 ">
-                <md-field>
+                <md-field :class=" isActive ? 'md-error' : verde  ">
                   <label class="label" aria-label="insira seu nome completo"
                     >Nome completo</label
                   >
@@ -74,17 +74,23 @@
             <!-- campo de email, sexo e nacionalidade -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
+                <md-field
+                  maxlength="5"
+                  :class="{ labelValid: !isActive, show: isActive }"
+                >
+                  <label class="label" aria-label="Insira seu email">Seu email</label>
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                </md-field>
+                <md-field class="md-error" v-bind:class="{ show: !isActive }">
                   <label
-                    aria-label="Insira seu email"
-                    v-bind:class="{ active: labelEmail }"
-                    >Seu email</label
-                  >
-                  <label
-                    class="label"
                     aria-label="Insira seu email corretamente"
-                    style="display: none"
-                    >Seu email fwfioegergeg</label
+                    aria-invalid="true"
+                    >Seu email corretamente</label
                   >
                   <md-input
                     v-model="$v.form.email.$model"
@@ -92,6 +98,7 @@
                     name="email"
                     type="email"
                   ></md-input>
+                  <md-icon>clear</md-icon>
                 </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
                   Campo obrigatório
@@ -722,7 +729,7 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
-      labelEmail: true,
+      isActive: false,
       errors: false,
       uploadErrors: false,
       isSubmitButtonDisabled: true,
@@ -789,9 +796,11 @@ export default {
       if (this.$v.$invalid) {
         this.errors = true
         alert('Formulário inválido, verifique suas informações')
+        this.isActive = true
       } else {
         this.errors = false
         this.sendForm()
+        this.isActive = false
       }
     },
     validateNumberOfFiles() {
@@ -888,12 +897,15 @@ export default {
 
   .error {
     font-size: 0.8rem;
-    color: #ff0000;
+    color: #000;
   }
 }
 
 .md-has-textarea + .md-layout {
   margin-top: 15px;
+}
+.show {
+  display: none;
 }
 
 .label-file {
@@ -920,6 +932,12 @@ export default {
 .mobile {
   display: none;
 }
+.labelValid {
+  font-weight: bold;
+  color: #000 !important;
+  font-size: 16px;
+}
+
 .li-defi {
   list-style: none;
   margin-left: 20px;
