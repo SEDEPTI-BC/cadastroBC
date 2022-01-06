@@ -38,8 +38,10 @@
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 ">
-                <md-field>
-                  <label class="label" aria-label="insira seu nome completo"
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : md - error"
+                    aria-label="insira seu nome completo"
                     >Nome completo</label
                   >
                   <md-input
@@ -50,9 +52,12 @@
                     name="idName"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.idName.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.idName.required && errors">
-                  Campo obrigatório
+                  Nome obrigatório
                 </div>
               </div>
               <div class="md-layout-item md-size-50">
@@ -74,17 +79,11 @@
             <!-- campo de email, sexo e nacionalidade -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
+                <md-field maxlength="5" :class="{ show: !isActive }">
                   <label
+                    :class="isActive ? 'label' : 'label2'"
                     aria-label="Insira seu email"
-                    v-bind:class="{ active: labelEmail }"
                     >Seu email</label
-                  >
-                  <label
-                    class="label"
-                    aria-label="Insira seu email corretamente"
-                    style="display: none"
-                    >Seu email fwfioegergeg</label
                   >
                   <md-input
                     v-model="$v.form.email.$model"
@@ -93,17 +92,39 @@
                     type="email"
                   ></md-input>
                 </md-field>
+                <md-field
+                  class="md-error"
+                  v-if="!$v.form.email.email.required && errors"
+                >
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email corretamente"
+                    aria-invalid="true"
+                    >Seu email corretamente</label
+                  >
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.email.email.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
-                  Campo obrigatório
+                  Email obrigatório
                 </div>
                 <div class="error" v-if="!$v.form.email.email && errors">
-                  Preecha o campo corretamente
+                  Preecha o email corretamente
                 </div>
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field>
-                  <label class="label" aria-label="informe seu sexo"
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="informe seu sexo"
                     >Informe seu sexo</label
                   >
                   <md-input
@@ -112,15 +133,20 @@
                     name="sex"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.sex.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
-                  Campo obrigatório
+                  Sexo obrigatório
                 </div>
               </div>
               <!-- sexo para dispositivos mobiles -->
               <div class="md-layout-item md-size-50 mobile">
                 <field>
-                  <label class="label" aria-label="insira seu sexo"
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="insira seu sexo"
                     >Informe seu sexo</label
                   >
                   <input
@@ -137,8 +163,10 @@
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field>
-                  <label class="label" aria-label="insira sua nacionalidade"
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="insira sua nacionalidade"
                     >Nacionalidade</label
                   >
                   <md-input
@@ -148,12 +176,15 @@
                     name="nationality"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.nationality.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div
                   class="error"
                   v-if="!$v.form.nationality.required && errors"
                 >
-                  Campo obrigatório
+                  Nacionalidade obrigatório
                 </div>
               </div>
             </div>
@@ -161,9 +192,9 @@
             <!-- Campos de endereço e Numero -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
-                <md-field>
+                <md-field :class="isActive ? verde : 'md-error'">
                   <label
-                    class="label"
+                    :class="isActive ? 'label' : 'label2'"
                     aria-label="endereço completo (cep, rua, numero)"
                     >Endereço completo</label
                   >
@@ -174,9 +205,12 @@
                     name="address"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.address.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.address.required && errors">
-                  Campo obrigatório
+                  Endereço obrigatório
                 </div>
               </div>
               <!-- nacionalidade mobile -->
@@ -202,9 +236,10 @@
               </div>
               <!-- campo numero de contato mobile e desktop -->
               <div class="md-layout-item md-size-50 ">
-                <md-field maxlength="5">
+                <md-field maxlength="5" :class="isActive ? verde : 'md-error'">
                   <label
-                    class="desktop label"
+                    :class="isActive ? 'label' : 'label2'"
+                    class="desktop"
                     aria-label="insira numero para contatos com ddd; apenas números"
                     >Número para contato</label
                   >
@@ -221,9 +256,12 @@
                     type="text"
                     v-mask="'(##)#####-####'"
                   ></md-input>
+                  <md-icon v-if="!$v.form.contact.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.contact.required && errors">
-                  Campo obrigatório
+                  Contato obrigatório
                 </div>
               </div>
             </div>
@@ -231,8 +269,10 @@
             <!-- campos de data de nascimento e CPF -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field>
-                  <label class="label">Data de nascimento</label>
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label :class="isActive ? 'label' : 'label2'"
+                    >Data de nascimento</label
+                  >
                   <md-input
                     v-model="$v.form.birthdate.$model"
                     alt="só números"
@@ -243,14 +283,17 @@
                     type="text"
                     v-mask="'##/##/####'"
                   ></md-input>
+                  <md-icon v-if="!$v.form.birthdate.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.birthdate.required && errors">
-                  Campo obrigatório
+                  Data de nascimento obrigatório
                 </div>
               </div>
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <label class="label">CPF</label>
+                <md-field maxlength="5" :class="isActive ? verde : 'md-error'">
+                  <label :class="isActive ? 'label' : 'label2'">CPF</label>
                   <md-input
                     v-model="$v.form.cpf.$model"
                     name="cpf"
@@ -260,9 +303,12 @@
                     type="text"
                     v-mask="'###.###.###-##'"
                   ></md-input>
+                  <md-icon v-if="!$v.form.cpf.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.cpf.required && errors">
-                  Campo obrigatório
+                  CPF obrigatório
                 </div>
               </div>
             </div>
@@ -722,7 +768,7 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
-      labelEmail: true,
+      isActive: true,
       errors: false,
       uploadErrors: false,
       isSubmitButtonDisabled: true,
@@ -789,9 +835,11 @@ export default {
       if (this.$v.$invalid) {
         this.errors = true
         alert('Formulário inválido, verifique suas informações')
+        this.isActive = false
       } else {
         this.errors = false
         this.sendForm()
+        this.isActive = true
       }
     },
     validateNumberOfFiles() {
@@ -888,12 +936,15 @@ export default {
 
   .error {
     font-size: 0.8rem;
-    color: #ff0000;
+    color: #000;
   }
 }
 
 .md-has-textarea + .md-layout {
   margin-top: 15px;
+}
+.show {
+  display: none;
 }
 
 .label-file {
@@ -914,12 +965,22 @@ export default {
   color: #000 !important;
   font-size: 16px;
 }
+.label2 {
+  color: #000 !important;
+  font-size: 16px;
+}
 .desktop {
   display: inline-block;
 }
 .mobile {
   display: none;
 }
+.labelValid {
+  font-weight: bold;
+  color: #000 !important;
+  font-size: 16px;
+}
+
 .li-defi {
   list-style: none;
   margin-left: 20px;
