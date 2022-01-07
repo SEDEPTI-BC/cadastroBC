@@ -22,7 +22,7 @@
             Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
             funcional (SIGEPE). O nome e a foto associados à sua Conta do Google
             formulário.
-            <span class="vermelho">
+            <span class="roxo">
               O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
               arquivos PDF , PNG e JPEG. Todos os campos com * são obrigatórios.
             </span>
@@ -38,9 +38,9 @@
             <!-- campos de nome e nome social -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 ">
-                <md-field :class="isActive ? verde : 'md-error'">
+                <md-field :class="isActive ? '' : 'md-error'">
                   <label
-                    :class="isActive ? 'label' : md - error"
+                    :class="isActive ? 'label' : ''"
                     aria-label="insira seu nome completo"
                     >Nome completo</label
                   >
@@ -418,11 +418,12 @@
             <!-- campos de deficiência e upload de arquivos desktop -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 md-small-size-100 desktop">
-                <p class="desktop roxo label">
-                  Deficiência
+                <div class="desktop  label">
+                  <label class="" aria-label="você sabe que eu sei"
+                    >Você possui alguma deficiência? se sim, qual?</label
+                  >
                   <br />
-                </p>
-
+                </div>
                 <div id="example-3">
                   <input
                     type="checkbox"
@@ -518,8 +519,9 @@
                 <md-button
                   class="md-success md-round md-block"
                   @click="classicModal = true"
-                  ><md-icon>library_books</md-icon> Envie seus
-                  documentos</md-button
+                >
+                  envie seus documentos
+                  <md-icon>library_books</md-icon></md-button
                 >
                 <modal v-if="classicModal" @close="classicModalHide">
                   <template slot="header">
@@ -599,12 +601,14 @@
                     <md-button
                       class="md-danger md-simple"
                       @click="classicModalHide"
-                      >Concluir</md-button
+                      >fechar</md-button
                     >
                   </template>
                 </modal>
                 <div class="error" v-if="errors">
-                  <p v-if="!$v.form.dropFiles.required">Campo obrigatório</p>
+                  <p v-if="!$v.form.dropFiles.required">
+                    Arquivos obrigatórios
+                  </p>
                   <p v-if="!$v.form.dropFiles.minLength">
                     Por favor, anexe a quantidade de arquivos requisitada
                   </p>
@@ -721,11 +725,12 @@
 
                 <vue-recaptcha :sitekey="recaptchaSitekey">
                   <md-button
-                    class="md-success md-round"
+                    :class="isActive ? 'md-success' : 'md-warning'"
+                    class=" md-round "
                     type="submit"
                     @click.prevent="submit"
                     value="Enviar Cadastro"
-                    >Enviar Cadastro</md-button
+                    >{{ isActive ? textoBotaoOn : textobotaoOff }}</md-button
                   >
                 </vue-recaptcha>
               </div>
@@ -768,6 +773,8 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
+      textoBotaoOn: 'Enviar formulário',
+      textobotaoOff: 'Verifique os dados e tente novamente',
       isActive: true,
       errors: false,
       uploadErrors: false,
@@ -980,14 +987,17 @@ export default {
   color: #000 !important;
   font-size: 16px;
 }
+.testee {
+}
 
 .li-defi {
   list-style: none;
   margin-left: 20px;
 }
-.vermelho {
-  color: #ff0000;
-  font-weight: 600;
+.roxo {
+  color: #7e395d;
+  font-weight: bold;
+  font-size: 19px;
 }
 .verde {
   color: #008000;
