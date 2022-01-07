@@ -3,31 +3,33 @@
     <div class="main main-raised margem">
       <div class="section section-contacts ">
         <!-- <img src="../assets/img/cabecalhoFINAL2.png"> -->
-        <!-- <div class="container">
-          <div class="md-layout"> -->
-        <div
-          class="md-layout-item md-size-85 md-xsmall-size-100 mx-auto margem1"
-        >
-          <h1 class="text-center title text-responsive" id="cadastro">
-            PRÉ-CADASTRO/RECADASTRO
-          </h1>
-          <p class="text-center description" style="font-size: 19px">
-            <!-- fonte é de 18 e mudou para 19 -->
-            Preencher ou marcar principalmente todos os itens obrigatórios. A
-            efetivação do pré-cadastro/recadastro estará finalizada em até 24
-            horas a contar da data de solicitação. A renovação de cadastro para
-            alunos de graduação é semestral e para alunos de pós-graduação,
-            técnicos administrativos e docentes da UFPA é anual. Observações
-            sobre os anexos: Discentes: Atestado de matrícula atual (SIGAA)
-            Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
-            funcional (SIGEPE). O nome e a foto associados à sua Conta do Google
-            formulário.
-            <span class="roxo">
-              O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
-              arquivos PDF , PNG e JPEG. Todos os campos com * são obrigatórios.
-            </span>
-          </p>
-
+        <div class="container">
+          <div class="md-layout">
+            <div
+              class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto margem1"
+            >
+              <h1 class=" text-center title text-responsive" id="cadastro">
+                PRÉ-CADASTRO/RECADASTRO
+              </h1>
+              <p class="text-center description" style="font-size: 19px">
+                <!-- fonte é de 18 e mudou para 19 -->
+                Preencher ou marcar principalmente todos os itens obrigatórios.
+                A efetivação do pré-cadastro/recadastro estará finalizada em até
+                24 horas a contar da data de solicitação. A renovação de
+                cadastro para alunos de graduação é semestral e para alunos de
+                pós-graduação, técnicos administrativos e docentes da UFPA é
+                anual. Observações sobre os anexos: Discentes: Atestado de
+                matrícula atual (SIGAA) Servidores: Declaração de vínculo
+                funcional (SAGITTA) ou carteira funcional (SIGEPE). O nome e a
+                foto associados à sua Conta do Google formulário.
+                <span class="roxo">
+                  O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos
+                  como arquivos PDF , PNG e JPEG. Todos os campos com * são
+                  obrigatórios.
+                </span>
+              </p>
+            </div>
+          </div>
           <!-- inicio do formulário -->
           <form
             class="contact-form"
@@ -36,8 +38,8 @@
             name="formulario"
           >
             <!-- campos de nome e nome social -->
-            <div class="md-layout">
-              <div class="md-layout-item md-size-50 ">
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-50 desktop ">
                 <md-field :class="isActive ? '' : 'md-error'">
                   <label
                     :class="isActive ? 'label' : ''"
@@ -60,7 +62,7 @@
                   Nome obrigatório
                 </div>
               </div>
-              <div class="md-layout-item md-size-50">
+              <div class="md-layout-item md-size-50 desktop">
                 <md-field>
                   <label class="label" aria-label="Insira seu nome social"
                     >Seu nome social</label
@@ -75,10 +77,96 @@
                 </md-field>
               </div>
             </div>
-
+            <!-- Nome mobile -->
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-100 mobile ">
+                <md-field :class="isActive ? '' : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : ''"
+                    aria-label="insira seu nome completo"
+                    >Nome completo</label
+                  >
+                  <md-input
+                    style="text-transform: capitalize"
+                    v-model="$v.form.idName.$model"
+                    id="name"
+                    required
+                    name="idName"
+                    type="text"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.idName.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
+                <div class="error" v-if="!$v.form.idName.required && errors">
+                  Nome obrigatório
+                </div>
+              </div>
+            </div>
+            <!-- Nome social mobile -->
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-100 mobile">
+                <md-field>
+                  <label class="label" aria-label="Insira seu nome social"
+                    >Seu nome social</label
+                  >
+                  <md-input
+                    style="text-transform: capitalize"
+                    v-model="form.socialName"
+                    name="socialName"
+                    type="text"
+                    class="ca-input"
+                  ></md-input>
+                </md-field>
+              </div>
+            </div>
+            <!-- email mobile -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-100 mobile">
+                <md-field maxlength="5" :class="{ show: !isActive }">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email"
+                    >Seu email</label
+                  >
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                </md-field>
+                <md-field
+                  class="md-error"
+                  v-if="!$v.form.email.email.required && errors"
+                >
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email corretamente"
+                    aria-invalid="true"
+                    >Seu email corretamente</label
+                  >
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.email.email.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
+                <div class="error" v-if="!$v.form.email.required && errors">
+                  Email obrigatório
+                </div>
+                <div class="error" v-if="!$v.form.email.email && errors">
+                  Preecha o email corretamente
+                </div>
+              </div>
+            </div>
             <!-- campo de email, sexo e nacionalidade -->
             <div class="md-layout">
-              <div class="md-layout-item md-size-50">
+              <div class="md-layout-item md-size-50 desktop">
                 <md-field maxlength="5" :class="{ show: !isActive }">
                   <label
                     :class="isActive ? 'label' : 'label2'"
