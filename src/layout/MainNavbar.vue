@@ -8,28 +8,67 @@
   >
     <div class="md-toolbar-row md-collapse-lateral">
       <div class="md-toolbar-section-start ">
-        <span class="md-title " data-toggle="dropdown">
-          <img
-            src="../assets/img/Logo_Biblioteca.png"
-            height="35"
-            width="35"
-            alt="Biblioteca central"
-          />
+        <h3 class="md-title " data-toggle="dropdown">
+          <img src="../assets/img/Logo_Biblioteca.png" height="35" width="35" />
           <a
             href="http://bc.ufpa.br/"
             style="color: #000 !important; margin-left: 18px "
           >
             Biblioteca Central UFPA</a
           >
-        </span>
+        </h3>
       </div>
       <div class="">
+        <md-button
+          class="md-just-icon md-simple md-toolbar-toggle"
+          :class="{ toggled: toggledClass }"
+          @click="toggleNavbarMobile()"
+        >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </md-button>
+
         <div class="md-collapse">
           <div class="md-collapse-wrapper">
             <mobile-menu nav-mobile-section-start="false">
               <!-- Here you can add your items from the section-start of your toolbar -->
             </mobile-menu>
             <md-list>
+              <li class="md-list-item" v-if="!showDownload">
+                <a
+                  href="javascript:void(0)"
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
+                >
+                  <!-- <div class="md-list-item-content">
+                    <drop-down direction="down">
+                      <md-button
+                        slot="title"
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="material-icons"></i>
+                        <p>Components</p>
+                      </md-button>
+                      <ul class="dropdown-menu dropdown-with-icons">
+                        <li>
+                          <a href="#/">
+                            <i class="material-icons">layers</i>
+                            <p>All Components</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="http://bc.ufpa.br/">
+                            <i class="material-icons">content_paste</i>
+                            <p>Site da BC</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </drop-down>
+                  </div> -->
+                </a>
+              </li>
+
               <md-list-item
                 href="http://bc.ufpa.br/"
                 target="_blank"
@@ -38,9 +77,58 @@
                 <i class="material-icons">content_paste</i>
                 <p>Site da BC</p>
               </md-list-item>
+
+              <md-list-item
+                href="javascript:void(0)"
+                @click="scrollToElement()"
+                v-if="showDownload"
+              >
+                <i class="material-icons">cloud_download</i>
+                <p>Download</p>
+              </md-list-item>
+
+              <li class="md-list-item" v-else>
+                <a
+                  href="javascript:void(0)"
+                  class="md-list-item-router md-list-item-container md-button-clean dropdown"
+                >
+                  <!-- <div class="md-list-item-content">
+                    <drop-down direction="down">
+                      <md-button
+                        slot="title"
+                        class="md-button md-button-link md-white md-simple dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        <i class="material-icons"></i>
+                        <p>Examples</p>
+                      </md-button>
+                      <ul class="dropdown-menu dropdown-with-icons">
+                        <li>
+                          <a href="#/landing">
+                            <i class="material-icons">view_day</i>
+                            <p>Landing Page</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/login">
+                            <i class="material-icons">fingerprint</i>
+                            <p>Login Page</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#/profile">
+                            <i class="material-icons">account_circle</i>
+                            <p>Profile Page</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </drop-down>
+                  </div> -->
+                </a>
+              </li>
+
               <md-list-item
                 href="https://twitter.com/BibliotecaUfpa"
-                title="acesse nosso twitter"
                 target="_blank"
               >
                 <i class="fab fa-twitter" style="color:#000"></i>
@@ -52,7 +140,6 @@
               <md-list-item
                 href="https://www.facebook.com/bcufpa"
                 target="_blank"
-                title="facebook"
               >
                 <i class="fab fa-facebook-square" style="color:#000"></i>
                 <p class="hidden-lg">Facebook</p>
@@ -60,11 +147,7 @@
                   >Nos siga no Facebook</md-tooltip
                 >
               </md-list-item>
-              <md-list-item
-                href="https://instagram.com/bcufpa"
-                target="_blank"
-                title="instagram"
-              >
+              <md-list-item href="https://instagram.com/bcufpa" target="_blank">
                 <i class="fab fa-instagram" style="color:#000"></i>
                 <p class="hidden-lg">Instagram</p>
                 <md-tooltip md-direction="bottom"
