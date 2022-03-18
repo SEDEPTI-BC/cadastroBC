@@ -8,19 +8,13 @@
       <nav>
         <ul>
           <li>
-            <a href="/">
-              Criado por
-            </a>
+            <a href="/"> Criado por </a>
           </li>
           <li>
-            <a href="http://bc.ufpa.br/sistema-de-bibliotecas/">
-              Sobre
-            </a>
+            <a href="http://bc.ufpa.br/sistema-de-bibliotecas/"> Sobre </a>
           </li>
           <li>
-            <a href="http://bc.ufpa.br/">
-              Site
-            </a>
+            <a href="http://bc.ufpa.br/"> Site </a>
           </li>
           <!-- <li>
             <a href="/#">
@@ -30,8 +24,10 @@
         </ul>
       </nav>
       <div class="copyright">
-        &copy; {{ year }},Desenvolvido pelo <md-icon></md-icon>
-        <a href="http://bc.ufpa.br/creditos/" target="_blank">time da Biblioteca Central UFPA.</a>
+        Desenvolvido pelo
+        <a href="http://bc.ufpa.br/creditos/" target="_blank"
+          >time da Biblioteca Central UFPA </a
+        >&copy; {{ year }}
       </div>
     </div>
   </footer>
@@ -40,13 +36,13 @@
 export default {
   props: {
     backgroundColor: String,
-    type: String
+    type: String,
   },
   data() {
     return {
-      year: new Date().getFullYear()
-    };
-  }
-};
+      year: new Date().getFullYear(),
+    }
+  },
+}
 </script>
 <style></style>

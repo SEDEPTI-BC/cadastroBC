@@ -1,14 +1,15 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Landing from './views/Landing.vue';
-import MainNavbar from './layout/MainNavbar.vue';
-import MainFooter from './layout/MainFooter.vue';
+import Vue from 'vue'
+import Router from 'vue-router'
+import Landing from './views/Landing.vue'
+import Contact from './views/Contact.vue'
+import MainNavbar from './layout/MainNavbar.vue'
+import MainFooter from './layout/MainFooter.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: "/cadastro-bc/",
+  base: '/cadastro-bc/',
   routes: [
     {
       path: '/',
@@ -19,12 +20,21 @@ export default new Router({
         footer: { backgroundColor: 'black' },
       },
     },
+    {
+      path: '/fale-conosco',
+      name: 'contact',
+      components: { default: Contact, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'black' },
+      },
+    },
   ],
-  scrollBehavior: (to) => {
+  scrollBehavior: to => {
     if (to.hash) {
-      return { selector: to.hash };
+      return { selector: to.hash }
     } else {
-      return { x: 0, y: 0 };
+      return { x: 0, y: 0 }
     }
   },
-});
+})
