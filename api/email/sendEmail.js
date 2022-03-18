@@ -7,8 +7,24 @@ const handlebars = require('handlebars')
 const rootDir = require('../util/path')
 const path = require('path')
 
-const mailer = async function(emailAddress, form, files) {
+const mailer = async function(type, emailAddress, form, files) {
   let htmlToSend = null
+
+  const templates = ['/registration_template.html', '/contact_template.html']
+  const subjects = ['Cadastro BC - Novo cadastro', 'Cadastro BC - Fale conosco']
+
+  let templateToUsePath = ''
+  let subjectToUse = ''
+
+  if (type === 'registration') {
+    templateToUsePath = templates[0]
+    subjectToUse = subjects[0]
+  } else if (type === 'contact') {
+    templateToUsePath = templates[1]
+    subjectToUse = subjects[1]
+  } else {
+    throw new Error('Tipo de email não informado!')
+  }
 
   const readHTMLTemplate = function(path, callback) {
     fs.readFile(path, { encoding: 'utf-8' }, function(err, html) {
@@ -20,22 +36,9 @@ const mailer = async function(emailAddress, form, files) {
     })
   }
 
-  readHTMLTemplate(__dirname + '/email_template.html', function(err, html) {
+  readHTMLTemplate(__dirname + templateToUsePath, function(err, html) {
     const template = handlebars.compile(html)
-    // const replacements = {
-    //   idName: "John Doe",
-    //   socialName: "John Does",
-    //   email: "johndoe@email.com",
-    //   address: "trav. lomas valentias",
-    //   contact: "9122334455",
-    //   birthdate: "22/06/1996",
-    //   cpf: "02178957650",
-    //   nationality: "Brasileiro",
-    //   sex: "Masculino",
-    //   deficiency: "Nenhuma",
-    // };
     htmlToSend = template(form)
-    // console.log(htmlToSend);
   })
 
   const oauth2Client = new OAuth2(
@@ -74,21 +77,23 @@ const mailer = async function(emailAddress, form, files) {
 
   // let attachmentsObject = {};
 
-  const attachments = files.map(fileName => {
-    return {
-      filename: fileName,
-      path: path.join(rootDir, 'uploads', fileName),
-    }
-  })
+  const attachments = files
+    ? files.map(fileName => {
+        return {
+          filename: fileName,
+          path: path.join(rootDir, 'uploads', fileName),
+        }
+      })
+    : null
 
   // send mail with defined transport object
-  const info = await transporter.sendMail(
+  transporter.sendMail(
     {
       from: '"SEDEPTI" <sedepti.devs@gmail.com>', // sender address
       to: emailAddress, // list of receivers
-      subject: 'Cadastro BC - Novo cadastro', // Subject line
+      subject: subjectToUse, // Subject line
       // html: '<b>Hello world?</b>', // html body
-      attachments: attachments,
+      attachments: type === 'registration' ? attachments : null,
       html: htmlToSend,
     },
     (err, info) => {
@@ -96,13 +101,15 @@ const mailer = async function(emailAddress, form, files) {
         console.log(err)
       }
 
-      files.forEach(file => {
-        fs.unlink(path.join(rootDir, 'uploads', file), err => {
-          if (err) {
-            console.error(err)
-          }
+      if (type === 'registration') {
+        files.forEach(file => {
+          fs.unlink(path.join(rootDir, 'uploads', file), err => {
+            if (err) {
+              console.error(err)
+            }
+          })
         })
-      })
+      }
     }
   )
 }
