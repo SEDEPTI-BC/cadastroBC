@@ -1,41 +1,36 @@
 <template>
-  <div class="wrapper">
-    <br /><br /><br /><br /><br /><br /><br /><br />
-    <div class="main main-raised">
-      <div class="section section-contacts">
+  <div class="wrapper ">
+    <br /><br />
+    <div class="main main-raised margem">
+      <div class="section section-contacts  ">
         <!-- <img src="../assets/img/cabecalhoFINAL2.png"> -->
-        <!-- <div class="container">
-          <div class="md-layout"> -->
-        <div class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto">
-          <h2 class="text-center title text-responsive">
-            PRÉ-CADASTRO/RECADASTRO
-          </h2>
-          <!-- <h2 class=" title" style="margin-left: 50px"><p class=" text-center title mobile">PRÉ-CADASTRO/<br>RECADASTRO</p></h2> -->
-          <h4 class="text-center description" style="font-size: 19px">
-            <!-- fonte é de 18 e mudei para 19 -->
-            <strong>
-              Formulário de solicitação para pré-cadastro/recadastro online.
-              Preencher ou marcar principalmente todos os itens obrigatórios.
-              <br />
-              A efetivação do pré-cadastro/recadastro estará finalizada em até
-              24 horas a contar da data de solicitação.
-              <br />
-              A renovação de cadastro para alunos de graduação é semestral e
-              para alunos de pós-graduação, técnicos administrativos e docentes
-              da UFPA é anual.
-              <br />
-              <u>Observações sobre os anexos:</u>
-              Discentes: Atestado de matrícula atual (SIGAA)<br />
-              Servidores: Declaração de vínculo funcional (SAGITTA) ou carteira
-              funcional (SIGEPE)<br />
-              O nome e a foto associados à sua Conta do Google serão registrados
-              quando você fizer upload de arquivos e enviar este formulário.
-            </strong>
-            <p class="vermelho">
-              O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos como
-              arquivos PDF , PNG e JPEG.
-            </p>
-          </h4>
+        <div class="container">
+          <div class="md-layout">
+            <div
+              class="md-layout-item md-size-100 md-xsmall-size-100 mx-auto margem1"
+            >
+              <h1 class=" text-center title text-responsive" id="cadastro">
+                PRÉ-CADASTRO/RECADASTRO
+              </h1>
+              <p class="text-center description" style="font-size: 19px">
+                <!-- fonte é de 18 e mudou para 19 -->
+                Preencher ou marcar principalmente todos os itens obrigatórios.
+                A efetivação do pré-cadastro/recadastro estará finalizada em até
+                24 horas a contar da data de solicitação. A renovação de
+                cadastro para alunos de graduação é semestral e para alunos de
+                pós-graduação, técnicos administrativos e docentes da UFPA é
+                anual. Observações sobre os anexos: Discentes: Atestado de
+                matrícula atual (SIGAA) Servidores: Declaração de vínculo
+                funcional (SAGITTA) ou carteira funcional (SIGEPE). O nome e a
+                foto associados à sua Conta do Google formulário.
+                <span class="roxo">
+                  O tamanho dos arquivos não deve ultrapassar 2Mb. São aceitos
+                  como arquivos PDF , PNG e JPEG. Todos os campos com * são
+                  obrigatórios.
+                </span>
+              </p>
+            </div>
+          </div>
           <!-- inicio do formulário -->
           <form
             class="contact-form"
@@ -43,100 +38,250 @@
             onsubmit="setTimeout(function(){window.location.reload();},10);"
             name="formulario"
           >
-            <!-- campos de nome e nome social -->
-            <div class="md-layout">
-              <div class="md-layout-item md-size-50">
-                <md-field>
-                  <label class="label">Seu nome completo</label>
+            <!-- Área mobile -->
+            <!-- Nome mobile -->
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-100 mobile ">
+                <md-field :class="isActive ? '' : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : ''"
+                    aria-label="insira seu nome completo"
+                    >Nome completo</label
+                  >
                   <md-input
                     style="text-transform: capitalize"
-                    class="name"
                     v-model="$v.form.idName.$model"
                     id="name"
-                    required=""
+                    required
                     name="idName"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.idName.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.idName.required && errors">
-                  Campo obrigatório
+                  Nome obrigatório
                 </div>
               </div>
-              <div class="md-layout-item md-size-50">
+            </div>
+            <!-- Nome social mobile -->
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-100 mobile">
                 <md-field>
-                  <label class="label">Seu nome social</label>
+                  <label class="label" aria-label="Insira seu nome social"
+                    >Seu nome social</label
+                  >
                   <md-input
                     style="text-transform: capitalize"
                     v-model="form.socialName"
                     name="socialName"
                     type="text"
+                    class="ca-input"
                   ></md-input>
                 </md-field>
               </div>
             </div>
-
-            <!-- campo de email, sexo e nacionalidade -->
+            <!-- email mobile -->
             <div class="md-layout">
-              <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <label class="label">Seu email</label>
+              <div class="md-layout-item md-size-100 mobile">
+                <md-field maxlength="5" :class="{ show: !isActive }">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email"
+                    >Seu email</label
+                  >
                   <md-input
                     v-model="$v.form.email.$model"
-                    required=""
+                    required
                     name="email"
                     type="email"
                   ></md-input>
                 </md-field>
+                <md-field
+                  class="md-error"
+                  v-if="!$v.form.email.email.required && errors"
+                >
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email corretamente"
+                    aria-invalid="true"
+                    >Seu email corretamente</label
+                  >
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.email.email.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
-                  Campo obrigatório
+                  Email obrigatório
+                </div>
+                <div class="error" v-if="!$v.form.email.email && errors">
+                  Preecha o email corretamente
+                </div>
+              </div>
+            </div>
+            <!-- sexo mobile -->
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-100 mobile ">
+                <md-field :class="isActive ? '' : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : ''"
+                    aria-label="informe seu sexo"
+                    >Informe seu sexo</label
+                  >
+                  <md-input
+                    style="text-transform: capitalize"
+                    v-model="$v.form.sex.$model"
+                    id="name"
+                    required
+                    name="sex"
+                    type="text"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.sex.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
+                <div class="error" v-if="!$v.form.sex.required && errors">
+                  Sexo obrigatório
+                </div>
+              </div>
+            </div>
+            <!-- Área desktop -->
+            <!-- campos de nome e nome social -->
+            <div class=" md-layout">
+              <div class="md-layout-item md-size-50 desktop ">
+                <md-field :class="isActive ? '' : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : ''"
+                    aria-label="insira seu nome completo"
+                    >Nome completo</label
+                  >
+                  <md-input
+                    style="text-transform: capitalize"
+                    v-model="$v.form.idName.$model"
+                    id="name"
+                    required
+                    name="idName"
+                    type="text"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.idName.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
+                <div class="error" v-if="!$v.form.idName.required && errors">
+                  Nome obrigatório
+                </div>
+              </div>
+              <div class="md-layout-item md-size-50 desktop">
+                <md-field>
+                  <label class="label" aria-label="Insira seu nome social"
+                    >Seu nome social</label
+                  >
+                  <md-input
+                    style="text-transform: capitalize"
+                    v-model="form.socialName"
+                    name="socialName"
+                    type="text"
+                    class="ca-input"
+                  ></md-input>
+                </md-field>
+              </div>
+            </div>
+            <!-- campo de email, sexo e nacionalidade -->
+            <div class="md-layout">
+              <div class="md-layout-item md-size-50 desktop">
+                <md-field maxlength="5" :class="{ show: !isActive }">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email"
+                    >Seu email</label
+                  >
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                </md-field>
+                <md-field
+                  class="md-error"
+                  v-if="!$v.form.email.email.required && errors"
+                >
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="Insira seu email corretamente"
+                    aria-invalid="true"
+                    >Seu email corretamente</label
+                  >
+                  <md-input
+                    v-model="$v.form.email.$model"
+                    required
+                    name="email"
+                    type="email"
+                  ></md-input>
+                  <md-icon v-if="!$v.form.email.email.required && errors"
+                    >clear</md-icon
+                  >
+                </md-field>
+                <div class="error" v-if="!$v.form.email.required && errors">
+                  Email obrigatório
+                </div>
+                <div class="error" v-if="!$v.form.email.email && errors">
+                  Preecha o email corretamente
                 </div>
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field>
-                  <label class="label">Informe seu sexo</label>
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="informe seu sexo"
+                    >Informe seu sexo</label
+                  >
                   <md-input
                     v-model="$v.form.sex.$model"
-                    required=""
+                    required
                     name="sex"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.sex.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
-                  Campo obrigatório
-                </div>
-              </div>
-              <!-- sexo para dispositivos mobiles -->
-              <div class="md-layout-item md-size-50 mobile">
-                <md-field>
-                  <label class="label">Informe seu sexo</label>
-                  <md-input
-                    v-model="$v.form.sex.$model"
-                    required=""
-                    name="sex"
-                    type="text"
-                  ></md-input>
-                </md-field>
-                <div class="error" v-if="!$v.form.sex.required && errors">
-                  Campo obrigatório
+                  Sexo obrigatório
                 </div>
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field>
-                  <label class="label">Nacionalidade </label>
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="insira sua nacionalidade"
+                    >Nacionalidade</label
+                  >
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required=""
+                    class="ca-input"
                     name="nationality"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.nationality.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div
                   class="error"
                   v-if="!$v.form.nationality.required && errors"
                 >
-                  Campo obrigatório
+                  Nacionalidade obrigatório
                 </div>
               </div>
             </div>
@@ -144,28 +289,45 @@
             <!-- Campos de endereço e Numero -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
-                <md-field>
-                  <label class="label">Endereço completo </label>
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : 'label2'"
+                    aria-label="endereço completo (cep, rua, numero)"
+                    >Endereço completo</label
+                  >
                   <md-input
                     v-model="$v.form.address.$model"
-                    required=""
+                    required
+                    class="ca-input"
                     name="address"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.address.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.address.required && errors">
-                  Campo obrigatório
+                  Endereço obrigatório
                 </div>
               </div>
+              <!-- nacionalidade mobile -->
               <div class="md-layout-item md-size-50 mobile">
-                <md-field>
-                  <label class="label">Nacionalidade </label>
+                <md-field :class="isActive ? '' : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : ''"
+                    aria-label="insira sua nacionalidade"
+                    >Nacionalidade</label
+                  >
                   <md-input
                     v-model="$v.form.nationality.$model"
-                    required=""
+                    required
+                    class="ca-input"
                     name="nationality"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.idName.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div
                   class="error"
@@ -175,73 +337,104 @@
                 </div>
               </div>
               <!-- campo numero de contato mobile e desktop -->
-              <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <p>
-                    <label class="desktop label"
-                      >Número para contato(DDD + número)</label
-                    >
-                    <label class="mobile label">Número para contato</label>
-                  </p>
+              <div class="md-layout-item md-size-50 ">
+                <md-field maxlength="5" :class="isActive ? verde : 'md-error'">
+                  <label
+                    :class="isActive ? 'label' : ''"
+                    class="desktop"
+                    aria-label="insira numero para contatos com ddd; apenas números"
+                    >Número para contato</label
+                  >
+                  <label
+                    class="mobile"
+                    :class="isActive ? 'label' : ''"
+                    aria-label="insira numero para contatos com ddd; apenas números"
+                    >N° de contato</label
+                  >
                   <md-input
                     v-model="$v.form.contact.$model"
                     name="contact"
-                    required=""
+                    class="ca-input"
+                    inputmode="numeric"
+                    required
                     type="text"
                     v-mask="'(##)#####-####'"
                   ></md-input>
+                  <md-icon v-if="!$v.form.contact.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.contact.required && errors">
-                  Campo obrigatório
+                  Contato obrigatório
                 </div>
               </div>
             </div>
 
-            <!-- campos de daata de nascimento e CPF -->
+            <!-- campos de data de nascimento e CPF -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field>
-                  <label class="label">Data de nascimento </label>
+                <md-field :class="isActive ? verde : 'md-error'">
+                  <label :class="isActive ? 'label' : 'label2'"
+                    >Data de nascimento</label
+                  >
                   <md-input
                     v-model="$v.form.birthdate.$model"
+                    alt="só números"
                     name="birthdate"
+                    inputmode="numeric"
+                    aria-label="data de nascimento; apenas números"
+                    class="ca-input"
                     required=""
                     type="text"
                     v-mask="'##/##/####'"
                   ></md-input>
+                  <md-icon v-if="!$v.form.birthdate.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.birthdate.required && errors">
-                  Campo obrigatório
+                  Data de nascimento obrigatório
                 </div>
               </div>
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5">
-                  <label class="label">CPF </label>
+                <md-field maxlength="5" :class="isActive ? verde : 'md-error'">
+                  <label :class="isActive ? 'label' : 'label2'">CPF</label>
                   <md-input
                     v-model="$v.form.cpf.$model"
                     name="cpf"
-                    required=""
+                    aria-label="insira seu CPF; apenas números"
+                    required
+                    inputmode="numeric"
+                    class="ca-input"
                     type="text"
                     v-mask="'###.###.###-##'"
                   ></md-input>
+                  <md-icon v-if="!$v.form.cpf.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.cpf.required && errors">
-                  Campo obrigatório
+                  CPF obrigatório
                 </div>
               </div>
             </div>
 
-            <!-- campo de nacionalidade e modal de upload de arquivos mobile -->
+            <!-- campo de endereço e modal de upload de arquivos mobile -->
             <div class="md-layout">
               <div class="md-layout-item md-size-100 mobile">
-                <md-field>
-                  <label class="label">Endereço completo </label>
+                <md-field :class="isActive ? '' : 'md-error'">
+                  <label :class="isActive ? 'label' : ''"
+                    >Endereço completo
+                  </label>
                   <md-input
                     v-model="$v.form.address.$model"
                     required=""
                     name="address"
                     type="text"
                   ></md-input>
+                  <md-icon v-if="!$v.form.idName.required && errors"
+                    >clear</md-icon
+                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.address.required && errors">
                   Campo obrigatório
@@ -336,18 +529,19 @@
             <!-- campos de deficiência e upload de arquivos desktop -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 md-small-size-100 desktop">
-                <p>
-                  <label class="desktop roxo label">Deficiência</label>
+                <div class="desktop  label">
+                  <label class="" aria-label="você sabe que eu sei"
+                    >Você possui alguma deficiência? Se sim, qual?</label
+                  >
                   <br />
-                </p>
-
+                </div>
                 <div id="example-3">
                   <input
                     type="checkbox"
-                    id="mental"
                     value="Deficiência mental"
                     v-model="form.deficiency"
                     name="deficiency"
+                    title="Deficiência mental"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -357,11 +551,11 @@
 
                   <input
                     type="checkbox"
-                    id="auditiva"
                     value="Deficiência auditiva"
                     v-model="form.deficiency"
                     style="margin-left: 33px"
                     name="deficiency"
+                    title="Deficiência auditiva"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -371,11 +565,11 @@
 
                   <input
                     type="checkbox"
-                    id="fisica"
                     style="margin-left: 43px"
                     value="Deficiência física"
                     v-model="form.deficiency"
                     name="deficiency"
+                    title="Deficiência fisica"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -385,10 +579,11 @@
                   <br />
                   <input
                     type="checkbox"
-                    id="visual"
-                    value="Deficiência visual"
+                    value="Deficiencia visual"
                     v-model="form.deficiency"
                     name="deficiency"
+                    data-message="Esse é do primeiro botão"
+                    title="Deficiencia visual"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -398,11 +593,11 @@
 
                   <input
                     type="checkbox"
-                    id="multipla"
                     value="Deficiência multipla"
                     v-model="form.deficiency"
                     style="margin-left: 40px"
                     name="deficiency"
+                    title="Deficiência multipla"
                   />
                   <label
                     style="color: #000; font-weight: bold; margin-left: 4px"
@@ -433,20 +628,22 @@
                 style="margin-left: 150px; margin-top: 40px"
               >
                 <md-button
-                  class="md-primary md-round md-block"
+                  class="md-success md-round md-block"
                   @click="classicModal = true"
-                  ><md-icon>library_books</md-icon> Envie seus
-                  documentos</md-button
+                >
+                  envie seus documentos
+                  <md-icon>library_books</md-icon></md-button
                 >
                 <modal v-if="classicModal" @close="classicModalHide">
                   <template slot="header">
-                    <h4 class="modal-title"></h4>
                     <md-button
                       class="
                         md-simple md-just-icon md-round
                         modal-default-button
                       "
                       @click="classicModalHide"
+                      aria-modal="true"
+                      role="dialog"
                     >
                       <md-icon>clear</md-icon>
                     </md-button>
@@ -481,10 +678,15 @@
                                   type="is-primary"
                                 ></b-icon>
                               </p>
-                              <p>Deixe aqui seus documentos</p>
-                              <p class="vermelho" style="margin-top: -20px">
-                                PDF, PNG ou JPEG
+                              <p>
+                                Faça o upload dos seus documentos<br />
+                                <span class="vermelho" style="margin-top: -20px"
+                                  >PDF, PNG, JPEG</span
+                                >
                               </p>
+                              <!-- <p class="vermelho" style="margin-top: -20px">
+                                PDF, PNG ou JPEG
+                              </p> -->
                             </div>
                           </section>
                         </b-upload>
@@ -510,12 +712,14 @@
                     <md-button
                       class="md-danger md-simple"
                       @click="classicModalHide"
-                      >Concluir</md-button
+                      >fechar</md-button
                     >
                   </template>
                 </modal>
                 <div class="error" v-if="errors">
-                  <p v-if="!$v.form.dropFiles.required">Campo obrigatório</p>
+                  <p v-if="!$v.form.dropFiles.required">
+                    Arquivos obrigatórios
+                  </p>
                   <p v-if="!$v.form.dropFiles.minLength">
                     Por favor, anexe a quantidade de arquivos requisitada
                   </p>
@@ -532,7 +736,6 @@
             <br />
 
             <!-- Checkbox mobile -->
-
             <h4 class="mobile label">Deficiência</h4>
             <div class="md-layout-item md-size-100 deficiency mobile">
               <br />
@@ -615,6 +818,7 @@
                   value="Dislexia"
                   v-model="form.deficiency"
                   name="deficiency"
+                  aria-checked="false"
                 />
                 <label
                   style="font-weight: bold; color: #000 !important"
@@ -626,17 +830,18 @@
 
             <br />
             <!-- botão de enviar -->
-            <div class="">
+            <div class="md-layout">
               <div class="md-layout-item md-size-50 mx-auto text-center">
                 <!-- <md-input type="submit" value="enviar"></md-input> -->
 
                 <vue-recaptcha :sitekey="recaptchaSitekey">
                   <md-button
-                    class="md-success md-round"
+                    :class="isActive ? 'md-success' : 'md-warning'"
+                    class=" md-round testee "
                     type="submit"
                     @click.prevent="submit"
                     value="Enviar Cadastro"
-                    >Enviar Cadastro</md-button
+                    >{{ isActive ? textoBotaoOn : textobotaoOff }}</md-button
                   >
                 </vue-recaptcha>
               </div>
@@ -651,7 +856,7 @@
 <script>
 const axios = require('axios')
 import _ from 'lodash'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 import { Modal } from '@/components'
 export default {
@@ -666,6 +871,7 @@ export default {
   data() {
     return {
       form: {
+        testes: [],
         idName: '', // nome na identidade
         socialName: '',
         address: '',
@@ -678,6 +884,9 @@ export default {
         deficiency: [],
         dropFiles: [],
       },
+      textoBotaoOn: 'Enviar formulário',
+      textobotaoOff: 'Verifique os dados',
+      isActive: true,
       errors: false,
       uploadErrors: false,
       isSubmitButtonDisabled: true,
@@ -698,6 +907,7 @@ export default {
       },
       email: {
         required,
+        email,
       },
       contact: {
         required,
@@ -723,7 +933,7 @@ export default {
   watch: {
     'form.dropFiles'() {
       this.uploadErrors = false
-      _.forEach(this.form.dropFiles, (file) => {
+      _.forEach(this.form.dropFiles, file => {
         if (this.validate(file) !== '') {
           this.uploadErrors = true
         }
@@ -743,9 +953,11 @@ export default {
       if (this.$v.$invalid) {
         this.errors = true
         alert('Formulário inválido, verifique suas informações')
+        this.isActive = false
       } else {
         this.errors = false
         this.sendForm()
+        this.isActive = true
       }
     },
     validateNumberOfFiles() {
@@ -782,7 +994,7 @@ export default {
       } else {
         try {
           const formData = new FormData()
-          _.forEach(this.form.dropFiles, (file) => {
+          _.forEach(this.form.dropFiles, file => {
             if (this.validate(file) === '') {
               formData.append('files', file)
             }
@@ -804,13 +1016,13 @@ export default {
               `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
               formData
             )
-            .then(function (response) {
+            .then(function(response) {
               alert(
                 'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
               )
               document.Location.reload(true)
             })
-            .catch(function (error) {
+            .catch(function(error) {
               // handle error
               console.log(error)
             })
@@ -842,12 +1054,15 @@ export default {
 
   .error {
     font-size: 0.8rem;
-    color: #ff0000;
+    color: #000;
   }
 }
 
 .md-has-textarea + .md-layout {
   margin-top: 15px;
+}
+.show {
+  display: none;
 }
 
 .label-file {
@@ -868,29 +1083,50 @@ export default {
   color: #000 !important;
   font-size: 16px;
 }
+.label2 {
+  color: #000 !important;
+  font-size: 16px;
+}
 .desktop {
   display: inline-block;
 }
 .mobile {
   display: none;
 }
+.labelValid {
+  font-weight: bold;
+  color: #000 !important;
+  font-size: 16px;
+}
+
 .li-defi {
   list-style: none;
   margin-left: 20px;
 }
-.vermelho {
-  color: #ff0000;
-  font-weight: 600;
+.roxo {
+  color: #7e395d;
+  font-weight: bold;
+  font-size: 19px;
 }
 .verde {
   color: #008000;
   font-weight: 600;
 }
-.ola {
-  display: inline;
-}
+
 .campo {
   text-align: center;
+  position: relative;
+}
+.margem {
+  margin-top: 0%;
+}
+.margem1 {
+  margin-top: 6%;
+}
+.ca-input {
+  border-bottom: 2px solid black;
+}
+.testee {
   position: relative;
 }
 
