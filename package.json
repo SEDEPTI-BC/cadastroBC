@@ -9,7 +9,7 @@
     "start": "node api/server.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "npm run serve",
+    "dev": "nodemon api/server.js",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
