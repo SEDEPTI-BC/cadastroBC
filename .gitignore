@@ -4,6 +4,7 @@ package-lock.json
 /dist
 /docs
 
+api/logs/
 # local env files
 .env
 
