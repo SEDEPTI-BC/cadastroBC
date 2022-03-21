@@ -51,7 +51,14 @@
                 </a>
               </li>
 
-              <md-list-item href="/fale-conosco" target="_blank">
+              <md-list-item href="/cadastro-bc">
+                <p class="lg">Paginal Inicial</p>
+                <md-tooltip md-direction="bottom"
+                  >Voltar para a pagina inicial
+                </md-tooltip>
+              </md-list-item>
+
+              <md-list-item href="/cadastro-bc/fale-conosco">
                 <p class="lg">Fale Conosco</p>
                 <md-tooltip md-direction="bottom">Envie sua dúvida </md-tooltip>
               </md-list-item>

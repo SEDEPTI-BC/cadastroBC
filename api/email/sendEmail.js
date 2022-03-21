@@ -6,6 +6,7 @@ const OAuth2 = google.auth.OAuth2
 const handlebars = require('handlebars')
 const rootDir = require('../util/path')
 const path = require('path')
+const logger = require('../config/winston')
 
 const mailer = async function(type, emailAddress, form, files) {
   let htmlToSend = null
@@ -54,7 +55,7 @@ const mailer = async function(type, emailAddress, form, files) {
   const accessToken = await new Promise((resolve, reject) => {
     oauth2Client.getAccessToken((err, token) => {
       if (err) {
-        reject('Failed to create access token :(')
+        reject('Não foi possível criar o access token')
       }
       resolve(token)
     })
@@ -62,9 +63,6 @@ const mailer = async function(type, emailAddress, form, files) {
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
-    // host: "smtp.gmail.com",
-    // port: 587,
-    // secure: false, // true for 465, false for other ports
     auth: {
       type: 'OAuth2',
       user: process.env.EMAIL,
@@ -75,8 +73,6 @@ const mailer = async function(type, emailAddress, form, files) {
     },
   })
 
-  // let attachmentsObject = {};
-
   const attachments = files
     ? files.map(fileName => {
         return {
@@ -86,13 +82,11 @@ const mailer = async function(type, emailAddress, form, files) {
       })
     : null
 
-  // send mail with defined transport object
   transporter.sendMail(
     {
       from: '"SEDEPTI" <sedepti.devs@gmail.com>', // sender address
       to: emailAddress, // list of receivers
       subject: subjectToUse, // Subject line
-      // html: '<b>Hello world?</b>', // html body
       attachments: type === 'registration' ? attachments : null,
       html: htmlToSend,
     },
@@ -105,7 +99,11 @@ const mailer = async function(type, emailAddress, form, files) {
         files.forEach(file => {
           fs.unlink(path.join(rootDir, 'uploads', file), err => {
             if (err) {
-              console.error(err)
+              logger.log(
+                'error',
+                'Não foi possível apagar os arquivos requisitados. Mensagem: ' +
+                  err.message
+              )
             }
           })
         })

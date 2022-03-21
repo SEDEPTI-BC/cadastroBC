@@ -9,6 +9,7 @@ const mailer = require('../email/sendEmail')
 const rootDir = require('../util/path')
 
 const path = require('path')
+const logger = require('../config/winston')
 
 let filenames = []
 
@@ -58,7 +59,7 @@ uploadRoutes.get('/upload', (req, res, next) => {
   res.send('Upload get route working!')
 })
 
-uploadRoutes.post('/upload', upload.array('files', 4), (req, res) => {
+uploadRoutes.post('/upload', upload.array('files', 4), async (req, res) => {
   const files = req.files
 
   const form = req.body
@@ -67,11 +68,22 @@ uploadRoutes.post('/upload', upload.array('files', 4), (req, res) => {
     filenames.push(element.filename)
   })
 
-  mailer('upload', process.env.EMAIL_DESTINATARIO, form, filenames)
+  try {
+    await mailer(
+      'registration',
+      process.env.EMAIL_DESTINATARIO,
+      form,
+      filenames
+    )
 
-  filenames = []
+    filenames = []
 
-  res.send({ form })
+    logger.info('Uma nova solicitação de cadastro na BC foi registrada.')
+    return res.status(201).send({ form })
+  } catch (error) {
+    logger.log('error', error.message)
+    return res.status(500).json({ error: 'não foi possivel fazer o cadastro' })
+  }
 })
 
 uploadRoutes.use((err, req, res, next) => {
