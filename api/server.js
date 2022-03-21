@@ -4,7 +4,7 @@ const express = require('express')
 
 const cors = require('cors')
 
-// const uploadFormRouter = require('./routes/uploadForm')
+const logger = require('./config/winston')
 
 const routes = require('./routes')
 
@@ -21,5 +21,5 @@ app.use(routes)
 const apiPort = process.env.VUE_APP_API_PORT
 
 app.listen(apiPort, () =>
-  console.log(`Cadastro-BC API running on localhost:${apiPort}`)
+  logger.info(`Cadastro-BC API rodando em localhost:${apiPort}`)
 )
