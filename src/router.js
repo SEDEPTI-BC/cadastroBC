@@ -21,7 +21,7 @@ export default new Router({
       },
     },
     {
-      path: '/fale-conosco',
+      path: '/cadastro-bc/fale-conosco',
       name: 'contact',
       components: { default: Contact, header: MainNavbar, footer: MainFooter },
       props: {
