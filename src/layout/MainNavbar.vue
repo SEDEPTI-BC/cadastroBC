@@ -58,7 +58,7 @@
                 </md-tooltip>
               </md-list-item>
 
-              <md-list-item href="/cadastro-bc/fale-conosco">
+              <md-list-item href="/cadastro-bc/contato">
                 <p class="lg">Fale Conosco</p>
                 <md-tooltip md-direction="bottom">Envie sua dúvida </md-tooltip>
               </md-list-item>

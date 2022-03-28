@@ -56,9 +56,6 @@
                     name="idName"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.idName.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.idName.required && errors">
                   Nome obrigatório
@@ -77,7 +74,6 @@
                     v-model="form.socialName"
                     name="socialName"
                     type="text"
-                    class="ca-input"
                   ></md-input>
                 </md-field>
               </div>
@@ -114,9 +110,6 @@
                     name="email"
                     type="email"
                   ></md-input>
-                  <md-icon v-if="!$v.form.email.email.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
                   Email obrigatório
@@ -143,9 +136,6 @@
                     name="sex"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.sex.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
                   Sexo obrigatório
@@ -170,9 +160,6 @@
                     name="idName"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.idName.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.idName.required && errors">
                   Nome obrigatório
@@ -188,7 +175,6 @@
                     v-model="form.socialName"
                     name="socialName"
                     type="text"
-                    class="ca-input"
                   ></md-input>
                 </md-field>
               </div>
@@ -225,9 +211,6 @@
                     name="email"
                     type="email"
                   ></md-input>
-                  <md-icon v-if="!$v.form.email.email.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.email.required && errors">
                   Email obrigatório
@@ -250,9 +233,6 @@
                     name="sex"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.sex.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.sex.required && errors">
                   Sexo obrigatório
@@ -269,13 +249,9 @@
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required=""
-                    class="ca-input"
                     name="nationality"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.nationality.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div
                   class="error"
@@ -298,13 +274,9 @@
                   <md-input
                     v-model="$v.form.address.$model"
                     required
-                    class="ca-input"
                     name="address"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.address.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.address.required && errors">
                   Endereço obrigatório
@@ -321,13 +293,9 @@
                   <md-input
                     v-model="$v.form.nationality.$model"
                     required
-                    class="ca-input"
                     name="nationality"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.idName.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div
                   class="error"
@@ -354,15 +322,11 @@
                   <md-input
                     v-model="$v.form.contact.$model"
                     name="contact"
-                    class="ca-input"
                     inputmode="numeric"
                     required
                     type="text"
                     v-mask="'(##)#####-####'"
                   ></md-input>
-                  <md-icon v-if="!$v.form.contact.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.contact.required && errors">
                   Contato obrigatório
@@ -383,14 +347,10 @@
                     name="birthdate"
                     inputmode="numeric"
                     aria-label="data de nascimento; apenas números"
-                    class="ca-input"
                     required=""
                     type="text"
                     v-mask="'##/##/####'"
                   ></md-input>
-                  <md-icon v-if="!$v.form.birthdate.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.birthdate.required && errors">
                   Data de nascimento obrigatório
@@ -405,13 +365,9 @@
                     aria-label="insira seu CPF; apenas números"
                     required
                     inputmode="numeric"
-                    class="ca-input"
                     type="text"
                     v-mask="'###.###.###-##'"
                   ></md-input>
-                  <md-icon v-if="!$v.form.cpf.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.cpf.required && errors">
                   CPF obrigatório
@@ -432,9 +388,6 @@
                     name="address"
                     type="text"
                   ></md-input>
-                  <md-icon v-if="!$v.form.idName.required && errors"
-                    >clear</md-icon
-                  >
                 </md-field>
                 <div class="error" v-if="!$v.form.address.required && errors">
                   Campo obrigatório
@@ -457,7 +410,6 @@
                       "
                       @click="classicModalHide"
                     >
-                      <md-icon>clear</md-icon>
                     </md-button>
                   </template>
 
@@ -645,7 +597,6 @@
                       aria-modal="true"
                       role="dialog"
                     >
-                      <md-icon>clear</md-icon>
                     </md-button>
                   </template>
 
@@ -1123,9 +1074,7 @@ export default {
 .margem1 {
   margin-top: 6%;
 }
-.ca-input {
-  border-bottom: 2px solid black;
-}
+
 .testee {
   position: relative;
 }
