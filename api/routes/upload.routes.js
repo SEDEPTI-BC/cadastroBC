@@ -1,8 +1,6 @@
-require('dotenv').config()
-
 const express = require('express')
 
-const router = express.Router()
+const uploadRoutes = express.Router()
 
 const multer = require('multer')
 
@@ -11,8 +9,7 @@ const mailer = require('../email/sendEmail')
 const rootDir = require('../util/path')
 
 const path = require('path')
-
-// const bodyParser = require("body-parser");
+const logger = require('../config/winston')
 
 let filenames = []
 
@@ -34,20 +31,6 @@ const storage = multer.diskStorage({
     cb(null, path.join(rootDir, 'uploads'))
   },
   filename: function(req, file, cb) {
-    // let extension = ''
-    // console.log(file)
-    // switch (file.mimetype) {
-    //   case 'image/jpeg':
-    //     extension = '.jpeg'
-    //     break
-    //   case 'application/pdf':
-    //     extension = '.pdf'
-    //     break
-    //   case 'image/png':
-    //     extension = '.png'
-    //     break
-    // }
-
     let filenameArray = file.originalname.split('.')
 
     let extension = filenameArray.pop()
@@ -55,8 +38,6 @@ const storage = multer.diskStorage({
 
     let newFileName = filename + '-' + Date.now() + '.' + extension
 
-    // filenames.push(newFileName)
-    // console.log(newFileName)
     cb(null, newFileName)
   },
 })
@@ -66,43 +47,50 @@ const upload = multer({
   fileFilter,
 })
 
-router.use(
+uploadRoutes.use(
   express.urlencoded({
     extended: true,
   })
 )
 
-router.use(express.json())
+uploadRoutes.use(express.json())
 
-router.get('/upload', (req, res, next) => {
+uploadRoutes.get('/upload', (req, res, next) => {
   res.send('Upload get route working!')
 })
 
-router.post('/upload', upload.array('files', 4), (req, res) => {
-  // console.log('Aight! finding form files...')
+uploadRoutes.post('/upload', upload.array('files', 4), async (req, res) => {
   const files = req.files
-  // let filenames = []
 
   const form = req.body
 
-  // console.log(files)
   files.forEach(element => {
     filenames.push(element.filename)
   })
-  // console.log('files found: ' + filenames.length)
 
-  mailer(process.env.EMAIL_DESTINATARIO, form, filenames)
+  try {
+    await mailer(
+      'registration',
+      process.env.EMAIL_DESTINATARIO,
+      form,
+      filenames
+    )
 
-  filenames = []
+    filenames = []
 
-  res.send({ form })
+    logger.info('Uma nova solicitação de cadastro na BC foi registrada.')
+    return res.status(201).send({ form })
+  } catch (error) {
+    logger.log('error', error.message)
+    return res.status(500).json({ error: 'não foi possivel fazer o cadastro' })
+  }
 })
 
-router.use((err, req, res, next) => {
+uploadRoutes.use((err, req, res, next) => {
   if (err.code === 'LIMIT_FILE_TYPES') {
     res.status(422).json({ error: 'File type not allowed' })
     return
   }
 })
 
-module.exports = router
+module.exports = uploadRoutes

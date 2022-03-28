@@ -1,23 +1,25 @@
-require("dotenv").config();
+require('dotenv').config()
 
-const express = require("express");
+const express = require('express')
 
-const cors = require("cors");
+const cors = require('cors')
 
-const uploadFormRouter = require("./routes/uploadForm");
+const logger = require('./config/winston')
 
-const app = express();
+const routes = require('./routes')
 
-app.use(cors());
+const app = express()
 
-app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
-app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
-app.use(uploadFormRouter);
+app.use(express.json())
 
-const apiPort = process.env.VUE_APP_API_PORT;
+app.use(routes)
+
+const apiPort = process.env.VUE_APP_API_PORT
 
 app.listen(apiPort, () =>
-  console.log(`Cadastro-BC API running on localhost:${apiPort}`)
-);
+  logger.info(`Cadastro-BC API rodando em localhost:${apiPort}`)
+)

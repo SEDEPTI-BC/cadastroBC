@@ -3,9 +3,10 @@ node_modules/
 package-lock.json
 /dist
 /docs
+
+api/logs/
 # local env files
-.env.local
-.env.*.local
+.env
 
 # Log files
 npm-debug.log*
