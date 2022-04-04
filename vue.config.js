@@ -1,20 +1,19 @@
 module.exports = {
-  publicPath: "./",
+  publicPath: './',
   devServer: {
     proxy: {
-      "/upload": {
-        target: "http://localhost:3000/",
+      '^/api': {
+        target: `http://localhost:${process.env.VUE_APP_API_PORT}/`,
         changeOrigin: true,
-        logLevel: "debug",
-        pathRewrite: { "^/cadastro-bc/": "" },
+        logLevel: 'debug',
       },
     },
   },
   css: {
     loaderOptions: {
       css: {
-        sourceMap: process.env.NODE_ENV !== "production" ? true : false,
+        sourceMap: process.env.NODE_ENV !== 'production' ? true : false,
       },
     },
   },
-};
+}

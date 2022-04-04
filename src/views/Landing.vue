@@ -35,7 +35,6 @@
           <form
             class="contact-form"
             enctype="multipart/form-data"
-            onsubmit="setTimeout(function(){window.location.reload();},10);"
             name="formulario"
           >
             <!-- Área mobile -->
@@ -221,7 +220,7 @@
               </div>
               <!-- sexo para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field :class="isActive ? verde : 'md-error'">
+                <md-field :class="isActive ? 'verde' : 'md-error'">
                   <label
                     :class="isActive ? 'label' : 'label2'"
                     aria-label="informe seu sexo"
@@ -240,7 +239,7 @@
               </div>
               <!-- nacionalidade para desktop -->
               <div class="md-layout-item md-size-25 desktop">
-                <md-field :class="isActive ? verde : 'md-error'">
+                <md-field :class="isActive ? 'verde' : 'md-error'">
                   <label
                     :class="isActive ? 'label' : 'label2'"
                     aria-label="insira sua nacionalidade"
@@ -265,7 +264,7 @@
             <!-- Campos de endereço e Numero -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 desktop">
-                <md-field :class="isActive ? verde : 'md-error'">
+                <md-field :class="isActive ? 'verde' : 'md-error'">
                   <label
                     :class="isActive ? 'label' : 'label2'"
                     aria-label="endereço completo (cep, rua, numero)"
@@ -306,7 +305,10 @@
               </div>
               <!-- campo numero de contato mobile e desktop -->
               <div class="md-layout-item md-size-50 ">
-                <md-field maxlength="5" :class="isActive ? verde : 'md-error'">
+                <md-field
+                  maxlength="5"
+                  :class="isActive ? 'verde' : 'md-error'"
+                >
                   <label
                     :class="isActive ? 'label' : ''"
                     class="desktop"
@@ -337,7 +339,7 @@
             <!-- campos de data de nascimento e CPF -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50">
-                <md-field :class="isActive ? verde : 'md-error'">
+                <md-field :class="isActive ? 'verde' : 'md-error'">
                   <label :class="isActive ? 'label' : 'label2'"
                     >Data de nascimento</label
                   >
@@ -357,7 +359,10 @@
                 </div>
               </div>
               <div class="md-layout-item md-size-50">
-                <md-field maxlength="5" :class="isActive ? verde : 'md-error'">
+                <md-field
+                  maxlength="5"
+                  :class="isActive ? 'verde' : 'md-error'"
+                >
                   <label :class="isActive ? 'label' : 'label2'">CPF</label>
                   <md-input
                     v-model="$v.form.cpf.$model"
@@ -783,9 +788,11 @@
             <!-- botão de enviar -->
             <div class="md-layout">
               <div class="md-layout-item md-size-50 mx-auto text-center">
-                <!-- <md-input type="submit" value="enviar"></md-input> -->
-
-                <vue-recaptcha :sitekey="recaptchaSitekey">
+                <vue-recaptcha
+                  @verify="onVerify"
+                  ref="recaptcha"
+                  :sitekey="recaptchaSitekey"
+                >
                   <md-button
                     :class="isActive ? 'md-success' : 'md-warning'"
                     class=" md-round testee "
@@ -842,6 +849,8 @@ export default {
       uploadErrors: false,
       isSubmitButtonDisabled: true,
       recaptchaSitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
+      recaptchaVerified: false,
+      recaptchaSuccess: false,
       isUploadAreaDisabled: false,
       classicModal: false,
       isImageModalActive: false,
@@ -900,13 +909,25 @@ export default {
   },
 
   methods: {
+    async onVerify(response) {
+      if (!this.recaptchaVerified) {
+        const { success } = await axios.post('api/recaptcha', {
+          response,
+        })
+
+        this.recaptchaSuccess = success
+        this.recaptchaVerified = true
+      }
+    },
     submit() {
-      if (this.$v.$invalid) {
+      this.$refs.recaptcha.execute()
+      if (this.$v.$invalid && this.recaptchaSuccess) {
         this.errors = true
         alert('Formulário inválido, verifique suas informações')
         this.isActive = false
       } else {
         this.errors = false
+
         this.sendForm()
         this.isActive = true
       }
@@ -961,17 +982,14 @@ export default {
           formData.append('sex', this.form.sex)
           formData.append('deficiency', this.form.deficiency)
 
-          // console.log(formData);
           await axios
-            .post(
-              `http://${process.env.VUE_APP_API_HOST}:${process.env.VUE_APP_API_PORT}/upload`,
-              formData
-            )
+            .post('api/upload', formData)
             .then(function(response) {
               alert(
                 'Seu formulário foi enviado. Sua senha será disponibilizada na primeira vez que fizer um empréstimo. O prazo é de 24 horas para a conclusão do seu pré cadastro.'
               )
-              document.Location.reload(true)
+
+              window.location.reload()
             })
             .catch(function(error) {
               // handle error
@@ -981,6 +999,7 @@ export default {
           console.log(error)
         }
       }
+      this.recaptchaVerified = false
     },
   },
 }
