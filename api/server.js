@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.json())
 
-app.use(routes)
+app.use('/api', routes)
 
 const apiPort = process.env.VUE_APP_API_PORT
 

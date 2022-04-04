@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "/cadastro-bc/",
+  publicPath: "./",
   devServer: {
     proxy: {
       "/upload": {

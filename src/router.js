@@ -9,7 +9,6 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: '/cadastro-bc/',
   routes: [
     {
       path: '/',
@@ -21,7 +20,7 @@ export default new Router({
       },
     },
     {
-      path: '/contato',
+      path: '/fale-conosco',
       name: 'contact',
       components: { default: Contact, header: MainNavbar, footer: MainFooter },
       props: {
